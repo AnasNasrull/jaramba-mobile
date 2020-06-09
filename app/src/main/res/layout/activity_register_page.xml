@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp"
+    android:paddingBottom="20dp"
+    android:gravity="center"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context=".RegisterPage">
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/jaramba_logo_04"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/mendaftar"
+            android:layout_marginEnd="5dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:text="@string/secara_gratis_hingga" />
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:layout_marginBottom="16dp"
+        android:text="@string/kapanpun_bersama_jaramba" />
+
+    <EditText
+        android:id="@+id/et_email_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/masukkan_email"
+        android:background="@drawable/rounded_et"
+        android:drawableStart="@drawable/ic_person_black_24dp"
+        android:drawablePadding="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="15dp"
+        android:autofillHints="no"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/et_nomor_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nomor_telepon"
+        android:background="@drawable/rounded_et"
+        android:drawableStart="@drawable/ic_local_phone_black_24dp"
+        android:drawablePadding="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="15dp"
+        android:autofillHints="no"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/et_nama_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nama_lengkap"
+        android:background="@drawable/rounded_et"
+        android:drawableStart="@drawable/ic_email_black_24dp"
+        android:drawablePadding="10dp"
+
+        android:padding="15dp"
+        android:autofillHints="no"
+        android:inputType="text"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true">
+        <EditText
+            android:id="@+id/et_password_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/kata_sandi"
+            android:background="@drawable/rounded_et"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
+            android:drawablePadding="10dp"
+            android:padding="15dp"
+            android:autofillHints="no"
+            android:inputType="textPassword"
+            android:layout_marginBottom="25dp"
+            tools:ignore="TextFields" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mendaftar_sekarang"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/rounded_btn" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:onClick="backToLogin"
+        android:padding="10dp"
+        android:text="@string/kembali_ke_halaman_login"
+        android:textColor="@android:color/black"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        tools:ignore="OnClick" />
+
+
+
+
+
+
+
+
+
+</LinearLayout>

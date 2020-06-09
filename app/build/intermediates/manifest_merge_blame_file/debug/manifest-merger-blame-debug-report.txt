@@ -1,0 +1,119 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.jarambamobile"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml
+10
+11    <application
+11-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:5:5-23:19
+12        android:allowBackup="true"
+12-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:6:9-35
+13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+13-->[androidx.core:core:1.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\da95e0dd41fd0c634661df2a0f122634\core-1.1.0\AndroidManifest.xml:24:18-86
+14        android:debuggable="true"
+15        android:icon="@mipmap/ic_launcher"
+15-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:7:9-43
+16        android:label="@string/app_name"
+16-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:8:9-41
+17        android:roundIcon="@mipmap/ic_launcher_round"
+17-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:9:9-54
+18        android:supportsRtl="true"
+18-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:10:9-35
+19        android:testOnly="true"
+20        android:theme="@style/AppTheme" >
+20-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:11:9-40
+21        <activity
+21-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:12:9-92
+22            android:name="com.example.jarambamobile.RegisterPage"
+22-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:12:19-47
+23            android:theme="@style/AppTheme2" />
+23-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:12:48-80
+24        <activity
+24-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:13:9-88
+25            android:name="com.example.jarambamobile.ForgotPsswordPage"
+25-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:13:19-52
+26            android:theme="@style/AppTheme2" />
+26-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:13:53-85
+27        <activity
+27-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:14:9-22:20
+28            android:name="com.example.jarambamobile.LoginPage"
+28-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:15:13-38
+29            android:theme="@style/AppTheme2" >
+29-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:16:13-45
+30            <intent-filter>
+30-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:17:13-21:29
+31                <action android:name="android.intent.action.MAIN" />
+31-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:18:17-69
+31-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:18:25-66
+32
+33                <category android:name="android.intent.category.LAUNCHER" />
+33-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:20:17-77
+33-->D:\TUBES_GALERI\jaramba-mobile\app\src\main\AndroidManifest.xml:20:27-74
+34            </intent-filter>
+35        </activity>
+36        <activity
+36-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:24:9-31:50
+37            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+37-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:25:13-85
+38            android:excludeFromRecents="true"
+38-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:26:13-46
+39            android:exported="true"
+39-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:27:13-36
+40            android:launchMode="singleTask"
+40-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:28:13-44
+41            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+41-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:29:13-102
+42            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+42-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:30:13-72
+43
+44        <service
+44-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:33:9-39:19
+45            android:name="com.google.firebase.components.ComponentDiscoveryService"
+45-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:34:13-84
+46            android:directBootAware="true"
+46-->[com.google.firebase:firebase-common:19.3.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\11b4cb46fa24eca830041b8a8ff57e50\jetified-firebase-common-19.3.0\AndroidManifest.xml:34:13-43
+47            android:exported="false" >
+47-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:35:13-37
+48            <meta-data
+48-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:36:13-38:85
+49                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+49-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:37:17-109
+50                android:value="com.google.firebase.components.ComponentRegistrar" />
+50-->[com.google.firebase:firebase-auth:19.3.1] C:\Users\user\.gradle\caches\transforms-2\files-2.1\d78fbc176df8ea6f4b6c55fcd08e88bd\jetified-firebase-auth-19.3.1\AndroidManifest.xml:38:17-82
+51        </service>
+52
+53        <activity
+53-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\045b8747f28bc0d62fc93a4a76e8a784\jetified-play-services-base-17.1.0\AndroidManifest.xml:23:9-26:75
+54            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+54-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\045b8747f28bc0d62fc93a4a76e8a784\jetified-play-services-base-17.1.0\AndroidManifest.xml:24:13-79
+55            android:exported="false"
+55-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\045b8747f28bc0d62fc93a4a76e8a784\jetified-play-services-base-17.1.0\AndroidManifest.xml:25:13-37
+56            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+56-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\045b8747f28bc0d62fc93a4a76e8a784\jetified-play-services-base-17.1.0\AndroidManifest.xml:26:13-72
+57
+58        <provider
+58-->[com.google.firebase:firebase-common:19.3.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\11b4cb46fa24eca830041b8a8ff57e50\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
+59            android:name="com.google.firebase.provider.FirebaseInitProvider"
+59-->[com.google.firebase:firebase-common:19.3.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\11b4cb46fa24eca830041b8a8ff57e50\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
+60            android:authorities="com.example.jarambamobile.firebaseinitprovider"
+60-->[com.google.firebase:firebase-common:19.3.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\11b4cb46fa24eca830041b8a8ff57e50\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
+61            android:exported="false"
+61-->[com.google.firebase:firebase-common:19.3.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\11b4cb46fa24eca830041b8a8ff57e50\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
+62            android:initOrder="100" />
+62-->[com.google.firebase:firebase-common:19.3.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\11b4cb46fa24eca830041b8a8ff57e50\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
+63
+64        <meta-data
+64-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\752a983649401b2c06f8f162da3a35f7\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+65            android:name="com.google.android.gms.version"
+65-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\752a983649401b2c06f8f162da3a35f7\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+66            android:value="@integer/google_play_services_version" />
+66-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\752a983649401b2c06f8f162da3a35f7\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+67    </application>
+68
+69</manifest>
