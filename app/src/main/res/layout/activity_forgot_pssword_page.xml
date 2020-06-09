@@ -104,7 +104,9 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/rounded_btn" />
+        android:background="@drawable/rounded_btn"
+        android:onClick="forgotPassword"
+        tools:ignore="OnClick" />
 
     <TextView
         android:layout_width="wrap_content"

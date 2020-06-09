@@ -20,4 +20,9 @@
     <string name="nomor_telepon">Nomor telepon</string>
     <string name="mendaftar_sekarang">Mendaftar sekarang</string>
     <string name="nama_lengkap">Nama lengkap</string>
+    <string name="invalid_name">Maaf, nama tidak valid</string>
+    <string name="invalid_email">Maaf, email tidak valid</string>
+    <string name="invalid_password">Maaf, password kurang dari 6 karakter</string>
+    <string name="invalid_number">Maaf, nomor tidak valid</string>
+    <string name="silahkan_tunggu">Silahkan tunggu</string>
 </resources>

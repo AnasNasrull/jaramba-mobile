@@ -121,7 +121,9 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/rounded_btn" />
+        android:onClick="btnPendaftaran"
+        android:background="@drawable/rounded_btn"
+        tools:ignore="OnClick" />
 
     <TextView
         android:layout_width="wrap_content"
