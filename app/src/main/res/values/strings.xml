@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Jaramba Mobile</string>
+    <string name="image">image</string>
+    <string name="petualangan_seru_dimulai_dari_sini">Petualangan seru dimulai dari sini</string>
+    <string name="nikmati_kemudahan_perjalanan_n_hanya_dengan_satu_aplikasi">Nikmati kemudahan perjalanan \n hanya dengan satu aplikasi</string>
+    <string name="masukkan_email">Masukkan email</string>
+    <string name="kata_sandi">Kata sandi</string>
+    <string name="login">LOGIN</string>
+    <string name="lupa_password">Lupa password</string>
+    <string name="mendaftar">Mendaftar</string>
+    <string name="belum_memiliki_akun">Belum memiliki akun?</string>
+    <string name="yang_telah_anda_daftarkan">yang telah anda daftarkan</string>
+    <string name="untuk_memperoleh_konfirmasi_kata_sandi">untuk memperoleh konfirmasi kata sandi</string>
+    <string name="email_anda">email anda</string>
+    <string name="pada">pada</string>
+    <string name="kembali_ke_halaman_login">Kembali ke halaman Login</string>
+    <string name="konfirmasi_email">Konfirmasi email</string>
+    <string name="secara_gratis_hingga">secara gratis hingga</string>
+    <string name="kapanpun_bersama_jaramba">kapanpun bersama Jaramba</string>
+    <string name="nomor_telepon">Nomor telepon</string>
+    <string name="mendaftar_sekarang">Mendaftar sekarang</string>
+    <string name="nama_lengkap">Nama lengkap</string>
 </resources>
