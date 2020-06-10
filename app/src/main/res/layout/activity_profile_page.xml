@@ -37,9 +37,11 @@
         android:text="@string/edit_profil"
         android:layout_below="@+id/img_profile_page"
         android:layout_centerHorizontal="true"
+        android:onClick="changePictureProfileUser"
         android:textStyle="bold"
         android:textColor="@android:color/black"
-        android:textSize="15sp"/>
+        android:textSize="15sp"
+        tools:ignore="OnClick" />
 
     <LinearLayout
         android:id="@+id/info_profile_page"

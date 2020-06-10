@@ -132,6 +132,7 @@ public class RegisterPage extends AppCompatActivity {
                                 hashMap.put("Nomor handphone", number);
                                 hashMap.put("Nama Lengkap", username);
                                 hashMap.put("Unique ID", uid );
+                                hashMap.put("Image", "");
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference reference = database.getReference("User");
