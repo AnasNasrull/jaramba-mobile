@@ -26,4 +26,6 @@
     <string name="invalid_number">Maaf, nomor tidak valid</string>
     <string name="silahkan_tunggu">Silahkan tunggu</string>
     <string name="title_activity_trip_user">Map</string>
+    <string name="edit_profil">Ganti foto</string>
+    <string name="logout">Logout</string>
 </resources>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".SettingProfilePage">
+
+
+    <RelativeLayout
+        android:id="@+id/rellay_change_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="changeUsername"
+        tools:ignore="OnClick">
+
+        <ImageView
+            android:id="@+id/icon_username"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_person_black_24dp"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toEndOf="@+id/icon_username"
+            android:text="Ubah nama anda"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rellay_change_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rellay_change_username"
+        android:onClick="changeUsername"
+        tools:ignore="OnClick">
+
+        <ImageView
+            android:id="@+id/icon_email"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_email_black_24dp"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/icon_email"
+            android:text="Ubah email anda"
+            android:layout_margin="20dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rellay_change_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rellay_change_email"
+        android:onClick="changeUsername"
+        tools:ignore="OnClick">
+
+        <ImageView
+            android:id="@+id/icon_phone"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_local_phone_black_24dp"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/icon_phone"
+            android:text="Ubah nomor telepon"
+            android:layout_margin="20dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rellay_change_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rellay_change_phone"
+        android:onClick="changeUsername"
+        tools:ignore="OnClick">
+
+        <ImageView
+            android:id="@+id/icon_password"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_lock_black_24dp"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/icon_password"
+            android:text="Ubah kata sandi"
+            android:layout_margin="20dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rellay_about_apps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rellay_change_password"
+        android:onClick="changeUsername"
+        tools:ignore="OnClick">
+
+        <ImageView
+            android:id="@+id/icon_about_app"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_info_black_24dp"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/icon_about_app"
+            android:text="Tentang aplikasi ini"
+            android:layout_margin="20dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp">
+
+        <ImageView
+            android:id="@+id/logo_white"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/logo08" />
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
