@@ -8,20 +8,14 @@
     android:padding="15dp"
     android:background="@drawable/border_black">
 
-    <ImageView
-        android:id="@+id/icon_back1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24"
-        />
-
     <TextView
         android:id="@+id/detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Detail trip"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/icon_back1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -34,59 +28,106 @@
         app:srcCompat="@drawable/ic_baseline_directions_bus_24" />
 
     <TextView
-        android:id="@+id/start"
+        android:id="@+id/start_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Start : Jl. Terusan Ryacudu"
+        android:text="Start : "
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/icon"
         app:layout_constraintTop_toBottomOf="@+id/detail" />
 
     <TextView
-        android:id="@+id/to"
+        android:id="@+id/start_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="To : Ramayana Pasar Bawah"
+        android:layout_marginTop="20dp"
+        android:text="Jl. Terusan Ryacudu"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/start" />
+        app:layout_constraintStart_toEndOf="@id/start_text"
+        app:layout_constraintTop_toBottomOf="@+id/detail" />
 
     <TextView
-        android:id="@+id/tgl"
+        android:id="@+id/to_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tanggal : 09-06-2020"
+        android:text="To : "
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/to" />
+        app:layout_constraintTop_toBottomOf="@+id/start_text" />
 
     <TextView
-        android:id="@+id/jml"
+        android:id="@+id/to_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jumlah Penumpang : 4 Orang"
+        android:text="Ramayana Pasar Bawah"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/to_text"
+        app:layout_constraintTop_toBottomOf="@+id/start_text" />
+
+    <TextView
+        android:id="@+id/tgl_text_det"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tanggal : "
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintTop_toBottomOf="@+id/to_text" />
+
+    <TextView
+        android:id="@+id/tgl_data_det"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="09-06-2020"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/tgl_text_det"
+        app:layout_constraintTop_toBottomOf="@+id/to_text" />
+
+    <TextView
+        android:id="@+id/jml_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jumlah Penumpang : "
         android:textColor="@color/black"
         android:paddingBottom="20dp"
         app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/tgl" />
+        app:layout_constraintTop_toBottomOf="@+id/tgl_text_det" />
 
     <TextView
-        android:id="@+id/harga"
+        android:id="@+id/jml_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4 Orang"
+        android:textColor="@color/black"
+        android:paddingBottom="20dp"
+        app:layout_constraintStart_toEndOf="@id/jml_text"
+        app:layout_constraintTop_toBottomOf="@+id/tgl_text_det" />
+
+    <TextView
+        android:id="@+id/harga_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rp. 20000"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jml" />
+        app:layout_constraintTop_toBottomOf="@+id/jml_text" />
 
     <TextView
-        android:id="@+id/byr"
+        android:id="@+id/byr_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pembayaran : Cash"
+        android:text="Pembayaran : "
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@id/crbyr_det"
+        app:layout_constraintTop_toBottomOf="@+id/jml_text" />
+
+    <TextView
+        android:id="@+id/crbyr_det"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cash"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jml" />
+        app:layout_constraintTop_toBottomOf="@+id/jml_data" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
