@@ -155,7 +155,9 @@
                     android:layout_weight="0.33"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
-                    app:cardElevation="5dp">
+                    android:onClick="clickDamri"
+                    app:cardElevation="5dp"
+                    tools:ignore="OnClick">
 
                     <RelativeLayout
                         android:layout_width="match_parent"

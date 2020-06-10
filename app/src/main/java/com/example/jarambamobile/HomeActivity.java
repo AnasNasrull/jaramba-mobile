@@ -2,8 +2,10 @@ package com.example.jarambamobile;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,5 +39,10 @@ public class HomeActivity extends AppCompatActivity {
             greetImg.setImageResource(R.drawable.img_default_half_night);
         }
     }
+
+    public void clickDamri(View view) {
+        startActivity(new Intent(this, TripUser.class));
+    }
+
 }
 
