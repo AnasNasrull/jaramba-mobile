@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Jaramba Mobile</string>
+    <string name="title_activity_trip_user">Map</string>
 </resources>
