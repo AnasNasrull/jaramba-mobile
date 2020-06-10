@@ -19,8 +19,7 @@
         <activity android:name=".RegisterPage" android:theme="@style/AppTheme2"></activity>
         <activity android:name=".ForgotPsswordPage" android:theme="@style/AppTheme2" />
         <activity android:name=".LoginPage" android:theme="@style/AppTheme2"/>
-      
-        <activity android:name=".HomeActivity"></activity>
+
         <activity android:name=".UnderConstructionScreen"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -43,14 +42,14 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".SplashScreen">
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
       
-        <activity android:name=".MainActivity" />
+        <activity android:name=".SplashScreen" />
     </application>
 
 </manifest>
