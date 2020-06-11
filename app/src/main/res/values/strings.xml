@@ -28,4 +28,7 @@
     <string name="title_activity_trip_user">Map</string>
     <string name="edit_profil">Ganti foto</string>
     <string name="logout">Logout</string>
+    <string name="tahukah_kamu_apa_itu_jaramba">Tahukah kamu apa itu Jaramba</string>
+    <string name="kamu_wajib_melihat_tayangan_ini">kamu wajib melihat tayangan ini</string>
+    <string name="jaramba_desc">Jaramba adalah platform mobilitas sebagai layanan yang mengintegrasikan moda transportasi dari massal ke pribadi, dari transportasi perkotaan ke antar kota. \n\nMembuat perjalananmu mulus dan mudah tanpa harus mengikat dirimu dengan kepemilikan kendaraan pribadi dan tanggung jawab melekat padanya. \n\nJaramba yang akan kita bangun adalah pengembangan lebih lanjut dari ekosistem yang telah kami bangun. \n\n\nBagaimana menurutmu, menarik bukan?</string>
 </resources>

@@ -7,6 +7,7 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingProfilePage" android:theme="@style/AppTheme3" android:parentActivityName=".ProfilePage"></activity>
+        <activity android:name=".AboutAppsActivity" android:theme="@style/AppTheme3" android:parentActivityName=".SettingProfilePage"></activity>
+        <activity
+            android:name=".SettingProfilePage"
+            android:parentActivityName=".ProfilePage"
+            android:theme="@style/AppTheme3" />
         <activity android:name=".ProfilePage" />
         <activity
             android:name=".RegisterPage"
@@ -56,7 +61,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
