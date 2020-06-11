@@ -117,6 +117,7 @@ public class RegisterPage extends AppCompatActivity {
             final String username = etNama.getText().toString().trim();
             final String password = etPassword.getText().toString().trim();
 
+
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(RegisterPage.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -132,7 +133,7 @@ public class RegisterPage extends AppCompatActivity {
                                 hashMap.put("Nomor handphone", number);
                                 hashMap.put("Nama Lengkap", username);
                                 hashMap.put("Unique ID", uid );
-                                hashMap.put("Image", "");
+                                hashMap.put("image", "");
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference reference = database.getReference("User");
