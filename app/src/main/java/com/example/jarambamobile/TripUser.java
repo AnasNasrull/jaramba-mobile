@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Layout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,6 +69,35 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
 
         start_point = findViewById(R.id.start_point);
         destination_point = findViewById(R.id.destination_point);
+
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi);
+        bottomNavigationView.setSelectedItemId(R.id.trip);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.history:
+                        startActivity(new Intent(getApplicationContext()
+                                ,History.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext()
+                                ,HomeActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.trip:
+                        return true;
+                    case R.id.profile:
+                        startActivity(new Intent(getApplicationContext()
+                                ,ProfilePage.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                }
+                return false;
+            }
+        });
     }
 
 

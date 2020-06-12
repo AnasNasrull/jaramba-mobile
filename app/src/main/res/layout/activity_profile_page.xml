@@ -87,21 +87,26 @@
     </LinearLayout>
 
 
-
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/rounded_btn"
+        android:onClick="logout"
         android:text="@string/logout"
         android:textColor="@android:color/white"
-        android:background="@drawable/rounded_btn"
-        android:layout_margin="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:onClick="logout"
         tools:ignore="OnClick" />
 
-
-    
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/menu_navigasi"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffff"
+    android:layout_alignParentBottom="true"
+    app:menu="@menu/menu_navigasi"/>
 
 </RelativeLayout>
