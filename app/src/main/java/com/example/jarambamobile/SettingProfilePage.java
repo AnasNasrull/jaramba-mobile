@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,15 +31,24 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Set;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 import static com.google.firebase.storage.FirebaseStorage.getInstance;
 
@@ -53,6 +64,12 @@ public class SettingProfilePage extends AppCompatActivity {
 
     ActionBar actionBar;
     ProgressDialog progressDialog;
+
+    String outputString;
+    String password, passwords;
+    String AES = "AES";
+    String pass = "testpassword";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,31 +112,78 @@ public class SettingProfilePage extends AppCompatActivity {
                 final String value = editText2.getText().toString().trim();
                 final String email= user.getEmail();
 
+//                Query query = databaseReference.orderByChild("Email").equalTo(user.getEmail());
+//                query.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+//                            //get data
+//                            password = ""+ds.child("password").getValue();
+//
+//                            try {
+//                                outputString = decrypt(password, pass);
+//                                //decrypted password
+//                                passwords = outputString;
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+
+
+
+
 
                 if(!TextUtils.isEmpty(value)){
+                        AuthCredential credential = EmailAuthProvider
+                                .getCredential(email, "ganteng");
 
+                        user.reauthenticate(credential)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                        user.updateEmail(value)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            progressDialog.dismiss();
+                                                            Toast.makeText(SettingProfilePage.this, "updated", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
 
-//                        AuthCredential credential = EmailAuthProvider
-//                                .getCredential(email, "gantengin");
-//
-//                        user.reauthenticate(credential)
-//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//                                        user.updateEmail(value)
-//                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                                    @Override
-//                                                    public void onComplete(@NonNull Task<Void> task) {
-//                                                        if (task.isSuccessful()) {
-//                                                            progressDialog.dismiss();
-//                                                            Toast.makeText(SettingProfilePage.this, "updated", Toast.LENGTH_SHORT).show();
-//                                                        }
-//                                                    }
-//                                                });
-//
-//                                    }
-//                                });
+                                    }
+                                });
+
+                    final String key = "Email";
+                    HashMap<String, Object> result = new HashMap<>();
+                    result.put(key, value);
+
+                    databaseReference.child(user.getUid()).updateChildren(result)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    //updated, dismiss progress
+                                    progressDialog.dismiss();
+                                    Toast.makeText(SettingProfilePage.this,  key +" anda diperbarui...", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(SettingProfilePage.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
 
                 }else {
@@ -141,6 +205,26 @@ public class SettingProfilePage extends AppCompatActivity {
 
         //create and show dialog
         builder.create().show();
+    }
+
+    private String decrypt(String outputString, String password) throws Exception {
+        SecretKeySpec key = generateKey(password);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.DECRYPT_MODE, key);
+        byte[] decodedValue = Base64.decode(outputString, Base64.DEFAULT);
+        byte[] decValue = c.doFinal(decodedValue);
+        String decryptedValue = new String(decValue);
+        return decryptedValue;
+    }
+
+
+    private SecretKeySpec generateKey(String password) throws  Exception {
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = password.getBytes("UTF-8");
+        digest.update(bytes, 0, bytes.length);
+        byte[] key = digest.digest();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
+        return secretKeySpec;
     }
 
     public void changePassword(View view) {
