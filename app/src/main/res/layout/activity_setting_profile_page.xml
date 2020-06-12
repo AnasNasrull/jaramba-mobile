@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rellay_change_username"
-        android:onClick="changeUsername"
+        android:onClick="changeEmail"
         tools:ignore="OnClick">
 
         <ImageView
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rellay_change_email"
-        android:onClick="changeUsername"
+        android:onClick="changePhoneNumber"
         tools:ignore="OnClick">
 
         <ImageView
@@ -95,7 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rellay_change_phone"
-        android:onClick="changeUsername"
+        android:onClick="changePassword"
         tools:ignore="OnClick">
 
         <ImageView
