@@ -13,86 +13,58 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class History extends AppCompatActivity {
-    private ImageView info;
-    private ImageView rate;
-    private TextView status;
+    RecyclerView recyclerView;
+    RecyclerAdapter recyclerAdapter;
+
+    private ArrayList<DataHistory> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+        setContentView(R.layout.recyclerview_history);
 
-        info = findViewById(R.id.iconinfo1);
-        rate = findViewById(R.id.rate);
-        status = findViewById(R.id.status_list);
+        DataHistory data = new DataHistory();
+        data.setTo("Jl. Terusan");
+        data.setStart("Mall Kedaton ");
+        data.setStatus("");
+        list.add(data);
 
-        status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu dropDownMenu = new PopupMenu(getApplicationContext(), status);
-                dropDownMenu.getMenuInflater().inflate(R.menu.list_status, dropDownMenu.getMenu());
-                dropDownMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+        data = new DataHistory();
+        data.setTo("Jl. Ryacudu");
+        data.setStart("kosan");
+        data.setStatus("");
+        list.add(data);
 
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        //Toast.makeText(getApplicationContext(), "You have clicked " + menuItem.getTitle(), Toast.LENGTH_LONG).show();
-                        return true;
-                    }
-                });
-                dropDownMenu.show();
-            }
-        });
+        data = new DataHistory();
+        data.setTo("Jl. nyasar");
+        data.setStart("mana ajalah");
+        data.setStatus("");
+        list.add(data);
 
-        info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Dialog dialog1 = new Dialog(History.this);
+        data = new DataHistory();
+        data.setTo("Jl. apalah");
+        data.setStart("rumah");
+        data.setStatus("done");
+        list.add(data);
 
-                dialog1.setContentView(R.layout.history_detail);
+        data = new DataHistory();
+        data.setTo("Jl. Terusan Ryacudu ");
+        data.setStart("Bumi Kedaton ");
+        data.setStatus("done");
+        list.add(data);
 
-                dialog1.show();
-            }
-        });
-
-        rate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Dialog dialog = new Dialog(History.this);
-
-                dialog.setContentView(R.layout.history_rating);
-
-                Button Submit = dialog.findViewById(R.id.submit_rate);
-                final RatingBar Rating = dialog.findViewById(R.id.ratingBar);
-                final EditText Komentar = dialog.findViewById(R.id.comment_rate);
-                final TextView Harga = dialog.findViewById(R.id.harga_rate);
-                final TextView Pembayaran = dialog.findViewById(R.id.crbyr_rate);
-
-                Submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String rating = "Rating is : " + Rating.getRating() +"\nKomentar : " + Komentar.getText();
-
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference myRef = database.getReference("history_user_app");
-
-                        myRef.setValue(new history_rating_data(Rating.getRating(), Komentar.getText().toString(), Harga.getText().toString(), Pembayaran.getText().toString()));
-
-                        Toast.makeText(History.this, rating, Toast.LENGTH_LONG).show();
-
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-            }
-        });
-
-
-
+        recyclerView = findViewById(R.id.rv_dtlist);
+        recyclerAdapter = new RecyclerAdapter(list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(recyclerAdapter);
     }
 }
