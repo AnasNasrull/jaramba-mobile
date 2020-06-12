@@ -25,10 +25,10 @@ import java.util.ArrayList;
 public class RecyclerAdapter extends RecyclerView.Adapter {
 
     private static final String TAG = "RecyclerAdapter";
-    ArrayList<DataHistory> moviesList;
+    ArrayList<getAllHistory> moviesList;
     private Context context;
 
-    public RecyclerAdapter(ArrayList<DataHistory> moviesList) {
+    public RecyclerAdapter(ArrayList<getAllHistory> moviesList) {
         this.moviesList = moviesList;
     }
 
@@ -58,7 +58,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        DataHistory isi = moviesList.get(position);
+        final getAllHistory isi = moviesList.get(position);
         if (isi.getStatus().contains("done")) {
             ViewHolderTwo viewHolderTwo = (ViewHolderTwo) holder;
             viewHolderTwo.textViewFrom2.setText(isi.getStart());
@@ -77,15 +77,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     final TextView Harga = dialog.findViewById(R.id.harga_rate);
                     final TextView Pembayaran = dialog.findViewById(R.id.crbyr_rate);
 
+                    Harga.setText(isi.getHarga());
+                    Pembayaran.setText(isi.getPembayaran());
+
                     Submit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String rating = "Rating is : " + Rating.getRating() +"\nKomentar : " + Komentar.getText();
+                            final String rating = "Rating is : " + Rating.getRating() +"\nKomentar : " + Komentar.getText();
 
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = database.getReference("history_user_app");
+                            DatabaseReference myRef = database.getReference();
 
-                            myRef.setValue(new history_rating_data(Rating.getRating(), Komentar.getText().toString(), Harga.getText().toString(), Pembayaran.getText().toString()));
+                            myRef.child("data_history_user_app").child(isi.getKey()).setValue(new getAllHistory(Rating.getRating(), Komentar.getText().toString(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), isi.getStatus()));
 
                             Toast.makeText(context, rating, Toast.LENGTH_LONG).show();
 
@@ -94,6 +97,31 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     });
 
                     dialog.show();
+                }
+            });
+
+            viewHolderTwo.info2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Dialog dialog2 = new Dialog(context);
+
+                    dialog2.setContentView(R.layout.history_detail);
+
+                    final TextView start = dialog2.findViewById(R.id.start_data);
+                    final TextView to = dialog2.findViewById(R.id.to_data);
+                    final TextView tanggal = dialog2.findViewById(R.id.tgl_data_det);
+                    final TextView jumlah = dialog2.findViewById(R.id.jml_data);
+                    final TextView harga = dialog2.findViewById(R.id.harga_det);
+                    final TextView pembayaran = dialog2.findViewById(R.id.crbyr_det);
+
+                    start.setText(isi.getStart());
+                    to.setText(isi.getTo());
+                    tanggal.setText(isi.getTanggal());
+                    jumlah.setText(isi.getJumlah_penumpang());
+                    harga.setText(isi.getHarga());
+                    pembayaran.setText(isi.getPembayaran());
+
+                    dialog2.show();
                 }
             });
         } else {
@@ -107,6 +135,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     final Dialog dialog1 = new Dialog(context);
 
                     dialog1.setContentView(R.layout.history_detail);
+
+                    final TextView start = dialog1.findViewById(R.id.start_data);
+                    final TextView to = dialog1.findViewById(R.id.to_data);
+                    final TextView tanggal = dialog1.findViewById(R.id.tgl_data_det);
+                    final TextView jumlah = dialog1.findViewById(R.id.jml_data);
+                    final TextView harga = dialog1.findViewById(R.id.harga_det);
+                    final TextView pembayaran = dialog1.findViewById(R.id.crbyr_det);
+
+                    start.setText(isi.getStart());
+                    to.setText(isi.getTo());
+                    tanggal.setText(isi.getTanggal());
+                    jumlah.setText(isi.getJumlah_penumpang());
+                    harga.setText(isi.getHarga());
+                    pembayaran.setText(isi.getPembayaran());
 
                     dialog1.show();
                 }
@@ -154,13 +196,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
     class ViewHolderTwo extends RecyclerView.ViewHolder {
         TextView textViewFrom2, textViewTo2;
-        ImageView rating;
+        ImageView rating, info2;
 
         public ViewHolderTwo(@NonNull View itemView) {
             super(itemView);
             textViewFrom2 = itemView.findViewById(R.id.dari2);
             textViewTo2 = itemView.findViewById(R.id.tujuan2);
             rating = itemView.findViewById(R.id.rate);
+            info2 = itemView.findViewById(R.id.iconinfo2);
 
             context = itemView.getContext();
         }
