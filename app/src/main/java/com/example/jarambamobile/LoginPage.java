@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -29,8 +30,21 @@ public class LoginPage extends AppCompatActivity {
     AwesomeValidation awesomeValidation;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
+    FirebaseUser firebaseUser;
     FirebaseAuth.AuthStateListener mAuthStateListener;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        //check if user is null
+        if(firebaseUser != null){
+            startActivity (new Intent(this, ProfilePage.class));
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +124,8 @@ public class LoginPage extends AppCompatActivity {
                             } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(LoginPage.this, "Email dan Password Sesuai", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(LoginPage.this, ProfilePage.class));
+                                finish();
                             }
                         }
                     });

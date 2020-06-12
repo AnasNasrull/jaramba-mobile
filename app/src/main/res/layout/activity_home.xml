@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    tools:context=".HomeActivity">
+    tools:context=".HomeActivity"
+    android:id="@+id/homeactivity">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="855dp"
         android:layout_weight="2.2"
         android:gravity="center"
         android:orientation="horizontal"
@@ -19,7 +20,7 @@
         <ImageView
             android:id="@+id/greeting_img"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="13dp"
@@ -40,9 +41,9 @@
             android:textSize="30dp" />
 
         <TextView
-            android:layout_below="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/welcome"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="38dp"
@@ -62,6 +63,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -70,6 +72,8 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="3dp"
             android:orientation="vertical"
             android:padding="8.0dip">
 
@@ -127,8 +131,7 @@
                             android:layout_marginBottom="5dp"
                             android:padding="10dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/ic_bike_24dp"
-                             />
+                            android:src="@drawable/ic_bike_24dp" />
 
                         <TextView
                             android:id="@+id/textView3"
@@ -155,7 +158,9 @@
                     android:layout_weight="0.33"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
-                    app:cardElevation="5dp">
+                    android:onClick="clickDamri"
+                    app:cardElevation="5dp"
+                    tools:ignore="OnClick">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -170,8 +175,7 @@
                             android:layout_marginBottom="5dp"
                             android:padding="10dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/ic_damri_24dp"
-                             />
+                            android:src="@drawable/ic_damri_24dp" />
 
                         <TextView
                             android:id="@+id/textView2"
@@ -213,8 +217,7 @@
                             android:layout_marginBottom="5dp"
                             android:padding="10dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/ic_car24dp"
-                            />
+                            android:src="@drawable/ic_car24dp" />
 
                         <TextView
                             android:id="@+id/textView6"
@@ -266,8 +269,7 @@
                             android:layout_marginBottom="5dp"
                             android:padding="10dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/ic_krl24dp"
-                           />
+                            android:src="@drawable/ic_krl24dp" />
 
                         <TextView
                             android:id="@+id/textView12"
@@ -309,8 +311,7 @@
                             android:layout_marginBottom="5dp"
                             android:padding="10dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/ic_kereta"
-                          />
+                            android:src="@drawable/ic_kereta" />
 
                         <TextView
                             android:id="@+id/textView18"
@@ -353,8 +354,7 @@
                             android:layout_marginBottom="5dp"
                             android:padding="10dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/ic_travel_24dp"
-                            />
+                            android:src="@drawable/ic_travel_24dp" />
 
                         <TextView
                             android:id="@+id/textView0"
@@ -376,13 +376,16 @@
             </LinearLayout>
 
 
-
-
-        </LinearLayout> />
-
-
+        </LinearLayout>
 
 
     </RelativeLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/menu_navigasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffff"
+        app:menu="@menu/menu_navigasi"/>
 
 </LinearLayout>
