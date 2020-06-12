@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity {
@@ -22,9 +24,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        greetImg = findViewById(R.id.greeting_img);
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi);
+        bottomNavigationView.setSelectedItemId(R.id.home);
 
         greeting();
+
+
 
     }
 
@@ -33,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
-        if (timeOfDay >= 0 && timeOfDay < 12){
+        if (timeOfDay >= 0 && timeOfDay < 18){
             greetImg.setImageResource(R.drawable.img_default_half_morning);
         } else if (timeOfDay >= 18 && timeOfDay < 24) {
             greetImg.setImageResource(R.drawable.img_default_half_night);
@@ -43,6 +48,6 @@ public class HomeActivity extends AppCompatActivity {
     public void clickDamri(View view) {
         startActivity(new Intent(this, TripUser.class));
     }
-
+  
 }
 
