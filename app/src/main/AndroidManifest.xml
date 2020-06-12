@@ -7,20 +7,38 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/jaramba_logo_05"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-      
-        <activity android:name=".RegisterPage" android:theme="@style/AppTheme2"></activity>
-        <activity android:name=".ForgotPsswordPage" android:theme="@style/AppTheme2" />
-        <activity android:name=".LoginPage" android:theme="@style/AppTheme2"/>
 
         <activity android:name=".UnderConstructionScreen"></activity>
+        <activity android:name=".AboutAppsActivity" android:theme="@style/AppTheme3" android:parentActivityName=".SettingProfilePage"></activity>
+        <activity
+            android:name=".SettingProfilePage"
+            android:parentActivityName=".ProfilePage"
+            android:theme="@style/AppTheme3" />
+        <activity android:name=".ProfilePage" />
+        
+        <activity
+            android:name=".RegisterPage"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".ForgotPsswordPage"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".LoginPage"
+            android:theme="@style/AppTheme2" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".UnderConstructionScreen" />
+  
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -45,11 +63,13 @@
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
       
         <activity android:name=".SplashScreen" />
+        <activity android:name=".History"></activity>
     </application>
 
 </manifest>
