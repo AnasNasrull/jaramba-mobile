@@ -68,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
 
         if (timeOfDay >= 0 && timeOfDay < 18){
           greetImg.setImageResource(R.drawable.siang);
-        } else if (timeOfDay >= 18 && timeOfDay < 24) {
+        } else if (timeOfDay >= 18 && timeOfDay < 24)
             greetImg.setImageResource(R.drawable.img_default_half_night);
         }
     }
@@ -76,6 +76,6 @@ public class HomeActivity extends AppCompatActivity {
   // public void clickDamri(View view) {
     //    startActivity(new Intent(this, TripUser.class));
     //}
-  
-}
+
+
 
