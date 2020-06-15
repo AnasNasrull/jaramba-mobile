@@ -62,7 +62,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".History" />
-        <activity android:name=".UnderConstructionScreen"></activity>
     </application>
 
 </manifest>
