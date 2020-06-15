@@ -7,26 +7,39 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.spark.submitbutton.SubmitButton;
 
 public class LoginPage extends AppCompatActivity {
 
     private EditText etEmail, etPassword;
+    private TextInputLayout txtPass;
+    private ImageView img_logo;
+    private TextView slogan, quotes, lupa_pass, havent_account, go_register;
+    private SubmitButton login;
 
+
+    Animation rightin_anim,top_anim, bottom_anim;
     AwesomeValidation awesomeValidation;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
@@ -55,6 +68,33 @@ public class LoginPage extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        rightin_anim = AnimationUtils.loadAnimation(this,R.anim.right_in);
+        top_anim = AnimationUtils.loadAnimation(this,R.anim.splash_top);
+        bottom_anim = AnimationUtils.loadAnimation(this,R.anim.splash_bottom);
+
+        img_logo = findViewById(R.id.img_logo);
+        slogan = findViewById(R.id.txt_slogan);
+        quotes = findViewById(R.id.txt_quote);
+        lupa_pass = findViewById(R.id.txt_lupa);
+        havent_account = findViewById(R.id.txt_havent);
+        go_register = findViewById(R.id.txt_register);
+        login = findViewById(R.id.btn_login);
+        txtPass = findViewById(R.id.txt_password);
+
+        img_logo.setAnimation(top_anim);
+        slogan.setAnimation(top_anim);
+        quotes.setAnimation(top_anim);
+
+        etEmail.setAnimation(top_anim);
+        etPassword.setAnimation(rightin_anim);
+
+
+        lupa_pass.setAnimation(rightin_anim);
+        havent_account.setAnimation(rightin_anim);
+        go_register.setAnimation(rightin_anim);
+        login.setAnimation(rightin_anim);
+        txtPass.setAnimation(rightin_anim);
 
     }
 
