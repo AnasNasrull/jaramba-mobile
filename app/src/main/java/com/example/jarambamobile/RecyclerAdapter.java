@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,41 +63,40 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             viewHolderTwo.textViewFrom2.setText(isi.getStart());
             viewHolderTwo.textViewTo2.setText(isi.getTo());
 
-            viewHolderTwo.rating.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final Dialog dialog = new Dialog(context);
+            if (isi.getRate_status().contains("not")) {
+                viewHolderTwo.rating.setEnabled(true);
+                viewHolderTwo.rating.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Dialog dialog = new Dialog(context);
 
-                    dialog.setContentView(R.layout.history_rating);
+                        dialog.setContentView(R.layout.history_rating);
 
-                    Button Submit = dialog.findViewById(R.id.submit_rate);
-                    final RatingBar Rating = dialog.findViewById(R.id.ratingBar);
-                    final EditText Komentar = dialog.findViewById(R.id.comment_rate);
-                    final TextView Harga = dialog.findViewById(R.id.harga_rate);
-                    final TextView Pembayaran = dialog.findViewById(R.id.crbyr_rate);
+                        Button Submit = dialog.findViewById(R.id.submit_rate);
+                        final RatingBar Rating = dialog.findViewById(R.id.ratingBar);
+                        final EditText Komentar = dialog.findViewById(R.id.comment_rate);
+                        final TextView Harga = dialog.findViewById(R.id.harga_rate);
+                        final TextView Pembayaran = dialog.findViewById(R.id.crbyr_rate);
 
-                    Harga.setText(isi.getHarga());
-                    Pembayaran.setText(isi.getPembayaran());
+                        Harga.setText(isi.getHarga());
+                        Pembayaran.setText(isi.getPembayaran());
 
-                    Submit.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            final String rating = "Rating is : " + Rating.getRating() +"\nKomentar : " + Komentar.getText();
+                        Submit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference myRef = database.getReference();
 
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = database.getReference();
+                                myRef.child("data_history_user_app").child(isi.getKey()).setValue(new getAllHistory(Rating.getRating(), Komentar.getText().toString(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), isi.getStatus(), "done"));
 
-                            myRef.child("data_history_user_app").child(isi.getKey()).setValue(new getAllHistory(Rating.getRating(), Komentar.getText().toString(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), isi.getStatus()));
+                                dialog.dismiss();
+                            }
+                        });
 
-                            Toast.makeText(context, rating, Toast.LENGTH_LONG).show();
-
-                            dialog.dismiss();
-                        }
-                    });
-
-                    dialog.show();
-                }
-            });
+                        dialog.show();
+                    }
+                });
+            }
 
             viewHolderTwo.info2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -163,8 +161,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
-                            Toast.makeText(context, "You have clicked " + menuItem.getTitle(), Toast.LENGTH_LONG).show();
-                            return true;
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference();
+
+                            if (menuItem.getTitle().equals("Done")) {
+                                myRef.child("data_history_user_app").child(isi.getKey()).setValue(new getAllHistory(isi.getRating(), isi.getComment(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), "done", isi.getRate_status()));
+                            } else if (menuItem.getTitle().equals("Cancel")) {
+                                myRef.child("data_history_user_app").child(isi.getKey()).removeValue();
+                            }
+
+                            return false;
                         }
                     });
                     dropDownMenu.show();

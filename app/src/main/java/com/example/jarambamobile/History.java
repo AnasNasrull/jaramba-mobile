@@ -35,6 +35,7 @@ public class History extends AppCompatActivity {
         database.child("data_history_user_app").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                getAllHistory.clear();
 
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
                     getAllHistory data = noteDataSnapshot.getValue(getAllHistory.class);
