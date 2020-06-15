@@ -86,7 +86,7 @@ public class LoginPage extends AppCompatActivity {
         slogan.setAnimation(top_anim);
         quotes.setAnimation(top_anim);
 
-        etEmail.setAnimation(top_anim);
+        etEmail.setAnimation(rightin_anim);
         etPassword.setAnimation(rightin_anim);
 
 

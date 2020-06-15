@@ -11,8 +11,12 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Patterns;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
@@ -20,11 +24,13 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.spark.submitbutton.SubmitButton;
 
 import java.security.MessageDigest;
 import java.util.HashMap;
@@ -36,6 +42,13 @@ public class RegisterPage extends AppCompatActivity {
 
     private EditText etEmail, etNomor, etNama, etPassword;
     private Button btnRegister;
+
+    private TextInputLayout txtPass;
+    private ImageView img_logo;
+    private TextView slogan, nextslogan, daftar, backto;
+    private SubmitButton register;
+
+    Animation rightin_anim,top_anim, bottom_anim;
 
     String outputString;
     String passwords;
@@ -61,9 +74,35 @@ public class RegisterPage extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password_register);
 
 
-        databaseReference = FirebaseDatabase.getInstance().getReference(
-                "User");
+        databaseReference = FirebaseDatabase.getInstance().getReference("User");
         firebaseAuth = FirebaseAuth.getInstance();
+
+        rightin_anim = AnimationUtils.loadAnimation(this,R.anim.right_in);
+        top_anim = AnimationUtils.loadAnimation(this,R.anim.splash_top);
+        bottom_anim = AnimationUtils.loadAnimation(this,R.anim.splash_bottom);
+
+        img_logo = findViewById(R.id.img_logo);
+        daftar = findViewById(R.id.txt_daftar);
+        slogan = findViewById(R.id.txt_slogan);
+        nextslogan = findViewById(R.id.txt_nextslogan);
+        txtPass = findViewById(R.id.txt_password);
+
+        register = findViewById(R.id.btn_register);
+        backto = findViewById(R.id.txt_backto);
+
+        img_logo.setAnimation(top_anim);
+        daftar.setAnimation(top_anim);
+        slogan.setAnimation(top_anim);
+        nextslogan.setAnimation(top_anim);
+
+        etEmail.setAnimation(rightin_anim);
+        etNomor.setAnimation(rightin_anim);
+        etNama.setAnimation(rightin_anim);
+        etPassword.setAnimation(rightin_anim);
+        txtPass.setAnimation(rightin_anim);
+
+        register.setAnimation(rightin_anim);
+        backto.setAnimation(rightin_anim);
 
     }
 
