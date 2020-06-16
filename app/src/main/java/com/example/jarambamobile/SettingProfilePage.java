@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -101,6 +102,7 @@ public class SettingProfilePage extends AppCompatActivity {
         final EditText editText2 = new EditText(this);
         final EditText editText1 = new EditText(this);
         editText1.setHint("Masukkan kata sandi akun ini");
+        editText1.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         linearLayout.addView(editText1);
 
         editText2.setHint("Masukkan email baru");
@@ -112,7 +114,7 @@ public class SettingProfilePage extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //input text from edit text
-//                progressDialog();
+                progressDialog();
                 final String value1 = editText1.getText().toString().trim();
                 final String value = editText2.getText().toString().trim();
                 final String email= user.getEmail();
