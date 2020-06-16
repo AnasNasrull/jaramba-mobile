@@ -61,6 +61,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".SplashScreen">
+<!--        <activity android:name=".DamriStartTrip">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
