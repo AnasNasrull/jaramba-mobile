@@ -18,7 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AboutAppsActivity" android:theme="@style/AppTheme3" android:parentActivityName=".SettingProfilePage"></activity>
+        <activity android:name=".DamriStartTrip"></activity>
+        <activity
+            android:name=".AboutAppsActivity"
+            android:parentActivityName=".SettingProfilePage"
+            android:theme="@style/AppTheme3" />
         <activity
             android:name=".SettingProfilePage"
             android:parentActivityName=".ProfilePage"
