@@ -30,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tahukah_kamu_apa_itu_jaramba"
+                android:fontFamily="@font/nunitosans_semibold"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="27dp"
                 android:layout_marginBottom="20dp"
@@ -42,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/nunitosans_regular"
                 android:layout_margin="5sp"
                 android:text="@string/kamu_wajib_melihat_tayangan_ini" />
 
@@ -50,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
-
+                android:fontFamily="@font/nunitosans_regular"
                 android:text="@string/jaramba_desc" />
 
 

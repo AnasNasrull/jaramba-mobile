@@ -29,15 +29,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            android:fontFamily="@font/nunitosans_semibold"
+            android:textStyle="bold"
             android:text="@string/masukkan_email"
             android:layout_marginEnd="5dp"
             android:textSize="15sp"
-            android:textStyle="bold"
             android:textColor="@android:color/black" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitosans_regular"
             android:textSize="15sp"
             android:textAlignment="center"
             android:text="@string/yang_telah_anda_daftarkan" />
@@ -48,6 +50,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nunitosans_regular"
         android:textSize="15sp"
         android:textAlignment="center"
         android:text="@string/untuk_memperoleh_konfirmasi_kata_sandi" />
@@ -63,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
+            android:fontFamily="@font/nunitosans_regular"
             android:textSize="15sp"
             android:textAlignment="center"
             android:text="@string/pada" />
@@ -73,8 +77,9 @@
             android:textAlignment="center"
             android:text="@string/email_anda"
             android:layout_marginEnd="5dp"
-            android:textSize="15sp"
+            android:fontFamily="@font/nunitosans_semibold"
             android:textStyle="bold"
+            android:textSize="15sp"
             android:textColor="@android:color/black" />
 
     </LinearLayout>
@@ -85,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/masukkan_email"
+        android:fontFamily="@font/nunitosans_regular"
         android:background="@drawable/rounded_et"
         android:drawableStart="@drawable/ic_email_black_24dp"
         android:drawablePadding="10dp"
@@ -102,6 +108,8 @@
         android:layout_height="wrap_content"
         android:text="@string/konfirmasi_email"
         android:textAllCaps="false"
+        android:fontFamily="@font/nunitosans_semibold"
+        android:textStyle="bold"
         android:textColor="@android:color/white"
         android:layout_marginBottom="20dp"
         android:background="@drawable/rounded_btn"
@@ -113,6 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:onClick="backToLogin"
+        android:fontFamily="@font/nunitosans_regular"
         android:padding="10dp"
         android:text="@string/kembali_ke_halaman_login"
         android:textColor="@android:color/black"

@@ -18,11 +18,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TripUserHome"></activity>
+
+        <activity android:name=".DamriStartTrip"></activity>
         <activity
             android:name=".AboutAppsActivity"
             android:parentActivityName=".SettingProfilePage"
-            android:theme="@style/AppTheme3"></activity>
+            android:theme="@style/AppTheme3" />
+        <activity android:name=".TripUserHome"></activity>
         <activity
             android:name=".SettingProfilePage"
             android:parentActivityName=".ProfilePage"
@@ -55,6 +57,7 @@
             android:name=".TripUser"
             android:label="@string/title_activity_trip_user"></activity>
         <activity android:name=".SplashScreen">
+<!--        <activity android:name=".DamriStartTrip">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
