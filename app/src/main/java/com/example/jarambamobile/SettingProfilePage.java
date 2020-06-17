@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -66,9 +67,9 @@ public class SettingProfilePage extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     String outputString;
-    String password, passwords;
+    String passwords;
     String AES = "AES";
-    String pass = "testpassword";
+    String pass = "testmypassword";
 
 
     @Override
@@ -92,13 +93,18 @@ public class SettingProfilePage extends AppCompatActivity {
     public void changeEmail(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Memperbarui Email");
-        builder.setMessage("Masukkan kata sandi sebagai autentikasi pengubahan email anda");
+        builder.setMessage("Masukkan kata sandi dan Email baru sebagai autentikasi pengubahan email anda");
 
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         //add edit text
         final EditText editText2 = new EditText(this);
+        final EditText editText1 = new EditText(this);
+        editText1.setHint("Masukkan kata sandi akun ini");
+        editText1.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        linearLayout.addView(editText1);
+
         editText2.setHint("Masukkan email baru");
         linearLayout.addView(editText2);
 
@@ -109,87 +115,93 @@ public class SettingProfilePage extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //input text from edit text
                 progressDialog();
+                final String value1 = editText1.getText().toString().trim();
                 final String value = editText2.getText().toString().trim();
                 final String email= user.getEmail();
 
-//                Query query = databaseReference.orderByChild("Email").equalTo(user.getEmail());
-//                query.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
-//                            //get data
-//                            password = ""+ds.child("password").getValue();
-//
-//                            try {
-//                                outputString = decrypt(password, pass);
-//                                //decrypted password
-//                                passwords = outputString;
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
 
 
+                Query query = databaseReference.orderByChild("Email").equalTo(user.getEmail());
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                            //get data
+                           String password = ""+ds.child("password").getValue();
 
+                            try {
+                                outputString = decrypt(password, pass);
+                                //decrypted password
+                                passwords = outputString;
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
+                            if(!TextUtils.isEmpty(value) ){
+                                if(value1.equals(passwords)){
 
-                if(!TextUtils.isEmpty(value)){
-                        AuthCredential credential = EmailAuthProvider
-                                .getCredential(email, "ganteng");
+                                    AuthCredential credential = EmailAuthProvider
+                                            .getCredential(email, passwords);
 
-                        user.reauthenticate(credential)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                        user.updateEmail(value)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            progressDialog.dismiss();
-                                                            Toast.makeText(SettingProfilePage.this, "updated", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
-                                                });
+                                    user.reauthenticate(credential)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                    user.updateEmail(value)
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        progressDialog.dismiss();
+                                                                        Toast.makeText(SettingProfilePage.this, "updated", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
 
-                                    }
-                                });
+                                                }
+                                            });
 
-                    final String key = "Email";
-                    HashMap<String, Object> result = new HashMap<>();
-                    result.put(key, value);
+                                    final String key = "Email";
+                                    HashMap<String, Object> result = new HashMap<>();
+                                    result.put(key, value);
 
-                    databaseReference.child(user.getUid()).updateChildren(result)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    //updated, dismiss progress
+                                    databaseReference.child(user.getUid()).updateChildren(result)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    //updated, dismiss progress
+                                                    progressDialog.dismiss();
+                                                    Toast.makeText(SettingProfilePage.this,  key +" anda diperbarui...", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(SettingProfilePage.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                } else {
                                     progressDialog.dismiss();
-                                    Toast.makeText(SettingProfilePage.this,  key +" anda diperbarui...", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SettingProfilePage.this, "Tolong masukkan email anda dengan benar", Toast.LENGTH_SHORT).show();
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(SettingProfilePage.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+
+                            }else {
+                                progressDialog.dismiss();
+                                Toast.makeText(SettingProfilePage.this, "Tolong masukkan email anda dengan benar", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
-                    });
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }else {
-                    progressDialog.dismiss();
-                    Toast.makeText(SettingProfilePage.this, "Tolong masukkan email anda dengan benar", Toast.LENGTH_SHORT).show();
-                }
+                    }
+                });
 
 
             }

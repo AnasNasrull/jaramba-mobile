@@ -13,30 +13,35 @@
     tools:context=".LoginPage">
 
     <ImageView
+        android:id="@+id/img_logo"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@drawable/jaramba_logo_04"
         android:layout_marginBottom="10dp"
-        android:contentDescription="@string/image" />
+        android:contentDescription="@string/image"
+        android:src="@drawable/jaramba_logo_04" />
 
     <TextView
+        android:id="@+id/txt_slogan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
         android:text="@string/petualangan_seru_dimulai_dari_sini"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
         android:textSize="15sp"
         android:fontFamily="@font/nunitosans_semibold"
         android:textStyle="bold"
         android:textColor="@android:color/black" />
-
+  
     <TextView
+        android:id="@+id/txt_quote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:textAlignment="center"
         android:fontFamily="@font/nunitosans_regular"
         android:layout_marginBottom="16dp"
-        android:text="@string/nikmati_kemudahan_perjalanan_n_hanya_dengan_satu_aplikasi" />
+        android:text="@string/nikmati_kemudahan_perjalanan_n_hanya_dengan_satu_aplikasi"
+        />
 
     <EditText
         android:id="@+id/et_email_login"
@@ -44,18 +49,18 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/nunitosans_regular"
         android:hint="@string/masukkan_email"
+        android:layout_marginBottom="10dp"
+        android:autofillHints="no"
         android:background="@drawable/rounded_et"
         android:drawableStart="@drawable/ic_person_black_24dp"
         android:drawablePadding="10dp"
-        android:layout_marginBottom="10dp"
-        android:padding="15dp"
-        android:autofillHints="no"
-        android:inputType="textEmailAddress"/>
-
+        android:inputType="textEmailAddress"
+        android:padding="15dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/txt_password"
         app:passwordToggleEnabled="true">
         <EditText
             android:id="@+id/et_password_login"
@@ -73,18 +78,22 @@
             tools:ignore="TextFields" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.spark.submitbutton.SubmitButton
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/rounded_btn"
+        android:layout_width="281dp"
+        android:layout_height="match_parent"
         android:onClick="login"
+        android:text="@string/login"
+        android:textColor="#000000"
+        app:sub_btn_background="@color/white"
+        app:sub_btn_duration="3000"
+        app:sub_btn_line_color="#EA604E"
+        app:sub_btn_ripple_color="#EA604E"
+        app:sub_btn_tick_color="@color/white"
         tools:ignore="OnClick" />
 
     <TextView
+        android:id="@+id/txt_lupa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lupa_password"
@@ -104,6 +113,7 @@
         android:gravity="center">
 
         <TextView
+            android:id="@+id/txt_havent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/belum_memiliki_akun"
@@ -112,6 +122,7 @@
             android:textColor="@android:color/black" />
 
         <TextView
+            android:id="@+id/txt_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mendaftar"

@@ -18,27 +18,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".DamriStartTrip"></activity>
         <activity
             android:name=".AboutAppsActivity"
             android:parentActivityName=".SettingProfilePage"
             android:theme="@style/AppTheme3" />
+        <activity android:name=".TripUserHome"></activity>
         <activity
             android:name=".SettingProfilePage"
             android:parentActivityName=".ProfilePage"
-            android:theme="@style/AppTheme3" />
-        <activity android:name=".ProfilePage" />
+            android:theme="@style/AppTheme3"></activity>
+        <activity android:name=".ProfilePage"></activity>
         <activity
             android:name=".RegisterPage"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2"></activity>
         <activity
             android:name=".ForgotPsswordPage"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2"></activity>
         <activity
             android:name=".LoginPage"
-            android:theme="@style/AppTheme2" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".UnderConstructionScreen" />
+            android:theme="@style/AppTheme2"></activity>
+        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".UnderConstructionScreen"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -53,13 +55,7 @@
 
         <activity
             android:name=".TripUser"
-            android:label="@string/title_activity_trip_user">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:label="@string/title_activity_trip_user"></activity>
         <activity android:name=".SplashScreen">
 <!--        <activity android:name=".DamriStartTrip">-->
             <intent-filter>
@@ -68,6 +64,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".History" />
     </application>
 
 </manifest>
