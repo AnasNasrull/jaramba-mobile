@@ -16,16 +16,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter {
-
-    private static final String TAG = "RecyclerAdapter";
+    
     ArrayList<getAllHistory> moviesList;
     private Context context;
+
+    FirebaseAuth firebaseAuth;
 
     public RecyclerAdapter(ArrayList<getAllHistory> moviesList) {
         this.moviesList = moviesList;
@@ -87,7 +90,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference myRef = database.getReference();
 
-                                myRef.child("data_history_user_app").child(isi.getKey()).setValue(new getAllHistory(Rating.getRating(), Komentar.getText().toString(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), isi.getStatus(), "done"));
+                                firebaseAuth = FirebaseAuth.getInstance();
+
+                                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                                String uid = user.getUid();
+
+                                myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).setValue(new getAllHistory(Rating.getRating(), Komentar.getText().toString(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), isi.getStatus(), "done"));
 
                                 dialog.dismiss();
                             }
@@ -164,10 +173,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference myRef = database.getReference();
 
+                            firebaseAuth = FirebaseAuth.getInstance();
+
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                            String uid = user.getUid();
+
                             if (menuItem.getTitle().equals("Done")) {
-                                myRef.child("data_history_user_app").child(isi.getKey()).setValue(new getAllHistory(isi.getRating(), isi.getComment(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), "done", isi.getRate_status()));
+                                myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).setValue(new getAllHistory(isi.getRating(), isi.getComment(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), "done", isi.getRate_status()));
                             } else if (menuItem.getTitle().equals("Cancel")) {
-                                myRef.child("data_history_user_app").child(isi.getKey()).removeValue();
+                                myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).removeValue();
                             }
 
                             return false;
