@@ -1,55 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:orientation="vertical">
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="855dp"
-        android:layout_weight="1.5"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="15dp">
-
-        <ImageView
-            android:id="@+id/greeting_img"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="12dp"
-            android:scaleType="fitXY" />
-
-<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="30dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp">
+    tools:context=".TripUserHome">
 
+    <ImageView
+        android:id="@+id/img_background"
+        android:layout_width="467dp"
+        android:layout_height="318dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_default_half_morning" />
 
     <TextView
-        android:id="@+id/greeting_text"
-        android:layout_width="match_parent"
+        android:id="@+id/txt_salam"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#006468"
-        android:textSize="18sp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="48dp" />
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:text="Good Morning Budi"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="87dp"
-        android:layout_height="113dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_jaramba_full" />
@@ -58,221 +41,151 @@
         android:id="@+id/txt_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="Enter Start point trip"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/greeting_text" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_salam" />
 
     <Button
-            android:id="@+id/btn_start_city"
-            android:layout_width="55dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/shape_button_trip"
-            android:text="City"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_start"
-            tools:text="City" />
+        android:id="@+id/btn_start_city"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_button_trip"
+        android:text="City"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_start"
+        tools:text="City" />
 
-        <Button
-            android:id="@+id/btn_start_area"
-            android:layout_width="55dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/shape_button_trip"
-            android:text="Area"
-            app:layout_constraintStart_toEndOf="@+id/btn_start_city"
-            app:layout_constraintTop_toBottomOf="@+id/txt_start"
-            tools:text="Area" />
+    <Button
+        android:id="@+id/btn_start_area"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_button_trip"
+        android:text="Area"
+        app:layout_constraintStart_toEndOf="@+id/btn_start_city"
+        app:layout_constraintTop_toBottomOf="@+id/txt_start"
+        tools:text="Area" />
 
 
     <TextView
         android:id="@+id/txt_destination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
         android:text="Enter Destination point"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_start_city" />
 
     <Button
-            android:id="@+id/btn_dest_city"
-            android:layout_width="55dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/shape_button_trip"
-            android:text="City"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_destination"
-            tools:text="City" />
+        android:id="@+id/btn_dest_city"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_button_trip"
+        android:text="City"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_destination"
+        tools:text="City" />
 
-        <Button
-            android:id="@+id/btn_dest_area"
-            android:layout_width="55dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/shape_button_trip"
-            android:text="Area"
-            app:layout_constraintStart_toEndOf="@+id/btn_dest_city"
-            app:layout_constraintTop_toBottomOf="@+id/txt_destination"
-            tools:text="Area" />
+    <Button
+        android:id="@+id/btn_dest_area"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape_button_trip"
+        android:text="Area"
+        app:layout_constraintStart_toEndOf="@+id/btn_dest_city"
+        app:layout_constraintTop_toBottomOf="@+id/txt_destination"
+        tools:text="Area" />
 
     <TextView
         android:id="@+id/txt_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="Enter Date"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toEndOf="@+id/txt_destination"
         app:layout_constraintTop_toBottomOf="@+id/btn_start_area" />
 
     <EditText
-            android:id="@+id/edit_date"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/shape_button_trip"
-            android:text="DD/MM/YY"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txt_destination"
-            app:layout_constraintTop_toBottomOf="@+id/txt_date"
-            tools:text="DD/MM/YY" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-    <RelativeLayout
-        android:id="@+id/listMode1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/edit_date"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/shape_button_trip"
-        >
-        <TextView
-            android:id="@+id/modekendaraan1"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="7dp"
-            android:gravity="center"
-            android:text="Damri "
-            android:textSize="18sp"
-            android:textColor="#000"/>
+        android:text="DD/MM/YY"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt_destination"
+        app:layout_constraintTop_toBottomOf="@+id/txt_date"
+        tools:text="DD/MM/YY" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/shape_button_trip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_background">
 
         <TextView
-            android:id="@+id/txt_tarif1"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:id="@+id/txt_mode"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="150dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginStart="16dp"
             android:gravity="center"
-            android:text="-"
-            android:textSize="18sp"
-            android:textColor="#000"/>
+            android:text="Mode Transportasi"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_tarif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="Tarif"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_go"
+            app:layout_constraintStart_toEndOf="@+id/txt_mode"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/btn_go"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:text="GO"
-            android:layout_centerVertical="true"
-            android:background="@drawable/shape_button_trip"/>
-
-    </RelativeLayout>
-        <RelativeLayout
-            android:layout_below="@id/listMode1"
-            android:id="@+id/listMode2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/shape_button_trip"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="Go"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/modekendaraan2"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="7dp"
-                android:gravity="center"
-                android:text="Kereta"
-                android:textSize="18sp"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/txt_tarif2"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="150dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="7dp"
-                android:gravity="center"
-                android:text="-"
-                android:textSize="18sp"
-                android:layout_toEndOf="@+id/modekendaraan2"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/btn_go"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                android:text="GO"
-                android:layout_centerVertical="true"
-                android:background="@drawable/shape_button_trip"
-                tools:ignore="DuplicateIds" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/menu_navigasi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffff"
-        app:menu="@menu/menu_navigasi"/>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
