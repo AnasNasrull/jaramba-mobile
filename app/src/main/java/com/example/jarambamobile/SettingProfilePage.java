@@ -69,8 +69,8 @@ public class SettingProfilePage extends AppCompatActivity {
     String AES = "AES";
     String pass = "testmypassword";
 
-    Button btnConfChangePassword, btnConfNameNumber, btnDismissChangeEmail, btnDismissNameNumber;
-    EditText etChangePassword, etChangeName, etChangeNumber;
+    Button btnConfChangePassword, btnConfNameNumber, btnDismissChangeEmail, btnDismissNameNumber, btnConfEmail, btnDismissEmail;
+    EditText etChangePassword, etChangeName, etChangeNumber, etChangeEmail, etPasswordValidateChangeEmail;
     TextView tvKeteranganubahNamaNomor;
 
     @Override
@@ -92,35 +92,27 @@ public class SettingProfilePage extends AppCompatActivity {
     }
 
     public void changeEmail(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Memperbarui Email");
-        builder.setMessage("Masukkan kata sandi dan Email baru sebagai autentikasi pengubahan email anda");
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_ubah_email);
+        etPasswordValidateChangeEmail = dialog.findViewById(R.id.et_validatepassword);
+        etChangeEmail = dialog.findViewById(R.id.et_ubahemail);
+        btnConfEmail = dialog.findViewById(R.id.btn_conf_email);
+        btnDismissEmail = dialog.findViewById(R.id.btn_dismiss_email);
 
-        LinearLayout linearLayout = new LinearLayout(this);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-
-        //add edit text
-        final EditText editText2 = new EditText(this);
-        final EditText editText1 = new EditText(this);
-        editText1.setHint("Masukkan kata sandi akun ini");
-        editText1.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        linearLayout.addView(editText1);
-
-        editText2.setHint("Masukkan email baru");
-        linearLayout.addView(editText2);
-
-        builder.setView(linearLayout);
-
-        builder.setPositiveButton("Perbarui", new DialogInterface.OnClickListener() {
+        btnDismissEmail.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //input text from edit text
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnConfEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 progressDialog();
-                final String value1 = editText1.getText().toString().trim();
-                final String value = editText2.getText().toString().trim();
+                final String value1= etPasswordValidateChangeEmail.getText().toString().trim();
+                final String value = etChangeEmail.getText().toString().trim();
                 final String email= user.getEmail();
-
-
 
                 Query query = databaseReference.orderByChild("Email").equalTo(user.getEmail());
                 query.addValueEventListener(new ValueEventListener() {
@@ -128,7 +120,7 @@ public class SettingProfilePage extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for(DataSnapshot ds : dataSnapshot.getChildren()) {
                             //get data
-                           String password = ""+ds.child("password").getValue();
+                            String password = ""+ds.child("password").getValue();
 
                             try {
                                 outputString = decrypt(password, pass);
@@ -154,8 +146,9 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
+                                                                        dialog.dismiss();
                                                                         progressDialog.dismiss();
-                                                                        Toast.makeText(SettingProfilePage.this, "updated", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(SettingProfilePage.this, "Profil anda terupdate", Toast.LENGTH_SHORT).show();
                                                                     }
                                                                 }
                                                             });
@@ -173,6 +166,7 @@ public class SettingProfilePage extends AppCompatActivity {
                                                 public void onSuccess(Void aVoid) {
                                                     //updated, dismiss progress
                                                     progressDialog.dismiss();
+                                                    dialog.dismiss();
                                                     Toast.makeText(SettingProfilePage.this,  key +" anda diperbarui...", Toast.LENGTH_SHORT).show();
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
@@ -185,7 +179,7 @@ public class SettingProfilePage extends AppCompatActivity {
 
                                 } else {
                                     progressDialog.dismiss();
-                                    Toast.makeText(SettingProfilePage.this, "Tolong masukkan email anda dengan benar", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SettingProfilePage.this, "Maaf, kata sandi tidak sesuai", Toast.LENGTH_SHORT).show();
                                 }
 
 
@@ -203,21 +197,13 @@ public class SettingProfilePage extends AppCompatActivity {
 
                     }
                 });
-
-
             }
         });
 
-        //add cancel button in dialog
-        builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
 
-            }
-        });
 
-        //create and show dialog
-        builder.create().show();
     }
 
     private String decrypt(String outputString, String password) throws Exception {

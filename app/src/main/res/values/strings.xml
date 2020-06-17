@@ -32,6 +32,7 @@
     <string name="kamu_wajib_melihat_tayangan_ini">kamu wajib melihat tayangan ini</string>
     <string name="jaramba_desc">Jaramba adalah platform mobilitas sebagai layanan yang mengintegrasikan moda transportasi dari massal ke pribadi, dari transportasi perkotaan ke antar kota. \n\nMembuat perjalananmu mulus dan mudah tanpa harus mengikat dirimu dengan kepemilikan kendaraan pribadi dan tanggung jawab melekat padanya. \n\nJaramba yang akan kita bangun adalah pengembangan lebih lanjut dari ekosistem yang telah kami bangun. \n\n\nBagaimana menurutmu, menarik bukan?</string>
     <string name="lets_start_nyour_trip">LETS START \nYOUR TRIP</string>
+    <string name="email_baru_anda">Email baru anda</string>
 
     <string-array name="metode_pembayaran">
         <item>Cash</item>
