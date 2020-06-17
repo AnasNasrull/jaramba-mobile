@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         tools:context=".TripUser" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/start_point"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/destination_point"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
