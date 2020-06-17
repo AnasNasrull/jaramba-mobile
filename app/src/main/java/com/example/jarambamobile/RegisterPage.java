@@ -52,7 +52,7 @@ public class RegisterPage extends AppCompatActivity {
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference(
-                "User");
+                "Mobile_Apps");
         firebaseAuth = FirebaseAuth.getInstance();
 
     }
@@ -130,14 +130,14 @@ public class RegisterPage extends AppCompatActivity {
 
                                 HashMap <Object, String> hashMap = new HashMap<>();
                                 hashMap.put("Email", email);
-                                hashMap.put("Nomor handphone", number);
-                                hashMap.put("Nama Lengkap", username);
-                                hashMap.put("Unique ID", uid );
-                                hashMap.put("image", "");
+                                hashMap.put("Nomor_Handphone", number);
+                                hashMap.put("Nama_Lengkap", username);
+                                hashMap.put("Unique_ID", uid );
+                                hashMap.put("Image", "");
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                DatabaseReference reference = database.getReference("User");
-                                reference.child(uid).setValue(hashMap);
+                                DatabaseReference reference = database.getReference("Mobile_Apps");
+                                reference.child("User").child(uid).setValue(hashMap);
 
                                 progressDialog.dismiss();
                                 Toast.makeText(RegisterPage.this, "Email anda : " + email + "\nSukses terdaftar pada sistem", Toast.LENGTH_SHORT).show();

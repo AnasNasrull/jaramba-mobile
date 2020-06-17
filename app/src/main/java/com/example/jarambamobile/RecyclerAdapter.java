@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter {
-    
+
     ArrayList<getAllHistory> moviesList;
     private Context context;
 
@@ -74,6 +74,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                         final Dialog dialog = new Dialog(context);
 
                         dialog.setContentView(R.layout.history_rating);
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
                         Button Submit = dialog.findViewById(R.id.submit_rate);
                         final RatingBar Rating = dialog.findViewById(R.id.ratingBar);
@@ -113,6 +114,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     final Dialog dialog2 = new Dialog(context);
 
                     dialog2.setContentView(R.layout.history_detail);
+                    dialog2.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
                     final TextView start = dialog2.findViewById(R.id.start_data);
                     final TextView to = dialog2.findViewById(R.id.to_data);
@@ -142,6 +144,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     final Dialog dialog1 = new Dialog(context);
 
                     dialog1.setContentView(R.layout.history_detail);
+                    dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
                     final TextView start = dialog1.findViewById(R.id.start_data);
                     final TextView to = dialog1.findViewById(R.id.to_data);
