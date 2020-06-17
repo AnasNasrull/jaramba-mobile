@@ -3,10 +3,12 @@ package com.example.jarambamobile;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +25,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         greetImg = findViewById(R.id.greeting_img);
         greeting();
 
@@ -58,7 +59,6 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -67,15 +67,15 @@ public class HomeActivity extends AppCompatActivity {
         int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
         if (timeOfDay >= 0 && timeOfDay < 18){
-          greetImg.setImageResource(R.drawable.siang);
-        } else if (timeOfDay >= 18 && timeOfDay < 24)
+            greetImg.setImageResource(R.drawable.img_default_half_morning);
+        } else if (timeOfDay >= 18 && timeOfDay < 24) {
             greetImg.setImageResource(R.drawable.img_default_half_night);
         }
     }
 
-  // public void clickDamri(View view) {
-    //    startActivity(new Intent(this, TripUser.class));
-    //}
-
-
+    public void clickDamri(View view) {
+        startActivity(new Intent(this, TripUser.class));
+    }
+  
+}
 

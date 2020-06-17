@@ -41,7 +41,7 @@ public class LoginPage extends AppCompatActivity {
 
         //check if user is null
         if(firebaseUser != null){
-            startActivity (new Intent(this, ProfilePage.class));
+            startActivity (new Intent(this, HomeActivity.class));
             finish();
         }
     }
@@ -123,7 +123,7 @@ public class LoginPage extends AppCompatActivity {
                                 Toast.makeText(LoginPage.this, "Maaf, Email atau password anda salah, dan Pastikan Anda Terhubung dengan Internet", Toast.LENGTH_SHORT).show();
                             } else {
                                 progressDialog.dismiss();
-                                Toast.makeText(LoginPage.this, "Email dan Password Sesuai", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginPage.this, "Selamat datang di Jaramba", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(LoginPage.this, ProfilePage.class));
                                 finish();
                             }

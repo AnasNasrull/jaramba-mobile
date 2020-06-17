@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -25,12 +26,21 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.security.MessageDigest;
 import java.util.HashMap;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 public class RegisterPage extends AppCompatActivity {
 
     private EditText etEmail, etNomor, etNama, etPassword;
     private Button btnRegister;
+
+    String outputString;
+    String passwords;
+    String AES = "AES";
+    String pass = "testmypassword";
 
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
@@ -117,6 +127,13 @@ public class RegisterPage extends AppCompatActivity {
             final String username = etNama.getText().toString().trim();
             final String password = etPassword.getText().toString().trim();
 
+            try {
+                outputString = encrypt(password, pass);
+                passwords = outputString;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(RegisterPage.this, new OnCompleteListener<AuthResult>() {
@@ -133,6 +150,7 @@ public class RegisterPage extends AppCompatActivity {
                                 hashMap.put("Nomor handphone", number);
                                 hashMap.put("Nama Lengkap", username);
                                 hashMap.put("Unique ID", uid );
+                                hashMap.put("password", passwords);
                                 hashMap.put("image", "");
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -158,5 +176,23 @@ public class RegisterPage extends AppCompatActivity {
 
 
 
+    }
+
+    private String encrypt(String Data, String password) throws Exception {
+        SecretKeySpec key = generateKey(password);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.ENCRYPT_MODE, key);
+        byte[] encVal = c.doFinal(Data.getBytes());
+        String encryptedValue = Base64.encodeToString(encVal, Base64.DEFAULT);
+        return encryptedValue;
+    }
+
+    private SecretKeySpec generateKey(String password) throws  Exception{
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = password.getBytes("UTF-8");
+        digest.update(bytes, 0, bytes.length);
+        byte[] key = digest.digest();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
+        return secretKeySpec;
     }
 }

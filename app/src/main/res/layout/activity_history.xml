@@ -12,11 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:text="Your History Trip with"
-        android:textStyle="bold"
         android:layout_marginTop="30dp"
+        android:fontFamily="@font/nunito_semibold"
+        android:text="Your History Trip with"
         android:textColor="@color/black"
         android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -118,13 +119,14 @@
             android:layout_gravity="center"/>
 
         <TextView
+            android:id="@+id/dari2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/dari2"
-            android:text="Jl. Terusan Ryacudu"
-            android:textColor="@color/black"
             android:layout_centerHorizontal="true"
-            android:gravity="center"/>
+            android:fontFamily="@font/nunito_sans"
+            android:gravity="center"
+            android:text="Jl. Terusan Ryacudu"
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -148,19 +150,19 @@
     </RelativeLayout>
 
     <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:ignore="MissingConstraints">
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/menu_navigasi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffff"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/menu_navigasi"
-        tools:ignore="MissingConstraints" />
-</RelativeLayout>
+        tools:ignore="MissingConstraints">
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/menu_navigasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffff"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/menu_navigasi"
+            tools:ignore="MissingConstraints" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

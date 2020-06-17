@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rating anda"
+        android:fontFamily="@font/nunito_sans"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,8 +49,8 @@
         android:id="@+id/harga_rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rp. 20000"
         android:textColor="@color/black"
+        android:fontFamily="@font/nunito_sans"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comment_rate" />
 
@@ -58,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pembayaran : "
+        android:fontFamily="@font/nunito_semibold"
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@id/crbyr_rate"
         app:layout_constraintTop_toBottomOf="@+id/comment_rate" />
@@ -66,8 +68,8 @@
         android:id="@+id/crbyr_rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cash"
         android:textColor="@color/black"
+        android:fontFamily="@font/nunito_sans"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comment_rate" />
 
@@ -76,6 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Submit"
+        android:fontFamily="@font/nunito_sans"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

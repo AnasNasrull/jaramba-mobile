@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/mendaftar"
+            android:fontFamily="@font/nunito_sans"
             android:layout_marginEnd="5dp"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -40,7 +41,8 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:textAlignment="center"
-            android:text="@string/secara_gratis_hingga" />
+            android:text="@string/secara_gratis_hingga"
+            android:fontFamily="@font/nunito_sans"/>
 
     </LinearLayout>
 
@@ -52,7 +54,8 @@
         android:textSize="15sp"
         android:textAlignment="center"
         android:layout_marginBottom="16dp"
-        android:text="@string/kapanpun_bersama_jaramba" />
+        android:text="@string/kapanpun_bersama_jaramba"
+        android:fontFamily="@font/nunito_sans"/>
 
     <EditText
         android:id="@+id/et_email_register"
@@ -118,6 +121,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/mendaftar_sekarang"
+        android:fontFamily="@font/nunito_sans"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:layout_marginBottom="20dp"
@@ -132,6 +136,7 @@
         android:onClick="backToLogin"
         android:padding="10dp"
         android:text="@string/kembali_ke_halaman_login"
+        android:fontFamily="@font/nunito_sans"
         android:textColor="@android:color/black"
         android:textSize="17sp"
         android:textStyle="bold"

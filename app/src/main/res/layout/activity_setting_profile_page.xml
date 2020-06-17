@@ -31,6 +31,7 @@
             android:layout_marginEnd="20dp"
             android:layout_toEndOf="@+id/icon_username"
             android:text="Ubah nama anda"
+            android:fontFamily="@font/nunito_semibold"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
@@ -41,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rellay_change_username"
-        android:onClick="changeUsername"
+        android:onClick="changeEmail"
         tools:ignore="OnClick">
 
         <ImageView
@@ -57,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/icon_email"
             android:text="Ubah email anda"
+            android:fontFamily="@font/nunito_sans"
             android:layout_margin="20dp"
             android:textSize="16sp"
             android:textColor="@android:color/black" />
@@ -68,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rellay_change_email"
-        android:onClick="changeUsername"
+        android:onClick="changePhoneNumber"
         tools:ignore="OnClick">
 
         <ImageView
@@ -84,6 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/icon_phone"
             android:text="Ubah nomor telepon"
+            android:fontFamily="@font/nunito_sans"
             android:layout_margin="20dp"
             android:textSize="16sp"
             android:textColor="@android:color/black" />
@@ -95,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rellay_change_phone"
-        android:onClick="changeUsername"
+        android:onClick="changePassword"
         tools:ignore="OnClick">
 
         <ImageView
@@ -111,6 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/icon_password"
             android:text="Ubah kata sandi"
+            android:fontFamily="@font/nunito_sans"
             android:layout_margin="20dp"
             android:textSize="16sp"
             android:textColor="@android:color/black" />
@@ -138,6 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/icon_about_app"
             android:text="Tentang aplikasi ini"
+            android:fontFamily="@font/nunito_sans"
             android:layout_margin="20dp"
             android:textSize="16sp"
             android:textColor="@android:color/black" />
@@ -150,7 +155,7 @@
         android:layout_height="100dp"
         android:background="@color/colorPrimary"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp">
+        android:layout_marginBottom="65dp">
 
         <ImageView
             android:id="@+id/logo_white"
@@ -161,7 +166,21 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
 
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/menu_navigasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffff"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/menu_navigasi"
+            tools:ignore="MissingConstraints" />
+    </RelativeLayout>
 
 
 </RelativeLayout>

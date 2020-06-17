@@ -69,7 +69,6 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
 
         start_point = findViewById(R.id.start_point);
         destination_point = findViewById(R.id.destination_point);
-
         BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi);
         bottomNavigationView.setSelectedItemId(R.id.trip);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="@string/masukkan_email"
+            android:fontFamily="@font/nunito_sans"
             android:layout_marginEnd="5dp"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -40,7 +41,8 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:textAlignment="center"
-            android:text="@string/yang_telah_anda_daftarkan" />
+            android:text="@string/yang_telah_anda_daftarkan"
+            android:fontFamily="@font/nunito_sans"/>
 
     </LinearLayout>
 
@@ -50,7 +52,8 @@
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:textAlignment="center"
-        android:text="@string/untuk_memperoleh_konfirmasi_kata_sandi" />
+        android:text="@string/untuk_memperoleh_konfirmasi_kata_sandi"
+        android:fontFamily="@font/nunito_sans"/>
 
 
     <LinearLayout
@@ -65,7 +68,8 @@
             android:layout_marginEnd="5dp"
             android:textSize="15sp"
             android:textAlignment="center"
-            android:text="@string/pada" />
+            android:text="@string/pada"
+            android:fontFamily="@font/nunito_sans"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -75,7 +79,8 @@
             android:layout_marginEnd="5dp"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/nunito_sans"/>
 
     </LinearLayout>
 
@@ -101,6 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/konfirmasi_email"
+        android:fontFamily="@font/nunito_sans"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:layout_marginBottom="20dp"
@@ -115,6 +121,7 @@
         android:onClick="backToLogin"
         android:padding="10dp"
         android:text="@string/kembali_ke_halaman_login"
+        android:fontFamily="@font/nunito_sans"
         android:textColor="@android:color/black"
         android:textSize="15sp"
         android:textStyle="bold"

@@ -1,51 +1,29 @@
 package com.example.jarambamobile;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.view.View;
+import android.widget.Button;
 
 public class UnderConstructionScreen extends AppCompatActivity {
+
+    Button startTrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_under_construction_screen);
 
-        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi);
-        bottomNavigationView.setSelectedItemId(R.id.home);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.history:
-                        startActivity(new Intent(getApplicationContext()
-                                ,History.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext()
-                        ,HomeActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.trip:
-                        startActivity(new Intent(getApplicationContext()
-                                ,TripUser.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.profile:
-                        startActivity(new Intent(getApplicationContext()
-                                ,ProfilePage.class));
-                        overridePendingTransition(0,0);
-                        return true;
+        startTrip = findViewById(R.id.btn_start_trip);
 
-                }
-                return false;
+        startTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),HomeActivity.class));
             }
         });
+
     }
 }

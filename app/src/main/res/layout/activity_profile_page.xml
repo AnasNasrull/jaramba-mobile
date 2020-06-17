@@ -35,6 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/edit_profil"
+        android:fontFamily="@font/nunito_sans"
         android:layout_below="@+id/img_profile_page"
         android:layout_centerHorizontal="true"
         android:onClick="changePictureProfileUser"
@@ -58,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
+            android:fontFamily="@font/nunito_sans"
             android:textSize="23sp"
             android:textColor="@android:color/white"
             />
@@ -68,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textSize="18sp"
+            android:fontFamily="@font/nunito_sans"
             android:textColor="@android:color/white"
             android:layout_marginTop="5dp"
             />
@@ -78,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textSize="18sp"
+            android:fontFamily="@font/nunito_sans"
             android:textColor="@android:color/white"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
@@ -87,26 +91,36 @@
     </LinearLayout>
 
 
+
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="68dp"
-        android:background="@drawable/rounded_btn"
-        android:onClick="logout"
         android:text="@string/logout"
+        android:fontFamily="@font/nunito_sans"
         android:textColor="@android:color/white"
+        android:background="@drawable/rounded_btn"
+        android:layout_margin="65dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="logout"
         tools:ignore="OnClick" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-    android:id="@+id/menu_navigasi"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#ffff"
-    android:layout_alignParentBottom="true"
-    app:menu="@menu/menu_navigasi"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/menu_navigasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffff"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/menu_navigasi"
+            tools:ignore="MissingConstraints" />
+    </RelativeLayout>
+    
 
 </RelativeLayout>

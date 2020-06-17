@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Detail trip"
+        android:fontFamily="@font/nunito_semibold"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Start : "
+        android:fontFamily="@font/nunito_semibold"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/icon"
         app:layout_constraintTop_toBottomOf="@+id/detail" />
@@ -42,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Jl. Terusan Ryacudu"
+        android:fontFamily="@font/nunito_semibold"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/start_text"
         app:layout_constraintTop_toBottomOf="@+id/detail" />
@@ -52,6 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="To : "
+        android:fontFamily="@font/nunito_semibold"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/icon"
         app:layout_constraintTop_toBottomOf="@+id/start_text" />
@@ -60,8 +63,8 @@
         android:id="@+id/to_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ramayana Pasar Bawah"
         android:textColor="@color/black"
+        android:fontFamily="@font/nunito_semibold"
         app:layout_constraintStart_toEndOf="@id/to_text"
         app:layout_constraintTop_toBottomOf="@+id/start_text" />
 
@@ -78,8 +81,8 @@
         android:id="@+id/tgl_data_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="09-06-2020"
         android:textColor="@color/black"
+        android:fontFamily="@font/nunito_sans"
         app:layout_constraintStart_toEndOf="@id/tgl_text_det"
         app:layout_constraintTop_toBottomOf="@+id/to_text" />
 
@@ -89,6 +92,7 @@
         android:layout_height="wrap_content"
         android:text="Jumlah Penumpang : "
         android:textColor="@color/black"
+        android:fontFamily="@font/nunito_sans"
         android:paddingBottom="20dp"
         app:layout_constraintStart_toEndOf="@id/icon"
         app:layout_constraintTop_toBottomOf="@+id/tgl_text_det" />
@@ -97,8 +101,8 @@
         android:id="@+id/jml_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="4 Orang"
         android:textColor="@color/black"
+        android:fontFamily="@font/nunito_sans"
         android:paddingBottom="20dp"
         app:layout_constraintStart_toEndOf="@id/jml_text"
         app:layout_constraintTop_toBottomOf="@+id/tgl_text_det" />
@@ -107,7 +111,7 @@
         android:id="@+id/harga_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rp. 20000"
+        android:fontFamily="@font/nunito_sans"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jml_text" />
@@ -116,6 +120,7 @@
         android:id="@+id/byr_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_sans"
         android:text="Pembayaran : "
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@id/crbyr_det"
@@ -125,7 +130,7 @@
         android:id="@+id/crbyr_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cash"
+        android:fontFamily="@font/nunito_sans"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jml_data" />
