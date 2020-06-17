@@ -272,9 +272,6 @@ public class SettingProfilePage extends AppCompatActivity {
                         }
                     });
                 }
-
-
-
             }
         });
 
