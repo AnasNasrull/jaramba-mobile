@@ -47,22 +47,18 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="70dp"
         android:background="@drawable/shape_button"
         android:text="Start Trip"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/menu_navigasi"
@@ -70,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="#ffff"
-            app:menu="@menu/menu_navigasi" />
+            app:menu="@menu/menu_navigasi"/>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

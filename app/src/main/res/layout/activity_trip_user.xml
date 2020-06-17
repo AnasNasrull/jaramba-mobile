@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         tools:context=".TripUser" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/start_point"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/destination_point"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
         android:id="@+id/btn_go"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/shape_button"
         android:text="Go"
         android:textColor="#FFFFFF"
@@ -59,20 +59,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
-
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/menu_navigasi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffff"
-            android:layout_alignParentBottom="true"
-            app:menu="@menu/menu_navigasi"
-            tools:ignore="MissingConstraints" />
-    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

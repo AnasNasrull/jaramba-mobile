@@ -12,12 +12,13 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Layout;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.jarambamobile.adapter.PlaceAutoSuggestionAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,7 +27,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +43,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class TripUser extends FragmentActivity implements OnMapReadyCallback {
-    EditText start_point, destination_point;
+    AutoCompleteTextView start_point, destination_point;
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST = 500;
     ArrayList<LatLng> listPoints;
@@ -70,34 +70,8 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
         start_point = findViewById(R.id.start_point);
         destination_point = findViewById(R.id.destination_point);
 
-        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi);
-        bottomNavigationView.setSelectedItemId(R.id.trip);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.history:
-                        startActivity(new Intent(getApplicationContext()
-                                ,History.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext()
-                                ,HomeActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.trip:
-                        return true;
-                    case R.id.profile:
-                        startActivity(new Intent(getApplicationContext()
-                                ,ProfilePage.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                }
-                return false;
-            }
-        });
+        start_point.setAdapter(new PlaceAutoSuggestionAdapter(TripUser.this, android.R.layout.simple_list_item_1));
+        destination_point.setAdapter(new PlaceAutoSuggestionAdapter(TripUser.this, android.R.layout.simple_list_item_1));
     }
 
 

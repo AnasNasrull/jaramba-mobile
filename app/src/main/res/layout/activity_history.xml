@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -146,21 +145,5 @@
             android:gravity="center"
             app:srcCompat="@drawable/ic_baseline_star_24" />
     </RelativeLayout>
-
-    <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:ignore="MissingConstraints">
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/menu_navigasi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffff"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/menu_navigasi"
-        tools:ignore="MissingConstraints" />
-</RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
