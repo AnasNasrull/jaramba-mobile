@@ -127,7 +127,7 @@ public class SettingProfilePage extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for(DataSnapshot ds : dataSnapshot.getChildren()) {
                             //get data
-                           String password = ""+ds.child("Password").getValue();
+                           String password = ""+ds.child("password").getValue();
 
                             try {
                                 outputString = decrypt(password, pass);
