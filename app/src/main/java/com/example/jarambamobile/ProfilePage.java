@@ -124,6 +124,7 @@ public class ProfilePage extends AppCompatActivity {
                     emailTv.setText(email);
                     phoneTv.setText(phone);
 
+
                     try {
                         //if image is received then set
                         Glide.with(ProfilePage.this).load(image).into(avatarIv);
