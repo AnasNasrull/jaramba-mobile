@@ -23,6 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jarambamobile.fragment.DatePickerFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -42,11 +45,17 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
     Dialog dialog;
     EditText etJumlahPenumpang;
     TextView tvTotalInputPenumpang, tvMetodePembayaran, tvAsalPengguna, tvTujuanPengguna, tvTanggal,tvHari, tvWaktu, tvTotalHarga;
-    Button btnTambahkanPenumpang, btnDismissPenumpang, btnTambahMetodePembayaran, btnDismissMetode;
+    Button btnTambahkanPenumpang, btnDismissPenumpang, btnTambahMetodePembayaran, btnDismissMetode, btnGo;
     Spinner spinner;
-    String text;
+    String text, startAddress, destinationAddress, metodePembayaran, hari, tanggal, waktu;
+    Integer jumlahPenumpang;
+    Double totalHarga;
+    LatLng startPoint, destinationPoint;
 
-    DatabaseReference reference;
+
+
+    DatabaseReference database;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,39 +66,46 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
 
         Intent intent = getIntent();
 
-        String start_point= intent.getStringExtra("start_point");
+        startAddress= intent.getStringExtra("start_point");
         tvAsalPengguna = findViewById(R.id.asal_pengguna);
-        tvAsalPengguna.setText(start_point);
+        tvAsalPengguna.setText(startAddress);
 
-        String destination_point= intent.getStringExtra("destination_point");
+        destinationAddress= intent.getStringExtra("destination_point");
         tvTujuanPengguna = findViewById(R.id.asal_pengguna_to);
-        tvTujuanPengguna.setText(destination_point);
+        tvTujuanPengguna.setText(destinationAddress);
 
+        setTanggal();
         tvTanggal = findViewById(R.id.tanggal_kalender);
         tvHari = findViewById(R.id.hari_kata);
-        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        String dayname = new SimpleDateFormat("EEEE").format(new Date());
-        tvTanggal.setText(date);
-        tvHari.setText(dayname);
+        tvTanggal.setText(tanggal);
+        tvHari.setText(hari);
 
+        setWaktu();
         tvWaktu = findViewById(R.id.waktu);
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
-        String localTime = new SimpleDateFormat("HH:mm a").format(cal.getTime());
-        tvWaktu.setText(localTime);
+        tvWaktu.setText(waktu);
 
         tvTotalHarga = findViewById(R.id.sum_payment);
+        database = FirebaseDatabase.getInstance().getReference();
+//        firebaseAuth = FirebaseAuth.getInstance();
+//        FirebaseUser user = firebaseAuth.getCurrentUser();
+//        String uid = user.getUid();
+//        database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User");
 
-        reference = FirebaseDatabase.getInstance().getReference().child();
+    }
 
+    public void setWaktu(){
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
+        this.waktu = new SimpleDateFormat("HH:mm a").format(cal.getTime());
+    }
+
+    public void setTanggal(){
+        this.tanggal = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        this.hari = new SimpleDateFormat("EEEE").format(new Date());
     }
 
     public String getHarga (int penumpang, double biaya ){
         Double total = penumpang * biaya;
         return (Double.toString(total));
-    }
-
-    public void letsGo(View view) {
-        Toast.makeText(getApplicationContext(), "Let's Go Trip With Jaramba Apps", Toast.LENGTH_SHORT).show();
     }
 
     public void addMetodePembayaran(View view) {
@@ -154,8 +170,10 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                 String UserInput = etJumlahPenumpang.getText().toString().trim();
 
                 if(!UserInput.isEmpty()){
+                    jumlahPenumpang = Integer.parseInt(UserInput);
+                    totalHarga = Double.parseDouble(getHarga(Integer.parseInt(UserInput),3000));
                     tvTotalInputPenumpang.setText(UserInput + " Orang");
-                    tvTotalHarga.setText("Rp." + getHarga(Integer.parseInt(UserInput),3000)+",-");
+                    tvTotalHarga.setText("Rp." + totalHarga.toString() +",-");
                 } else {
                     Toast.makeText(getApplicationContext(), "Mohon isikan data dengan benar", Toast.LENGTH_SHORT).show();
                 }

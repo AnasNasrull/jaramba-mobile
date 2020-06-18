@@ -375,7 +375,7 @@
             android:contentDescription="@string/image" />
 
         <Button
-            android:id="@+id/btn_logout"
+            android:id="@+id/btn_go"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="@string/let_s_go"
@@ -386,7 +386,6 @@
             android:layout_margin="20dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:onClick="letsGo"
             tools:ignore="OnClick" />
 
 
