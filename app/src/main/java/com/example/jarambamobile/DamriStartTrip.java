@@ -104,7 +104,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                 history.setStart(startAddress);
                 history.setTo(destinationAddress);
                 history.setStatus("Pending");
-                database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").push().setValue(history);
+                database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child("Trip_User").setValue(history);
             }
         });
 
