@@ -91,8 +91,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
 
         history = new HistoryTripModel();
         btnGo = findViewById(R.id.btn_go);
-        String uid = "sqNxENZFQAga0Qq9MlEyI4aCxQh2";
-        database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User");
+        final String uid = "sqNxENZFQAga0Qq9MlEyI4aCxQh2";
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +104,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                 history.setStart(startAddress);
                 history.setTo(destinationAddress);
                 history.setStatus("Pending");
-                database.push().setValue(history);
+                database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").push().setValue(history);
             }
         });
 
