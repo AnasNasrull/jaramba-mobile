@@ -1,4 +1,81 @@
 package com.example.jarambamobile.models;
 
 public class HistoryTripModel {
+    private Double harga;
+    private String start,to, status, tanggal, rating, comment, pembayaran;
+    private Integer jumlah_penumpang;
+
+    public HistoryTripModel(){}
+
+    public Double getHarga() {
+        return harga;
+    }
+
+    public void setHarga(Double harga) {
+        this.harga = harga;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getPembayaran() {
+        return pembayaran;
+    }
+
+    public void setPembayaran(String pembayaran) {
+        this.pembayaran = pembayaran;
+    }
+
+    public Integer getJumlah_penumpang() {
+        return jumlah_penumpang;
+    }
+
+    public void setJumlah_penumpang(Integer jumlah_penumpang) {
+        this.jumlah_penumpang = jumlah_penumpang;
+    }
 }

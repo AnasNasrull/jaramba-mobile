@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jarambamobile.fragment.DatePickerFragment;
+import com.example.jarambamobile.models.HistoryTripModel;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,8 +52,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
     Integer jumlahPenumpang;
     Double totalHarga;
     LatLng startPoint, destinationPoint;
-
-
+    HistoryTripModel history;
 
     DatabaseReference database;
     FirebaseAuth firebaseAuth;
@@ -88,14 +88,24 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         database = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        String uid = user.getUid();
-        database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User");
 
+        history = new HistoryTripModel();
         btnGo = findViewById(R.id.btn_go);
+        String uid = "sqNxENZFQAga0Qq9MlEyI4aCxQh2";
+        database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User");
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User");
+                history.setComment(" ");
+                history.setHarga(totalHarga);
+                history.setRating(" ");
+                history.setJumlah_penumpang(jumlahPenumpang);
+                history.setPembayaran(metodePembayaran);
+                history.setTanggal(tanggal);
+                history.setStart(startAddress);
+                history.setTo(destinationAddress);
+                history.setStatus("Pending");
+                database.push().setValue(history);
             }
         });
 
