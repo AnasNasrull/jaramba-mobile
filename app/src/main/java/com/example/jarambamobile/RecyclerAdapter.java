@@ -21,7 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RecyclerAdapter extends RecyclerView.Adapter {
 
@@ -182,8 +184,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
                             String uid = user.getUid();
 
+                            Date tanggal = new Date();
+
+                            SimpleDateFormat format = new SimpleDateFormat("H");
+                            String tgl = isi.getTanggal();
+                            String jam = format.format(tanggal);
+                            SimpleDateFormat format2 = new SimpleDateFormat("m");
+                            String menit = format2.format(tanggal);
+                            SimpleDateFormat format3 = new SimpleDateFormat("s");
+                            String detik = format3.format(tanggal);
+                            char[] dd = {tgl.charAt(0), tgl.charAt(1)};
+                            char[] mm = {tgl.charAt(3), tgl.charAt(4)};
+                            char[] yyyy = {tgl.charAt(6), tgl.charAt(7), tgl.charAt(8), tgl.charAt(9)};
+                            String day = new String(dd);
+                            String month = new String(mm);
+                            String year = new String(yyyy);
+                            String key = year + month + day + jam + menit + detik;
+
                             if (menuItem.getTitle().equals("Done")) {
-                                myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).setValue(new getAllHistory(isi.getRating(), isi.getComment(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), "done", isi.getRate_status()));
+                                myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(key).setValue(new getAllHistory(isi.getRating(), isi.getComment(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), "done", isi.getRate_status()));
+                                myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).removeValue();
                             } else if (menuItem.getTitle().equals("Cancel")) {
                                 myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).removeValue();
                             }
