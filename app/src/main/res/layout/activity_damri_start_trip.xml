@@ -91,27 +91,15 @@
 
             <TextView
                 android:id="@+id/asal_pengguna"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:text="@string/dago"
                 android:layout_below="@+id/blue_marker"
-                android:textStyle="bold"
-                android:textSize="15sp"
                 android:layout_marginStart="32dp"
                 android:fontFamily="@font/nunitosans_regular"
-                android:textColor="@android:color/black" />
-
-            <TextView
-                android:id="@+id/kabupaten_provinsi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bandung_jawa_barat"
-                android:layout_below="@+id/asal_pengguna"
-                android:textStyle="bold"
+                android:text="@string/dago"
+                android:textColor="@android:color/black"
                 android:textSize="15sp"
-                android:layout_marginStart="32dp"
-                android:fontFamily="@font/nunitosans_regular"
-                android:textColor="@android:color/black" />
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -134,22 +122,10 @@
 
             <TextView
                 android:id="@+id/asal_pengguna_to"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:text="@string/destinasi"
                 android:layout_below="@id/red_marker"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:layout_marginStart="32dp"
-                android:fontFamily="@font/nunitosans_regular"
-                android:textColor="@android:color/black" />
-
-            <TextView
-                android:id="@+id/kabupaten_provinsi_to"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/kab_prov_tujuan"
-                android:layout_below="@+id/asal_pengguna_to"
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:layout_marginStart="32dp"
@@ -184,23 +160,11 @@
                 android:textColor="@android:color/black" />
 
             <TextView
-                android:id="@+id/hari_kata"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hari"
-                android:layout_below="@+id/tanggal_judul"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:layout_marginStart="32dp"
-                android:fontFamily="@font/nunitosans_regular"
-                android:textColor="@android:color/black" />
-
-            <TextView
                 android:id="@+id/tanggal_kalender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tanggal_kalender"
-                android:layout_below="@+id/hari_kata"
+                android:layout_below="@+id/tanggal_judul"
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:layout_marginStart="32dp"

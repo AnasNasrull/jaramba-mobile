@@ -1,9 +1,12 @@
 package com.example.jarambamobile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,19 +15,29 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+import com.example.jarambamobile.fragment.DatePickerFragment;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+
+public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
+
 
     Dialog dialog;
     EditText etJumlahPenumpang;
-    TextView tvTotalInputPenumpang, tvMetodePembayaran;
+    TextView tvTotalInputPenumpang, tvMetodePembayaran, tvAsalPengguna, tvTujuanPengguna, tvTanggal;
     Button btnTambahkanPenumpang, btnDismissPenumpang, btnTambahMetodePembayaran, btnDismissMetode;
     Spinner spinner;
     String text;
+
+    RelativeLayout tanggal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +45,29 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         setContentView(R.layout.activity_damri_start_trip);
         tvTotalInputPenumpang = findViewById(R.id.total_penumpang);
         tvMetodePembayaran = findViewById(R.id.cash_emoney);
+
+        Intent intent = getIntent();
+
+        String start_point= intent.getStringExtra("start_point");
+        tvAsalPengguna = findViewById(R.id.asal_pengguna);
+        tvAsalPengguna.setText(start_point);
+
+        String destination_point= intent.getStringExtra("destination_point");
+        tvTujuanPengguna = findViewById(R.id.asal_pengguna_to);
+        tvTujuanPengguna.setText(destination_point);
+
+        tanggal = findViewById(R.id.rel_tanggal);
+        tanggal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(),"date picker");
+            }
+        });
+        tvTanggal = findViewById(R.id.tanggal_kalender);
     }
+
+
 
     public void letsGo(View view) {
         Toast.makeText(getApplicationContext(), "Let's Go Trip With Jaramba Apps", Toast.LENGTH_SHORT).show();
