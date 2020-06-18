@@ -80,7 +80,7 @@ public class SettingProfilePage extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("User");
+        databaseReference = database.getReference("Mobile_Apps").child("User");
         storageReference = FirebaseStorage.getInstance().getReference(); //firebase storage refeernce
 
         actionBar = getSupportActionBar();
@@ -127,7 +127,7 @@ public class SettingProfilePage extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for(DataSnapshot ds : dataSnapshot.getChildren()) {
                             //get data
-                           String password = ""+ds.child("password").getValue();
+                           String password = ""+ds.child("Password").getValue();
 
                             try {
                                 outputString = decrypt(password, pass);
@@ -297,11 +297,11 @@ public class SettingProfilePage extends AppCompatActivity {
     }
 
     public void changeUsername(View view) {
-        showNamePhoneUpdateDialog("Nama Lengkap");
+        showNamePhoneUpdateDialog("Nama_Lengkap");
     }
 
     public void changePhoneNumber(View view) {
-        showNamePhoneUpdateDialog("Nomor handphone");
+        showNamePhoneUpdateDialog("Nomor_Handphone");
     }
 
     private void showNamePhoneUpdateDialog(final String key) {
