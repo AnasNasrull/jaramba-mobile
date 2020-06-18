@@ -23,21 +23,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jarambamobile.fragment.DatePickerFragment;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
-public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
+public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
     Dialog dialog;
     EditText etJumlahPenumpang;
-    TextView tvTotalInputPenumpang, tvMetodePembayaran, tvAsalPengguna, tvTujuanPengguna, tvTanggal;
+    TextView tvTotalInputPenumpang, tvMetodePembayaran, tvAsalPengguna, tvTujuanPengguna, tvTanggal,tvHari, tvWaktu, tvTotalHarga;
     Button btnTambahkanPenumpang, btnDismissPenumpang, btnTambahMetodePembayaran, btnDismissMetode;
     Spinner spinner;
     String text;
 
-    RelativeLayout tanggal;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +65,28 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         tvTujuanPengguna = findViewById(R.id.asal_pengguna_to);
         tvTujuanPengguna.setText(destination_point);
 
-        tanggal = findViewById(R.id.rel_tanggal);
-        tanggal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(),"date picker");
-            }
-        });
         tvTanggal = findViewById(R.id.tanggal_kalender);
+        tvHari = findViewById(R.id.hari_kata);
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        String dayname = new SimpleDateFormat("EEEE").format(new Date());
+        tvTanggal.setText(date);
+        tvHari.setText(dayname);
+
+        tvWaktu = findViewById(R.id.waktu);
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
+        String localTime = new SimpleDateFormat("HH:mm a").format(cal.getTime());
+        tvWaktu.setText(localTime);
+
+        tvTotalHarga = findViewById(R.id.sum_payment);
+
+        reference = FirebaseDatabase.getInstance().getReference().child();
+
     }
 
-
+    public String getHarga (int penumpang, double biaya ){
+        Double total = penumpang * biaya;
+        return (Double.toString(total));
+    }
 
     public void letsGo(View view) {
         Toast.makeText(getApplicationContext(), "Let's Go Trip With Jaramba Apps", Toast.LENGTH_SHORT).show();
@@ -136,10 +155,10 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
 
                 if(!UserInput.isEmpty()){
                     tvTotalInputPenumpang.setText(UserInput + " Orang");
+                    tvTotalHarga.setText("Rp." + getHarga(Integer.parseInt(UserInput),3000)+",-");
                 } else {
                     Toast.makeText(getApplicationContext(), "Mohon isikan data dengan benar", Toast.LENGTH_SHORT).show();
                 }
-
                 dialog.dismiss();
             }
         });

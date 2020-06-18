@@ -160,11 +160,23 @@
                 android:textColor="@android:color/black" />
 
             <TextView
+                android:id="@+id/hari_kata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hari"
+                android:layout_below="@+id/tanggal_judul"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+            <TextView
                 android:id="@+id/tanggal_kalender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tanggal_kalender"
-                android:layout_below="@+id/tanggal_judul"
+                android:layout_below="@+id/hari_kata"
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:layout_marginStart="32dp"
@@ -180,7 +192,7 @@
             android:layout_below="@+id/rel_to"
             android:layout_marginStart="96dp"
             android:layout_marginTop="19dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="30dp"
             android:layout_alignParentEnd="true">
 
             <TextView
@@ -198,23 +210,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/waktu_judul"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="40dp"
                 android:fontFamily="@font/nunitosans_regular"
                 android:text="@string/waktu_keberangkatan"
-                android:textColor="@android:color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/pm_am"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginBottom="12dp"
-                android:layout_toEndOf="@+id/waktu"
-                android:layout_below="@id/waktu_judul"
-                android:fontFamily="@font/nunitosans_regular"
-                android:text="@string/pm_am"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -294,10 +292,49 @@
             android:background="@android:color/darker_gray" />
 
         <RelativeLayout
-            android:id="@+id/rel_metode_pembayaran"
+            android:id="@+id/rel_total_harga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_line5">
+
+            <TextView
+                android:id="@+id/total_harga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_credit_card_black_24dp"
+                android:text="Total Harga"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/sum_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp.0,-"
+                android:layout_below="@id/total_harga"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_line6"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/rel_total_harga"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:id="@+id/rel_metode_pembayaran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_line6">
 
             <TextView
                 android:id="@+id/metode_pembayaran"
@@ -332,7 +369,7 @@
             android:onClick="addMetodePembayaran"
             android:padding="10dp"
             android:layout_margin="10dp"
-            android:layout_below="@id/view_line5"
+            android:layout_below="@id/view_line6"
             android:layout_alignParentEnd="true"
             tools:ignore="OnClick"
             android:contentDescription="@string/image" />
