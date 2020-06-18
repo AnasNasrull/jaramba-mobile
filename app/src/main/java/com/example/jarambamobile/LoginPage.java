@@ -54,7 +54,7 @@ public class LoginPage extends AppCompatActivity {
 
         //check if user is null
         if(firebaseUser != null){
-            startActivity (new Intent(this, ProfilePage.class));
+            startActivity (new Intent(this, TripUser.class));
             finish();
         }
     }
@@ -164,7 +164,7 @@ public class LoginPage extends AppCompatActivity {
                             } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(LoginPage.this, "Selamat datang di Jaramba", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginPage.this, ProfilePage.class));
+                                startActivity(new Intent(LoginPage.this, TripUser.class));
                                 finish();
                             }
                         }

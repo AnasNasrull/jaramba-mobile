@@ -55,6 +55,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
     private static final int LOCATION_REQUEST = 500;
     private ResultReceiver startPointReceiver;
     private ResultReceiver destinationPointReceiver;
+    private Double startLat,startLong,destinationLat,destinationLong;
 
     ArrayList<LatLng> listPoints;
     Button btn_go;
@@ -84,8 +85,13 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
 
                 if((!TextUtils.isEmpty(destination_point.getText().toString()))&&(!TextUtils.isEmpty(start_point.getText().toString()))){
                     Intent intent = new Intent(getApplicationContext(),DamriStartTrip.class);
-                    intent.putExtra("start_point", start_point.getText().toString());
-                    intent.putExtra("destination_point", destination_point.getText().toString());
+                    intent.putExtra("start_address", start_point.getText().toString());
+                    intent.putExtra("destination_address", destination_point.getText().toString());
+                    intent.putExtra("start_lati", startLat.toString());
+                    intent.putExtra("start_long", startLong.toString());
+                    intent.putExtra("destination_lat", destinationLat.toString());
+                    intent.putExtra("destination_long", destinationLong.toString());
+                    intent.putExtra("From", "Trip User");
                     startActivity(intent);
                 }
             }
@@ -142,6 +148,8 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                     Location location = new Location("provideNA");
                     location.setLatitude(listPoints.get(0).latitude);
                     location.setLongitude(listPoints.get(0).longitude);
+                    startLat = listPoints.get(0).latitude;
+                    startLong = listPoints.get(0).longitude;
                     fetchStartAddress(location);
                 } else {
                     //Menambahkan marker kedua ke map
@@ -150,6 +158,8 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                     Location location = new Location("provideNA");
                     location.setLatitude(listPoints.get(1).latitude);
                     location.setLongitude(listPoints.get(1).longitude);
+                    destinationLat = listPoints.get(1).latitude;
+                    destinationLong = listPoints.get(1).longitude;
                     fetchDestinationAddress(location);
 
                 }

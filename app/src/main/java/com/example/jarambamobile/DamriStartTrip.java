@@ -66,11 +66,11 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
 
         Intent intent = getIntent();
 
-        startAddress= intent.getStringExtra("start_point");
+        startAddress= intent.getStringExtra("start_address");
         tvAsalPengguna = findViewById(R.id.asal_pengguna);
         tvAsalPengguna.setText(startAddress);
 
-        destinationAddress= intent.getStringExtra("destination_point");
+        destinationAddress= intent.getStringExtra("destination_address");
         tvTujuanPengguna = findViewById(R.id.asal_pengguna_to);
         tvTujuanPengguna.setText(destinationAddress);
 
@@ -86,10 +86,18 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
 
         tvTotalHarga = findViewById(R.id.sum_payment);
         database = FirebaseDatabase.getInstance().getReference();
-//        firebaseAuth = FirebaseAuth.getInstance();
-//        FirebaseUser user = firebaseAuth.getCurrentUser();
-//        String uid = user.getUid();
-//        database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User");
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String uid = user.getUid();
+        database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User");
+
+        btnGo = findViewById(R.id.btn_go);
+        btnGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User");
+            }
+        });
 
     }
 
