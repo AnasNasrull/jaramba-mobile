@@ -63,7 +63,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
         btn_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),UnderConstructionScreen.class));
+                startActivity(new Intent(getApplicationContext(),DamriStartTrip.class));
             }
         });
 
@@ -110,9 +110,11 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                 if (listPoints.size() == 1) {
                     //Menambahkan marker pertama ke map
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                    start_point.setText(Double.toString(listPoints.get(0).latitude) + Double.toString(listPoints.get(0).longitude));
                 } else {
                     //Menambahkan marker kedua ke map
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    destination_point.setText(Double.toString(listPoints.get(1).latitude) + Double.toString(listPoints.get(1).longitude));
                 }
                 mMap.addMarker(markerOptions);
 

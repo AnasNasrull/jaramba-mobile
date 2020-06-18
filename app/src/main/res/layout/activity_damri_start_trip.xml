@@ -382,7 +382,7 @@
             android:fontFamily="@font/nunitosans_semibold"
             android:textColor="@android:color/white"
             android:background="@drawable/rounded_btn"
-            android:layout_margin="40dp"
+            android:layout_margin="20dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:onClick="letsGo"
