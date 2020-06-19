@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance().getReference();
         databaseReference = database.child("Mobile_Apps").child("User");
 
-        //init progres dialog
+        //init progress dialog
         progressDialog = new ProgressDialog(HomeActivity.this);
 
         tvUsername = findViewById(R.id.name_user);
