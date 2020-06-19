@@ -11,12 +11,13 @@ public class getAllHistory {
     private String jumlah_penumpang;
     private String status;
     private String key;
+    private String rate_status;
 
     public getAllHistory() {
 
     }
 
-    public getAllHistory(float rating, String comment, String harga, String pembayaran, String start, String to, String tanggal, String jumlah_penumpang, String status) {
+    public getAllHistory(float rating, String comment, String harga, String pembayaran, String start, String to, String tanggal, String jumlah_penumpang, String status, String rate_status) {
         this.rating = rating;
         this.comment = comment;
         this.harga = harga;
@@ -26,6 +27,7 @@ public class getAllHistory {
         this.tanggal = tanggal;
         this.jumlah_penumpang = jumlah_penumpang;
         this.status = status;
+        this.rate_status = rate_status;
     }
 
     public float getRating() {
@@ -106,5 +108,13 @@ public class getAllHistory {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getRate_status() {
+        return rate_status;
+    }
+
+    public void setRate_status(String rate_status) {
+        this.rate_status = rate_status;
     }
 }

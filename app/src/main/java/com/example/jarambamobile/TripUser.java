@@ -6,17 +6,26 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.IntentService;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.text.Layout;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.jarambamobile.adapter.Constants;
+import com.example.jarambamobile.adapter.FetchAddress;
+import com.example.jarambamobile.adapter.PlaceAutoSuggestionAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,9 +50,13 @@ import java.util.HashSet;
 import java.util.List;
 
 public class TripUser extends FragmentActivity implements OnMapReadyCallback {
-    EditText start_point, destination_point;
+    AutoCompleteTextView start_point, destination_point;
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST = 500;
+    private ResultReceiver startPointReceiver;
+    private ResultReceiver destinationPointReceiver;
+    private Double startLat,startLong,destinationLat,destinationLong;
+
     ArrayList<LatLng> listPoints;
     Button btn_go;
 
@@ -61,12 +74,43 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
         btn_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),UnderConstructionScreen.class));
+
+                if(TextUtils.isEmpty(start_point.getText().toString())) {
+                    Toast.makeText(TripUser.this, "Silahkan tentukan Start Point", Toast.LENGTH_SHORT).show();
+                }
+
+                if(TextUtils.isEmpty(destination_point.getText().toString())) {
+                    Toast.makeText(TripUser.this, "Silahkan tentukan Destination Point", Toast.LENGTH_SHORT).show();
+                }
+
+                if((!TextUtils.isEmpty(destination_point.getText().toString()))&&(!TextUtils.isEmpty(start_point.getText().toString()))){
+                    startLat = listPoints.get(0).latitude;
+                    startLong = listPoints.get(0).longitude;
+                    destinationLat = listPoints.get(1).latitude;
+                    destinationLong = listPoints.get(1).longitude;
+
+                    Intent intent = new Intent(getApplicationContext(),DamriStartTrip.class);
+                    intent.putExtra("start_address", start_point.getText().toString());
+                    intent.putExtra("destination_address", destination_point.getText().toString());
+                    intent.putExtra("start_lati", startLat.toString());
+                    intent.putExtra("start_long", startLong.toString());
+                    intent.putExtra("destination_lati", destinationLat.toString());
+                    intent.putExtra("destination_long", destinationLong.toString());
+                    intent.putExtra("From", "Trip User");
+                    startActivity(intent);
+                }
             }
         });
 
         start_point = findViewById(R.id.start_point);
         destination_point = findViewById(R.id.destination_point);
+
+        start_point.setAdapter(new PlaceAutoSuggestionAdapter(TripUser.this, android.R.layout.simple_list_item_1));
+        destination_point.setAdapter(new PlaceAutoSuggestionAdapter(TripUser.this, android.R.layout.simple_list_item_1));
+
+        startPointReceiver = new StartPointReceiver(new Handler());
+        destinationPointReceiver = new DestinationPointReceiver(new Handler());
+
     }
 
 
@@ -105,9 +149,20 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                 if (listPoints.size() == 1) {
                     //Menambahkan marker pertama ke map
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+
+                    Location location = new Location("provideNA");
+                    location.setLatitude(listPoints.get(0).latitude);
+                    location.setLongitude(listPoints.get(0).longitude);
+                    fetchStartAddress(location);
                 } else {
                     //Menambahkan marker kedua ke map
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
+                    Location location = new Location("provideNA");
+                    location.setLatitude(listPoints.get(1).latitude);
+                    location.setLongitude(listPoints.get(1).longitude);
+                    fetchDestinationAddress(location);
+
                 }
                 mMap.addMarker(markerOptions);
 
@@ -255,9 +310,57 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
             if (polylineOptions!=null) {
                 mMap.addPolyline(polylineOptions);
             } else {
-                Toast.makeText(getApplicationContext(), "Buffere Value Null !", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
             }
 
+        }
+    }
+
+    private void fetchStartAddress(Location location){
+        Intent intent = new Intent(this, FetchAddress.class);
+        intent.putExtra(Constants.RECEIVER, startPointReceiver);
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
+        startService(intent);
+
+    }
+
+    private void fetchDestinationAddress(Location location){
+        Intent intent = new Intent(this, FetchAddress.class);
+        intent.putExtra(Constants.RECEIVER, destinationPointReceiver);
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
+        startService(intent);
+
+    }
+
+    private class StartPointReceiver extends ResultReceiver {
+        public StartPointReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            super.onReceiveResult(resultCode, resultData);
+            if(resultCode == Constants.SUCCESS_RESULT){
+                start_point.setText(resultData.getString(Constants.RESULT_DATA_KEY));
+            }else {
+                Toast.makeText(TripUser.this, resultData.getString(Constants.RESULT_DATA_KEY), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class DestinationPointReceiver extends ResultReceiver {
+        public DestinationPointReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            super.onReceiveResult(resultCode, resultData);
+            if(resultCode == Constants.SUCCESS_RESULT){
+                destination_point.setText(resultData.getString(Constants.RESULT_DATA_KEY));
+            }else {
+                Toast.makeText(TripUser.this, resultData.getString(Constants.RESULT_DATA_KEY), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
