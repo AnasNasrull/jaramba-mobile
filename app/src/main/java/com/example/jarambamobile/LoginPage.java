@@ -54,7 +54,7 @@ public class LoginPage extends AppCompatActivity {
 
         //check if user is null
         if(firebaseUser != null){
-            startActivity (new Intent(this, ProfilePage.class));
+            startActivity (new Intent(this, HomeActivity.class));
             finish();
         }
     }
