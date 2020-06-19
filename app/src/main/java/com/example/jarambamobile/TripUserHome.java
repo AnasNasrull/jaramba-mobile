@@ -1,10 +1,13 @@
 package com.example.jarambamobile;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +15,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,6 +34,32 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_user_home);
+
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi_trip);
+        bottomNavigationView.setSelectedItemId(R.id.nav_trip);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        startActivity(new Intent(TripUserHome.this, HomeActivity.class));
+                        finish();
+                        break;
+                    case R.id.nav_history:
+                        startActivity(new Intent(TripUserHome.this, History.class));
+                        finish();
+                        break;
+                    case R.id.nav_profile:
+                        startActivity(new Intent(TripUserHome.this, ProfilePage.class));
+                        finish();
+                        break;
+                }
+
+                return false;
+            }
+        });
+
 
 
         etStartCity = findViewById(R.id.btn_start_city);
@@ -48,6 +79,7 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
         etDestinationArea.setAdapter(adapter);
         etStartArea.setOnItemSelectedListener(this);
         etDestinationArea.setOnItemSelectedListener(this);
+
 
 
     }
