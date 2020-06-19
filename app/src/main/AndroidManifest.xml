@@ -29,7 +29,7 @@
             android:name=".SettingProfilePage"
             android:parentActivityName=".ProfilePage"
             android:theme="@style/AppTheme3"></activity>
-        <activity android:name=".ProfilePage"></activity>
+<!--        <activity android:name=".ProfilePage"></activity>-->
         <activity
             android:name=".RegisterPage"
             android:theme="@style/AppTheme2"></activity>
@@ -58,8 +58,8 @@
             android:label="@string/title_activity_trip_user"></activity>
 
 
-        <activity android:name=".SplashScreen">-->
-        <activity android:name=".TripUserHome">
+        <activity android:name=".TripUserHome"> </activity>
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,11 +68,7 @@
         </activity>
 
         <activity android:name=".History"></activity>
-        <activity android:name=".ProfilePage">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ProfilePage"></activity>
 
         <service android:name=".adapter.FetchAddress"/>
     </application>
