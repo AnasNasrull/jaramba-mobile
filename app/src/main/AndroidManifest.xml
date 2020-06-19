@@ -58,7 +58,7 @@
             android:label="@string/title_activity_trip_user"></activity>
 
 
-        <activity android:name=".SplashScreen">-->
+        <activity android:name=".SplashScreen"></activity>
         <activity android:name=".TripUserHome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

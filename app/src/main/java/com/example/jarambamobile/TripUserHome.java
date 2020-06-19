@@ -53,8 +53,6 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-
-
     public void btnGo(View view) {
 
 
