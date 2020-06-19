@@ -24,7 +24,7 @@
             android:name=".AboutAppsActivity"
             android:parentActivityName=".SettingProfilePage"
             android:theme="@style/AppTheme3" />
-        <activity android:name=".TripUserHome"></activity>
+<!--        <activity android:name=".TripUserHome"></activity>-->
         <activity
             android:name=".SettingProfilePage"
             android:parentActivityName=".ProfilePage"
@@ -56,8 +56,8 @@
         <activity
             android:name=".TripUser"
             android:label="@string/title_activity_trip_user"></activity>
-        <activity android:name=".SplashScreen">
-<!--        <activity android:name=".DamriStartTrip">-->
+<!--        <activity android:name=".SplashScreen">-->
+        <activity android:name=".TripUserHome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

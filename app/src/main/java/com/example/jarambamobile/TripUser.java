@@ -13,10 +13,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.jarambamobile.adapter.PlaceAutoSuggestionAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,7 +43,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class TripUser extends FragmentActivity implements OnMapReadyCallback {
-    EditText start_point, destination_point;
+    AutoCompleteTextView start_point, destination_point;
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST = 500;
     ArrayList<LatLng> listPoints;
@@ -67,6 +69,9 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
 
         start_point = findViewById(R.id.start_point);
         destination_point = findViewById(R.id.destination_point);
+
+        start_point.setAdapter(new PlaceAutoSuggestionAdapter(TripUser.this, android.R.layout.simple_list_item_1));
+        destination_point.setAdapter(new PlaceAutoSuggestionAdapter(TripUser.this, android.R.layout.simple_list_item_1));
     }
 
 

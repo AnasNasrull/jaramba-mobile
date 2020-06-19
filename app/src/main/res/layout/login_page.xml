@@ -28,9 +28,8 @@
         android:textAlignment="center"
         android:textSize="15sp"
         android:fontFamily="@font/nunitosans_semibold"
-        android:textStyle="bold"
-        android:textColor="@android:color/black" />
-  
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/txt_quote"
         android:layout_width="wrap_content"
