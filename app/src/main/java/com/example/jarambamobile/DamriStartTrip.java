@@ -69,10 +69,10 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
 
         Intent intent = getIntent();
 
-        startPointLat = intent.getDoubleExtra("start_lati");
-        startPointLong = intent.getDoubleExtra("start_long");
-        destPointLat = intent.getDoubleExtra("destination_lati");
-        destPointLong = intent.getDoubleExtra("destination_long");
+        startPointLat = Double.parseDouble(intent.getStringExtra("start_lati"));
+        startPointLong = Double.parseDouble(intent.getStringExtra("start_long"));
+        destPointLat = Double.parseDouble(intent.getStringExtra("destination_lati"));
+        destPointLong = Double.parseDouble(intent.getStringExtra("destination_long"));
 
         startAddress= intent.getStringExtra("start_address");
         tvAsalPengguna = findViewById(R.id.asal_pengguna);
@@ -120,8 +120,8 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                 startLatLong.setLongitude(startPointLong);
                 destinationLatLong.setLatitude(destPointLat);
                 destinationLatLong.setLongitude(destPointLong);
-                database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").push().setValue(startLatLong);
-                database.child("Mobile_Apps").child("User").child("LongLat").child(uid).push().setValue(destPointLong);
+                database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(startPointLong);
+                database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(destPointLong);
             }
         });
 
