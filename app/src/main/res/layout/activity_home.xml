@@ -50,7 +50,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginStart="26dp"
             android:fontFamily="@font/nunitosans_semibold"
-            android:text=" " /> />
+            android:text=" " />
 
         <ImageView
             android:layout_width="129dp"
@@ -62,7 +62,8 @@
             android:layout_marginEnd="27dp"
             android:layout_marginBottom="42dp"
             android:foregroundGravity="center"
-            android:src="@drawable/jaramba_logo" />
+            android:src="@drawable/jaramba_logo"
+            android:contentDescription="@string/image" />
     </RelativeLayout>
 
     <RelativeLayout
