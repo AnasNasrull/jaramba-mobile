@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
     //firebase
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
-    FirebaseDatabase database;
+    DatabaseReference database;
     DatabaseReference databaseReference;
 
     ProgressDialog progressDialog;
@@ -44,8 +44,6 @@ public class HomeActivity extends AppCompatActivity {
     ImageView greetImg;
     TextView tvUsername;
 
-    private DatabaseReference database;
-    FirebaseAuth firebaseAuth;
     TextView nameUser;
 
     @Override
@@ -55,13 +53,13 @@ public class HomeActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("Mobile_Apps").child("User");
+        database = FirebaseDatabase.getInstance().getReference();
+        databaseReference = database.child("Mobile_Apps").child("User");
 
         //init progres dialog
         progressDialog = new ProgressDialog(HomeActivity.this);
 
-        tvUsername = findViewById(R.id.nama_user);
+        tvUsername = findViewById(R.id.name_user);
         getNamaUser();
 
 

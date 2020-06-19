@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -11,20 +12,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jarambamobile.fragment.DatePickerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class TripUserHome extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class TripUserHome extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
     Calendar calendar;
-
     TextView tvEditDate;
     Spinner etStartCity, etStartArea, etDestinationCity, etDestinationArea;
 
@@ -60,7 +63,14 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-
+        tvEditDate = findViewById(R.id.edit_date);
+        tvEditDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datepicker = new DatePickerFragment();
+                datepicker.show(getSupportFragmentManager(),"date picker");
+            }
+        });
 
         etStartCity = findViewById(R.id.btn_start_city);
         etStartCity.setOnItemSelectedListener(this);
@@ -87,7 +97,6 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
 
     public void btnGo(View view) {
 
-
     }
 
     @Override
@@ -100,8 +109,13 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    public void datePicker(View view) {
-
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR,year);
+        calendar.set(Calendar.MONTH,month);
+        calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        String nowDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        tvEditDate.setText(nowDate);
     }
-
 }
