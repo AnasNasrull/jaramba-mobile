@@ -27,7 +27,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+
 import java.util.Calendar;
+import java.util.Collections;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -41,6 +43,10 @@ public class HomeActivity extends AppCompatActivity {
 
     ImageView greetImg;
     TextView tvUsername;
+
+    private DatabaseReference database;
+    FirebaseAuth firebaseAuth;
+    TextView nameUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +94,33 @@ public class HomeActivity extends AppCompatActivity {
 
         greeting();
 
+        nameUser = findViewById(R.id.name_user);
 
+        database = FirebaseDatabase.getInstance().getReference();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        String uid = user.getUid();
+
+        database.child("Mobile_Apps").child("User").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                    String name = ""+noteDataSnapshot.child("Nama_Lengkap").getValue();
+
+                    nameUser.setText(name);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                //Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 
     }
 

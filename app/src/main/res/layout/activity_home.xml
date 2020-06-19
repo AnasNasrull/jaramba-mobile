@@ -39,7 +39,9 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/nama_user"
+
+
+            android:id="@+id/name_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/welcome"
@@ -48,7 +50,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginStart="26dp"
             android:fontFamily="@font/nunitosans_semibold"
-            android:text=" " />
+            android:text=" " /> />
 
         <ImageView
             android:layout_width="129dp"
