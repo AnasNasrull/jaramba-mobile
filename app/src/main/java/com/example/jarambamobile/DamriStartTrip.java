@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.DatabaseMetaData;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -122,6 +123,10 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                 destinationLatLong.setLongitude(destPointLong);
                 database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(startPointLong);
                 database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(destPointLong);
+
+                //intent to history menu
+                startActivity(new Intent(DamriStartTrip.this, History.class));
+                finish();
             }
         });
 
