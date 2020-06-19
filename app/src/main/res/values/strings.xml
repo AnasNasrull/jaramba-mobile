@@ -65,4 +65,41 @@
         <item>Go-Pay</item>
         <item>Link-aja</item>
     </string-array>
+
+    <string-array name="city">
+        <item>Bandung</item>
+    </string-array>
+
+    <string-array name="area">
+        <item>Andir</item>
+        <item>Astana Anyar</item>
+        <item>Antapani</item>
+        <item>Arcamanik</item>
+        <item>Babakan Ciparay</item>
+        <item>Bandung Kidul</item>
+        <item>Bandung Kulon</item>
+        <item>Bandung Wetan</item>
+        <item>Batununggal</item>
+        <item>Bojongloa Kaler</item>
+        <item>Bojongloa Kidul</item>
+        <item>Buahbatu</item>
+        <item>Cibeunying Kaler</item>
+        <item>Cibeunying Kidul</item>
+        <item>Cibiru</item>
+        <item>Cicendo</item>
+        <item>Cidadap</item>
+        <item>Cinambo</item>
+        <item>Coblong</item>
+        <item>Gedebage</item>
+        <item>Kiaracondong</item>
+        <item>Lengkong</item>
+        <item>Mandalajati</item>
+        <item>Panyileukan</item>
+        <item>Rancasari</item>
+        <item>Regol</item>
+        <item>Sukajadi</item>
+        <item>Sukasari</item>
+        <item>Sumur Bandung</item>
+        <item>Ujungberung</item>
+    </string-array>
 </resources>
