@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.jarambamobile.fragment.DatePickerFragment;
 import com.example.jarambamobile.models.HistoryTripModel;
+import com.example.jarambamobile.models.PointAddressModel;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,9 +51,11 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
     Spinner spinner;
     String text, startAddress, destinationAddress, metodePembayaran, hari, tanggal, waktu;
     Integer jumlahPenumpang;
-    Double totalHarga;
-    LatLng startPoint, destinationPoint;
+    Double totalHarga, startPointLat,startPointLong, destPointLat,destPointLong;
+
     HistoryTripModel history;
+    PointAddressModel startLatLong, destinationLatLong;
+
 
     DatabaseReference database;
     FirebaseAuth firebaseAuth;
@@ -65,6 +68,11 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         tvMetodePembayaran = findViewById(R.id.cash_emoney);
 
         Intent intent = getIntent();
+
+        startPointLat = intent.getDoubleExtra("start_lati");
+        startPointLong = intent.getDoubleExtra("start_long");
+        destPointLat = intent.getDoubleExtra("destination_lati");
+        destPointLong = intent.getDoubleExtra("destination_long");
 
         startAddress= intent.getStringExtra("start_address");
         tvAsalPengguna = findViewById(R.id.asal_pengguna);
@@ -90,6 +98,8 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         history = new HistoryTripModel();
+        startLatLong = new PointAddressModel();
+        destinationLatLong = new PointAddressModel();
         btnGo = findViewById(R.id.btn_go);
         final String uid = "sqNxENZFQAga0Qq9MlEyI4aCxQh2";
         btnGo.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +116,12 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                 history.setStatus("Pending");
                 database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child("Trip_User").setValue(history);
 
-
+                startLatLong.setLatitude(startPointLat);
+                startLatLong.setLongitude(startPointLong);
+                destinationLatLong.setLatitude(destPointLat);
+                destinationLatLong.setLongitude(destPointLong);
+                database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").push().setValue(startLatLong);
+                database.child("Mobile_Apps").child("User").child("LongLat").child(uid).push().setValue(destPointLong);
             }
         });
 

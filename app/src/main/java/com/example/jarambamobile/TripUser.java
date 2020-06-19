@@ -87,10 +87,10 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                     Intent intent = new Intent(getApplicationContext(),DamriStartTrip.class);
                     intent.putExtra("start_address", start_point.getText().toString());
                     intent.putExtra("destination_address", destination_point.getText().toString());
-                    intent.putExtra("start_lati", startLat.toString());
-                    intent.putExtra("start_long", startLong.toString());
-                    intent.putExtra("destination_lat", destinationLat.toString());
-                    intent.putExtra("destination_long", destinationLong.toString());
+                    intent.putExtra("start_lati", startLat);
+                    intent.putExtra("start_long", startLong);
+                    intent.putExtra("destination_lat", destinationLat);
+                    intent.putExtra("destination_long", destinationLong);
                     intent.putExtra("From", "Trip User");
                     startActivity(intent);
                 }
