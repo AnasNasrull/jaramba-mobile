@@ -87,7 +87,7 @@ public class ProfilePage extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("User");
+        databaseReference = database.getReference("Mobile_Apps").child("User");
         storageReference = FirebaseStorage.getInstance().getReference();
 
 
@@ -114,15 +114,16 @@ public class ProfilePage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     //get data
-                    String name = ""+ds.child("Nama Lengkap").getValue();
+                    String name = ""+ds.child("Nama_Lengkap").getValue();
                     String email = ""+ds.child("Email").getValue();
-                    String phone = ""+ds.child("Nomor handphone").getValue();
-                    String image = ""+ds.child("image").getValue();
+                    String phone = ""+ds.child("Nomor_Handphone").getValue();
+                    String image = ""+ds.child("Image").getValue();
 
                     //set data
                     nameTv.setText(name);
                     emailTv.setText(email);
                     phoneTv.setText(phone);
+
 
                     try {
                         //if image is received then set
@@ -159,9 +160,30 @@ public class ProfilePage extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(this, LoginPage.class));
-        finish();
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("Konfirmasi Logout aplikasi");
+        builder.setIcon(R.drawable.ic_exit_to_app_black_24dp);
+        builder.setMessage("Anda yakin ingin Logout ? ");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(ProfilePage.this, LoginPage.class));
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        androidx.appcompat.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     public void userSettings(View view) {
@@ -333,9 +355,9 @@ public class ProfilePage extends AppCompatActivity {
                                     }
                                 });
 
-                        if(profile.equals("image")){
+                        if(profile.equals("Image")){
                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
-                            Query query = ref.orderByChild("Unique ID").equalTo(uid);
+                            Query query = ref.orderByChild("Unique_ID").equalTo(uid);
                             query.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

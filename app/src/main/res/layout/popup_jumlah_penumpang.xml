@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="25dp"
+        android:background="@drawable/bg_round" >
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/jaramba_logo_04"
+            android:contentDescription="@string/image" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Silahkan masukkan jumlah penumpang"
+            android:fontFamily="@font/nunitosans_regular"
+            android:textColor="@android:color/black" />
+
+        <EditText
+            android:id="@+id/et_jumlah_penumpang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:inputType="number"
+            android:hint="Jumlah penumpang"
+            android:drawableStart="@drawable/ic_people_black_24dp"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/nunitosans_regular"
+            android:autofillHints="no" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_dismiss_penumpang"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Batal"
+                android:textAllCaps="false"
+                android:fontFamily="@font/nunitosans_semibold"
+                android:textColor="@android:color/black"
+                android:background="@drawable/rounded_border_btn"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:onClick="letsGo" />
+
+            <Button
+                android:id="@+id/btn_tambah_penumpang"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="Tambahkan"
+                android:textAllCaps="false"
+                android:fontFamily="@font/nunitosans_semibold"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_btn"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
