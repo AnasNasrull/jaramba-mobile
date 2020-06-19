@@ -87,7 +87,7 @@ public class ProfilePage extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("User");
+        databaseReference = database.getReference("Mobile_Apps").child("User");
         storageReference = FirebaseStorage.getInstance().getReference();
 
 
@@ -114,10 +114,10 @@ public class ProfilePage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     //get data
-                    String name = ""+ds.child("Nama Lengkap").getValue();
+                    String name = ""+ds.child("Nama_Lengkap").getValue();
                     String email = ""+ds.child("Email").getValue();
-                    String phone = ""+ds.child("Nomor handphone").getValue();
-                    String image = ""+ds.child("image").getValue();
+                    String phone = ""+ds.child("Nomor_Handphone").getValue();
+                    String image = ""+ds.child("Image").getValue();
 
                     //set data
                     nameTv.setText(name);
@@ -355,9 +355,9 @@ public class ProfilePage extends AppCompatActivity {
                                     }
                                 });
 
-                        if(profile.equals("image")){
+                        if(profile.equals("Image")){
                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
-                            Query query = ref.orderByChild("Unique ID").equalTo(uid);
+                            Query query = ref.orderByChild("Unique_ID").equalTo(uid);
                             query.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
