@@ -1,5 +1,6 @@
 package com.example.jarambamobile;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -26,6 +27,8 @@ import com.example.jarambamobile.fragment.DatePickerFragment;
 import com.example.jarambamobile.models.HistoryTripModel;
 import com.example.jarambamobile.models.PointAddressModel;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -50,8 +53,8 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
     TextView tvTotalInputPenumpang, tvMetodePembayaran, tvAsalPengguna, tvTujuanPengguna, tvTanggal,tvHari, tvWaktu, tvTotalHarga;
     Button btnTambahkanPenumpang, btnDismissPenumpang, btnTambahMetodePembayaran, btnDismissMetode, btnGo;
     Spinner spinner;
-    String text, startAddress, destinationAddress, metodePembayaran, hari, tanggal, waktu;
-    Integer jumlahPenumpang;
+    String text, startAddress, destinationAddress, metodePembayaran ="", hari, tanggal, waktu;
+    Integer jumlahPenumpang = 0;
     Double totalHarga, startPointLat,startPointLong, destPointLat,destPointLong;
 
     HistoryTripModel history;
@@ -106,27 +109,41 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                history.setComment(" ");
-                history.setHarga(totalHarga);
-                history.setRating(" ");
-                history.setJumlah_penumpang(jumlahPenumpang);
-                history.setPembayaran(metodePembayaran);
-                history.setTanggal(tanggal);
-                history.setStart(startAddress);
-                history.setTo(destinationAddress);
-                history.setStatus("Pending");
-                database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child("Trip_User").setValue(history);
+               if(metodePembayaran==""||jumlahPenumpang==0){
+                    Toast.makeText(getApplicationContext(), "Silahkan Lengkapi data !", Toast.LENGTH_SHORT).show();
+                }else{
+                    history.setComment(" ");
+                    history.setHarga(totalHarga);
+                    history.setRating(" ");
+                    history.setJumlah_penumpang(jumlahPenumpang);
+                    history.setPembayaran(metodePembayaran);
+                    history.setTanggal(tanggal);
+                    history.setStart(startAddress);
+                    history.setTo(destinationAddress);
+                    history.setStatus("Pending");
+                    database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child("Trip_User").setValue(history).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan !", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Data Gagal Disimpan, silahkan ulangi kembali!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                startLatLong.setLatitude(startPointLat);
-                startLatLong.setLongitude(startPointLong);
-                destinationLatLong.setLatitude(destPointLat);
-                destinationLatLong.setLongitude(destPointLong);
-                database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(startPointLong);
-                database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(destPointLong);
+                    startLatLong.setLatitude(startPointLat);
+                    startLatLong.setLongitude(startPointLong);
+                    destinationLatLong.setLatitude(destPointLat);
+                    destinationLatLong.setLongitude(destPointLong);
+                    database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(startPointLong);
+                    database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(destPointLong);
 
-                //intent to history menu
-                startActivity(new Intent(DamriStartTrip.this, History.class));
-                finish();
+                    //intent to history menu
+                    startActivity(new Intent(DamriStartTrip.this, History.class));
+                    finish();
+                }
             }
         });
 
