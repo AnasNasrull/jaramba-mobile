@@ -26,30 +26,32 @@
         android:layout_height="wrap_content"
         android:text="@string/petualangan_seru_dimulai_dari_sini"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
         android:textSize="15sp"
+        android:fontFamily="@font/nunitosans_semibold"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txt_quote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:fontFamily="@font/nunitosans_regular"
         android:layout_marginBottom="16dp"
         android:text="@string/nikmati_kemudahan_perjalanan_n_hanya_dengan_satu_aplikasi"
-        android:textAlignment="center"
-        android:textSize="15sp" />
-
+        />
 
     <EditText
         android:id="@+id/et_email_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nunitosans_regular"
+        android:hint="@string/masukkan_email"
         android:layout_marginBottom="10dp"
         android:autofillHints="no"
         android:background="@drawable/rounded_et"
         android:drawableStart="@drawable/ic_person_black_24dp"
         android:drawablePadding="10dp"
-        android:hint="@string/masukkan_email"
         android:inputType="textEmailAddress"
         android:padding="15dp" />
 
@@ -66,6 +68,7 @@
             android:background="@drawable/rounded_et"
             android:drawableStart="@drawable/ic_lock_black_24dp"
             android:drawablePadding="10dp"
+            android:fontFamily="@font/nunitosans_regular"
             android:padding="15dp"
             android:autofillHints="no"
             android:inputType="textPassword"
@@ -92,6 +95,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lupa_password"
+        android:padding="10dp"
+        android:fontFamily="@font/nunitosans_semibold"
         android:textStyle="bold"
         android:textSize="17sp"
         android:textColor="@android:color/black"
@@ -111,6 +116,7 @@
             android:layout_height="wrap_content"
             android:text="@string/belum_memiliki_akun"
             android:textSize="17sp"
+            android:fontFamily="@font/nunitosans_regular"
             android:textColor="@android:color/black" />
 
         <TextView
@@ -118,6 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mendaftar"
+            android:fontFamily="@font/nunitosans_semibold"
             android:textStyle="bold"
             android:textSize="17sp"
             android:textColor="@android:color/black"

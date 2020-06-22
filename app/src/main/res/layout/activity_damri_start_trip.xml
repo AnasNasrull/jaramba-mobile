@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".DamriStartTrip">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/judul_lets_start_your_trip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="19dp"
+            android:fontFamily="@font/nunitosans_semibold"
+            android:layout_marginTop="16dp"
+            android:textColor="#EA604E"
+            android:text="@string/lets_start_nyour_trip"
+            android:textSize="21sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/logo_04"
+            android:layout_width="123dp"
+            android:layout_height="81dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="123dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@+id/judul_lets_start_your_trip"
+            android:src="@drawable/jaramba_logo_04"
+            android:contentDescription="@string/image" />
+
+        <TextView
+            android:id="@+id/mode_transportasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mode_transportasi"
+            android:layout_below="@+id/judul_lets_start_your_trip"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/nunitosans_regular"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/jenis_kendaraan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bus_damri"
+            android:layout_below="@+id/mode_transportasi"
+            android:layout_marginTop="7dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/nunitosans_regular"
+            android:textColor="@android:color/black" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/jenis_kendaraan"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:id="@+id/rel_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_line">
+
+            <TextView
+                android:id="@+id/blue_marker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_blue_marker"
+                android:text="@string/from"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/asal_pengguna"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/blue_marker"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:text="@string/dago"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/rel_from">
+
+            <TextView
+                android:id="@+id/red_marker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_red_marker"
+                android:text="@string/to"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/asal_pengguna_to"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="@string/destinasi"
+                android:layout_below="@id/red_marker"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_line2"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/rel_to"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:id="@+id/rel_tanggal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_line2">
+
+            <TextView
+                android:id="@+id/tanggal_judul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_date_range_black_24dp"
+                android:text="@string/tanggal"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/hari_kata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hari"
+                android:layout_below="@+id/tanggal_judul"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tanggal_kalender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tanggal_kalender"
+                android:layout_below="@+id/hari_kata"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rel_waktu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rel_to"
+            android:layout_marginStart="96dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="30dp"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:id="@+id/waktu_judul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_access_time_black_24dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:text="@string/waktu"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/waktu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/waktu_judul"
+                android:layout_marginStart="40dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:text="@string/waktu_keberangkatan"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_line3"
+            android:layout_width="170dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/rel_tanggal"
+            android:background="@android:color/darker_gray" />
+
+        <View
+            android:id="@+id/view_line4"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/rel_waktu"
+            android:layout_toEndOf="@+id/view_line3"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:id="@+id/rel_jumlah_penumpang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_line3">
+
+            <TextView
+                android:id="@+id/jumlah_penumpang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_people_black_24dp"
+                android:text="@string/jumlah_penumpang"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/total_penumpang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/keterangan_penumpang"
+                android:layout_below="@id/jumlah_penumpang"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/icon_add_penumpang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_box_black_24dp"
+            android:onClick="addJumlahPenumpang"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:layout_below="@id/view_line4"
+            android:layout_alignParentEnd="true"
+            tools:ignore="OnClick"
+            android:contentDescription="@string/image" />
+
+        <View
+            android:id="@+id/view_line5"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/rel_jumlah_penumpang"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:id="@+id/rel_total_harga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_line5">
+
+            <TextView
+                android:id="@+id/total_harga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_credit_card_black_24dp"
+                android:text="Total Harga"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/sum_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp.0,-"
+                android:layout_below="@id/total_harga"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_line6"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/rel_total_harga"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:id="@+id/rel_metode_pembayaran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_line6">
+
+            <TextView
+                android:id="@+id/metode_pembayaran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_credit_card_black_24dp"
+                android:text="@string/metode_pembayaran"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/cash_emoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/keterangan_metode_pembayaran"
+                android:layout_below="@id/metode_pembayaran"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/nunitosans_regular"
+                android:textColor="@android:color/black" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/icon_add_pembayaran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_box_black_24dp"
+            android:tint="#EA604E"
+            android:onClick="addMetodePembayaran"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:layout_below="@id/view_line6"
+            android:layout_alignParentEnd="true"
+            tools:ignore="OnClick"
+            android:contentDescription="@string/image" />
+
+        <Button
+            android:id="@+id/btn_go"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/let_s_go"
+            android:textAllCaps="false"
+            android:fontFamily="@font/nunitosans_semibold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/rounded_btn"
+            android:layout_margin="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            tools:ignore="OnClick" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

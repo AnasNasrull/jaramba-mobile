@@ -74,7 +74,7 @@ public class RegisterPage extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password_register);
 
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("User");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Mobile_Apps");
         firebaseAuth = FirebaseAuth.getInstance();
 
         rightin_anim = AnimationUtils.loadAnimation(this,R.anim.right_in);
@@ -186,15 +186,22 @@ public class RegisterPage extends AppCompatActivity {
 
                                 HashMap <Object, String> hashMap = new HashMap<>();
                                 hashMap.put("Email", email);
-                                hashMap.put("Nomor handphone", number);
-                                hashMap.put("Nama Lengkap", username);
-                                hashMap.put("Unique ID", uid );
-                                hashMap.put("password", passwords);
-                                hashMap.put("image", "");
+                                hashMap.put("Nomor_Handphone", number);
+                                hashMap.put("Nama_Lengkap", username);
+                                hashMap.put("Unique_ID", uid );
+                                hashMap.put("Image", "");
+
+                                    try {
+                                        outputString = encrypt(etPassword.getText().toString().trim(), pass);
+                                        hashMap.put("Password", outputString);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                DatabaseReference reference = database.getReference("User");
-                                reference.child(uid).setValue(hashMap);
+                                DatabaseReference reference = database.getReference("Mobile_Apps");
+                                reference.child("User").child(uid).setValue(hashMap);
 
                                 progressDialog.dismiss();
                                 Toast.makeText(RegisterPage.this, "Email anda : " + email + "\nSukses terdaftar pada sistem", Toast.LENGTH_SHORT).show();
@@ -216,6 +223,7 @@ public class RegisterPage extends AppCompatActivity {
 
 
     }
+
 
     private String encrypt(String Data, String password) throws Exception {
         SecretKeySpec key = generateKey(password);

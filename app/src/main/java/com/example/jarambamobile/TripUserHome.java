@@ -2,79 +2,120 @@ package com.example.jarambamobile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
-import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.jarambamobile.fragment.DatePickerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class TripUserHome extends AppCompatActivity {
-    ImageView greetImg;
-    TextView greetText;
+public class TripUserHome extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
+
+    Calendar calendar;
+    TextView tvEditDate;
+    Spinner etStartCity, etStartArea, etDestinationCity, etDestinationArea;
+
+    String StartCity, StartArea, DestinationCity, DestinationArea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_user_home);
 
-        greetImg = findViewById(R.id.greeting_img);
-        greetText = findViewById(R.id.greeting_text);
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi_trip);
+        bottomNavigationView.setSelectedItemId(R.id.nav_trip);
 
-        greeting();
-
-
-        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi);
-        bottomNavigationView.setSelectedItemId(R.id.trip);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.history:
-                        return true;
-                      case R.id.home:
-                          startActivity(new Intent(getApplicationContext()
-                                  ,HomeActivity.class));
-                          overridePendingTransition(0,0);
-                        return true;
-                    case R.id.trip:
-                        return true;
-                    //case R.id.profile:
-                    //  return true;
-
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        startActivity(new Intent(TripUserHome.this, HomeActivity.class));
+                        finish();
+                        break;
+                    case R.id.nav_history:
+                        startActivity(new Intent(TripUserHome.this, History.class));
+                        finish();
+                        break;
+                    case R.id.nav_profile:
+                        startActivity(new Intent(TripUserHome.this, ProfilePage.class));
+                        finish();
+                        break;
                 }
+
                 return false;
             }
         });
+
+        tvEditDate = findViewById(R.id.edit_date);
+        tvEditDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datepicker = new DatePickerFragment();
+                datepicker.show(getSupportFragmentManager(),"date picker");
+            }
+        });
+
+        etStartCity = findViewById(R.id.btn_start_city);
+        etStartCity.setOnItemSelectedListener(this);
+
+        etStartArea = findViewById(R.id.btn_start_area);
+
+        etDestinationCity = findViewById(R.id.btn_dest_city);
+        etDestinationCity.setOnItemSelectedListener(this);
+
+        etDestinationArea = findViewById(R.id.btn_dest_area);
+
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.area, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        etStartArea.setAdapter(adapter);
+        etDestinationArea.setAdapter(adapter);
+        etStartArea.setOnItemSelectedListener(this);
+        etDestinationArea.setOnItemSelectedListener(this);
+
+
+
     }
 
-    @SuppressLint("SetTextI18n")
-    private void greeting() {
+
+    public void btnGo(View view) {
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, parent.getSelectedItem().toString().trim(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar calendar = Calendar.getInstance();
-        int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-
-        if (timeOfDay >= 0 && timeOfDay < 12) {
-            greetText.setText("Selamat Pagi Budi Makarti");
-            greetImg.setImageResource(R.drawable.img_default_half_morning);
-        } else if (timeOfDay >= 12 && timeOfDay < 15) {
-            greetText.setText("Selamat Siang Budi Makarti");
-            greetImg.setImageResource(R.drawable.img_default_half_afternoon);
-        } else if (timeOfDay >= 15 && timeOfDay < 18) {
-            greetText.setText("Selamat Sore Budi Makarti");
-            greetImg.setImageResource(R.drawable.img_default_half_without_sun);
-        }else if (timeOfDay >= 18 && timeOfDay < 24) {
-            greetText.setText("Selamat Malam Budi Makarti");
-            greetText.setTextColor(Color.WHITE);
-            greetImg.setImageResource(R.drawable.img_default_half_night);
-        }
-
+        calendar.set(Calendar.YEAR,year);
+        calendar.set(Calendar.MONTH,month);
+        calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        String nowDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        tvEditDate.setText(nowDate);
     }
 }

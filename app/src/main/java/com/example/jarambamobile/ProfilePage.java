@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -87,7 +89,7 @@ public class ProfilePage extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference("User");
+        databaseReference = database.getReference("Mobile_Apps").child("User");
         storageReference = FirebaseStorage.getInstance().getReference();
 
 
@@ -114,15 +116,16 @@ public class ProfilePage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     //get data
-                    String name = ""+ds.child("Nama Lengkap").getValue();
+                    String name = ""+ds.child("Nama_Lengkap").getValue();
                     String email = ""+ds.child("Email").getValue();
-                    String phone = ""+ds.child("Nomor handphone").getValue();
-                    String image = ""+ds.child("image").getValue();
+                    String phone = ""+ds.child("Nomor_Handphone").getValue();
+                    String image = ""+ds.child("Image").getValue();
 
                     //set data
                     nameTv.setText(name);
                     emailTv.setText(email);
                     phoneTv.setText(phone);
+
 
                     try {
                         //if image is received then set
@@ -149,6 +152,31 @@ public class ProfilePage extends AppCompatActivity {
         });
 
         checkUserStatus();
+
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi_profil);
+        bottomNavigationView.setSelectedItemId(R.id.nav_profile);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_trip:
+                        startActivity(new Intent(ProfilePage.this, TripUserHome.class));
+                        finish();
+                        break;
+                    case R.id.nav_history:
+                        startActivity(new Intent(ProfilePage.this, History.class));
+                        finish();
+                        break;
+                    case R.id.nav_home:
+                        startActivity(new Intent(ProfilePage.this, HomeActivity.class));
+                        finish();
+                        break;
+                }
+
+                return false;
+            }
+        });
 
     }
 
@@ -354,9 +382,9 @@ public class ProfilePage extends AppCompatActivity {
                                     }
                                 });
 
-                        if(profile.equals("image")){
+                        if(profile.equals("Image")){
                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
-                            Query query = ref.orderByChild("Unique ID").equalTo(uid);
+                            Query query = ref.orderByChild("Unique_ID").equalTo(uid);
                             query.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
