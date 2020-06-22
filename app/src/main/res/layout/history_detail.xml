@@ -14,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Detail trip"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,11 +22,11 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="47dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail"
+        app:layout_constraintEnd_toStartOf="@id/detail"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_directions_bus_24" />
 
     <TextView
@@ -35,12 +36,12 @@
         android:layout_marginTop="20dp"
         android:text="Start : "
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail" />
 
     <TextView
         android:id="@+id/start_data"
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textColor="@color/black"
@@ -54,15 +55,17 @@
         android:layout_height="wrap_content"
         android:text="To : "
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/icon"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start_data" />
 
     <TextView
         android:id="@+id/to_data"
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:maxLines="4"
         android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@id/to_text"
         app:layout_constraintTop_toBottomOf="@+id/start_data" />
 
@@ -72,7 +75,8 @@
         android:layout_height="wrap_content"
         android:text="Tanggal : "
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/icon"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/to_data" />
 
     <TextView
@@ -80,6 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@id/tgl_text_det"
         app:layout_constraintTop_toBottomOf="@+id/to_data" />
 
@@ -89,8 +94,9 @@
         android:layout_height="wrap_content"
         android:text="Jumlah Penumpang : "
         android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         android:paddingBottom="20dp"
-        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tgl_text_det" />
 
     <TextView
@@ -98,6 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         android:paddingBottom="20dp"
         app:layout_constraintStart_toEndOf="@id/jml_text"
         app:layout_constraintTop_toBottomOf="@+id/tgl_text_det" />
@@ -107,6 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         android:paddingBottom="20dp"
         android:text=" Orang"
         app:layout_constraintStart_toEndOf="@id/jml_data"
