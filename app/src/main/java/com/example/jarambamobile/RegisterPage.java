@@ -186,11 +186,18 @@ public class RegisterPage extends AppCompatActivity {
 
                                 HashMap <Object, String> hashMap = new HashMap<>();
                                 hashMap.put("Email", email);
-                              
                                 hashMap.put("Nomor_Handphone", number);
                                 hashMap.put("Nama_Lengkap", username);
                                 hashMap.put("Unique_ID", uid );
                                 hashMap.put("Image", "");
+
+                                    try {
+                                        outputString = encrypt(etPassword.getText().toString().trim(), pass);
+                                        hashMap.put("Password", outputString);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference reference = database.getReference("Mobile_Apps");
@@ -216,6 +223,7 @@ public class RegisterPage extends AppCompatActivity {
 
 
     }
+
 
     private String encrypt(String Data, String password) throws Exception {
         SecretKeySpec key = generateKey(password);
