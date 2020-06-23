@@ -218,7 +218,7 @@ public class ProfilePage extends AppCompatActivity {
     }
 
     public void changePictureProfileUser(View view) {
-        profile = "image";
+        profile = "Image";
         String option[] = {"Kamera","Galeri"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pilih mode pengambilan gambar");
