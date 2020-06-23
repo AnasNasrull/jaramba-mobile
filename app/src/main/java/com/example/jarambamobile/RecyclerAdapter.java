@@ -115,7 +115,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                         final TextView Harga = dialog.findViewById(R.id.harga_rate);
                         final TextView Pembayaran = dialog.findViewById(R.id.crbyr_rate);
 
-                        Harga.setText(isi.getHarga());
+                        Harga.setText(isi.getHarga().toString());
                         Pembayaran.setText(isi.getPembayaran());
 
                         Submit.setOnClickListener(new View.OnClickListener() {
@@ -159,8 +159,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     start.setText(isi.getStart());
                     to.setText(isi.getTo());
                     tanggal.setText(isi.getTanggal());
-                    jumlah.setText(isi.getJumlah_penumpang());
-                    harga.setText(isi.getHarga());
+                    jumlah.setText(isi.getJumlah_penumpang().toString());
+                    harga.setText(isi.getHarga().toString());
                     pembayaran.setText(isi.getPembayaran());
 
                     dialog2.show();
@@ -222,8 +222,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     start.setText(isi.getStart());
                     to.setText(isi.getTo());
                     tanggal.setText(isi.getTanggal());
-                    jumlah.setText(isi.getJumlah_penumpang());
-                    harga.setText(isi.getHarga());
+                    jumlah.setText(isi.getJumlah_penumpang().toString());
+                    harga.setText(isi.getHarga().toString());
                     pembayaran.setText(isi.getPembayaran());
 
                     dialog1.show();

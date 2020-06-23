@@ -3,12 +3,12 @@ package com.example.jarambamobile;
 public class getAllHistory {
     private float rating;
     private String comment;
-    private String harga;
+    private Double harga;
     private String pembayaran;
     private String start;
     private String to;
     private String tanggal;
-    private String jumlah_penumpang;
+    private Integer jumlah_penumpang;
     private String status;
     private String key;
     private String rate_status;
@@ -17,7 +17,7 @@ public class getAllHistory {
 
     }
 
-    public getAllHistory(float rating, String comment, String harga, String pembayaran, String start, String to, String tanggal, String jumlah_penumpang, String status, String rate_status) {
+    public getAllHistory(float rating, String comment, Double harga, String pembayaran, String start, String to, String tanggal, Integer jumlah_penumpang, String status, String rate_status) {
         this.rating = rating;
         this.comment = comment;
         this.harga = harga;
@@ -46,11 +46,11 @@ public class getAllHistory {
         this.comment = comment;
     }
 
-    public String getHarga() {
+    public Double getHarga() {
         return harga;
     }
 
-    public void setHarga(String harga) {
+    public void setHarga(Double harga) {
         this.harga = harga;
     }
 
@@ -86,11 +86,11 @@ public class getAllHistory {
         this.tanggal = tanggal;
     }
 
-    public String getJumlah_penumpang() {
+    public Integer getJumlah_penumpang() {
         return jumlah_penumpang;
     }
 
-    public void setJumlah_penumpang(String jumlah_penumpang) {
+    public void setJumlah_penumpang(Integer jumlah_penumpang) {
         this.jumlah_penumpang = jumlah_penumpang;
     }
 
