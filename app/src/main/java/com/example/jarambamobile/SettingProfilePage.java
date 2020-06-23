@@ -43,6 +43,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Set;
@@ -61,20 +62,11 @@ public class SettingProfilePage extends AppCompatActivity {
     DatabaseReference databaseReference;
     StorageReference storageReference;
 
-    AwesomeValidation awesomeValidation;
-
     Dialog dialog;
 
 
     ActionBar actionBar;
     ProgressDialog progressDialog;
-
-    String outputString;
-    String passwords;
-    String AES = "AES";
-    String pass = "testmypassword";
-
-
 
     Button btnConfChangePassword, btnConfNameNumber, btnDismissChangeEmail, btnDismissNameNumber, btnConfEmail, btnDismissEmail;
     EditText etChangePassword, etChangeName, etChangeNumber, etChangeEmail, etPasswordValidateChangeEmail;
@@ -133,23 +125,29 @@ public class SettingProfilePage extends AppCompatActivity {
                     final String value = etChangeEmail.getText().toString().trim();
                     final String email= user.getEmail();
 
+
                     Query query = databaseReference.orderByChild("Email").equalTo(user.getEmail());
                     query.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for(DataSnapshot ds : dataSnapshot.getChildren()) {
                                 //get data
-                                String password = ""+ds.child("Password").getValue();
+                                final String password = ""+ds.child("Password").getValue();
+                                final String passwords;
+
+                                byte[] inputData = etPasswordValidateChangeEmail.getText().toString().getBytes();
+                                byte[] outputData = new byte[0];
 
                                 try {
-                                    outputString = decrypt(password, pass);
-                                    //decrypted password
-                                    passwords = outputString;
-                                } catch (Exception e) {
+                                    outputData = sha.encryptSHA(inputData, "SHA-256");
+                                } catch (Exception e){
                                     e.printStackTrace();
                                 }
 
+                                BigInteger shaData = new BigInteger(1, outputData);
+                                passwords = shaData.toString(16);
 
+                              //  Toast.makeText(SettingProfilePage.this, password + "\n\n" + passwords, Toast.LENGTH_LONG).show();
 
                                 if(!TextUtils.isEmpty(value)){
                                     firebaseAuth.fetchSignInMethodsForEmail(value)
@@ -159,7 +157,7 @@ public class SettingProfilePage extends AppCompatActivity {
                                                     boolean check = !task.getResult().getSignInMethods().isEmpty();
 
                                                     if(!check) {
-                                                        if (value1.equals(passwords)) {
+                                                        if (password.equals(passwords)) {
 
 
                                                             AuthCredential credential = EmailAuthProvider
@@ -169,19 +167,34 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                         @Override
                                                                         public void onComplete(@NonNull Task<Void> task) {
-                                                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                                            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                                                             user.updateEmail(value)
                                                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                         @Override
                                                                                         public void onComplete(@NonNull Task<Void> task) {
                                                                                             if (task.isSuccessful()) {
+                                                                                                firebaseAuth = FirebaseAuth.getInstance();
+                                                                                                firebaseAuth.getCurrentUser().sendEmailVerification()
+                                                                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                                            @Override
+                                                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                                                if(task.isSuccessful()) {
+                                                                                                                    dialog.dismiss();
+                                                                                                                    progressDialog.dismiss();
+                                                                                                                    Toast.makeText(SettingProfilePage.this, "Berhasilllllllllllll", Toast.LENGTH_SHORT).show();
+                                                                                                                } else {
+                                                                                                                    Toast.makeText(SettingProfilePage.this, "gagaaaaaaaaaaaaaaaaaallll", Toast.LENGTH_SHORT).show();
+                                                                                                                }
+                                                                                                            }
+                                                                                                        });
+
+                                                                                            } else {
                                                                                                 dialog.dismiss();
                                                                                                 progressDialog.dismiss();
-                                                                                                Toast.makeText(SettingProfilePage.this, "Anda dapat login dengan email baru", Toast.LENGTH_SHORT).show();
+                                                                                                Toast.makeText(SettingProfilePage.this, "gagallll", Toast.LENGTH_SHORT).show();
                                                                                             }
                                                                                         }
                                                                                     });
-
                                                                         }
                                                                     });
 
@@ -205,6 +218,36 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                     Toast.makeText(SettingProfilePage.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                                                 }
                                                             });
+
+//                                                            firebaseAuth.getCurrentUser().sendEmailVerification()
+//                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                                        @Override
+//                                                                        public void onComplete(@NonNull Task<Void> task) {
+//                                                                            if(task.isSuccessful()) {
+//                                                                                AlertDialog.Builder builder = new AlertDialog.Builder(SettingProfilePage.this);
+//                                                                                builder.setIcon(R.drawable.ic_check_black_24dp);
+//                                                                                builder.setTitle("Berhasil mengubah email");
+//                                                                                builder.setMessage("Silahkan cek pesan pada email lama anda untuk verifikasi pengguna");
+//
+//                                                                                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+//                                                                                    @Override
+//                                                                                    public void onClick(DialogInterface dialog, int which) {
+//                                                                                        FirebaseAuth.getInstance().signOut();
+//                                                                                        startActivity(new Intent(SettingProfilePage.this, LoginPage.class));
+//                                                                                        finish();
+//                                                                                    }
+//                                                                                });
+//                                                                                AlertDialog alertDialog = builder.create();
+//                                                                                alertDialog.show();
+//                                                                            } else {
+//                                                                                Toast.makeText(SettingProfilePage.this, "Gagallly", Toast.LENGTH_SHORT).show();
+//                                                                            }
+//                                                                        }
+//                                                                    });
+//
+
+
+
 
                                                         } else {
                                                             progressDialog.dismiss();
@@ -241,36 +284,6 @@ public class SettingProfilePage extends AppCompatActivity {
         dialog.show();
 
 
-    }
-
-//    private void checkEmailExisting() {
-//        firebaseAuth.fetchSignInMethodsForEmail(etChangeEmail.getText().toString().trim())
-//                .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-//                        check = !task.getResult().getSignInMethods().isEmpty();
-//                    }
-//                });
-//    }
-
-    private String decrypt(String outputString, String password) throws Exception {
-        SecretKeySpec key = generateKey(password);
-        Cipher c = Cipher.getInstance(AES);
-        c.init(Cipher.DECRYPT_MODE, key);
-        byte[] decodedValue = Base64.decode(outputString, Base64.DEFAULT);
-        byte[] decValue = c.doFinal(decodedValue);
-        String decryptedValue = new String(decValue);
-        return decryptedValue;
-    }
-
-
-    private SecretKeySpec generateKey(String password) throws  Exception {
-        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] bytes = password.getBytes("UTF-8");
-        digest.update(bytes, 0, bytes.length);
-        byte[] key = digest.digest();
-        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
-        return secretKeySpec;
     }
 
     public void changePassword(View view) {
