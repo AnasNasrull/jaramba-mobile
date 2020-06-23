@@ -53,7 +53,7 @@ public class LoginPage extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         //check if user is null
-        if(firebaseUser != null){
+        if(firebaseUser != null && firebaseUser.isEmailVerified()){
             startActivity (new Intent(this, HomeActivity.class));
             finish();
         }
@@ -162,10 +162,15 @@ public class LoginPage extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 Toast.makeText(LoginPage.this, "Maaf, Email atau password anda salah, dan Pastikan Anda Terhubung dengan Internet", Toast.LENGTH_SHORT).show();
                             } else {
-                                progressDialog.dismiss();
-                                Toast.makeText(LoginPage.this, "Selamat datang di Jaramba", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginPage.this, HomeActivity.class));
-                                finish();
+                                if (firebaseAuth.getCurrentUser().isEmailVerified()) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(LoginPage.this, "Selamat datang di Jaramba", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(LoginPage.this, HomeActivity.class));
+                                    finish();
+                                } else {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(LoginPage.this, "Silahkan verifikasi email anda terlebih dahulu, kami telah mengirim pesan pada email anda", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
                     });

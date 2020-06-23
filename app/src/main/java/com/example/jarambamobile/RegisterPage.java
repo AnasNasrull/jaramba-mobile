@@ -179,39 +179,64 @@ public class RegisterPage extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
-                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                firebaseAuth.getCurrentUser().sendEmailVerification()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful()) {
+                                                    etEmail.setText("");
+                                                    etNomor.setText("");
+                                                    etNama.setText("");
+                                                    etPassword.setText("");
 
-                                String email = user.getEmail();
-                                String uid = user.getUid();
+                                                    FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                                HashMap <Object, String> hashMap = new HashMap<>();
-                                hashMap.put("Email", email);
-                                hashMap.put("Nomor_Handphone", number);
-                                hashMap.put("Nama_Lengkap", username);
-                                hashMap.put("Unique_ID", uid );
-                                hashMap.put("Image", "");
+                                                    String email = user.getEmail();
+                                                    String uid = user.getUid();
 
-                                    try {
-                                        outputString = encrypt(etPassword.getText().toString().trim(), pass);
-                                        hashMap.put("Password", outputString);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
+                                                    HashMap <Object, String> hashMap = new HashMap<>();
+                                                    hashMap.put("Email", email);
+                                                    hashMap.put("Nomor_Handphone", number);
+                                                    hashMap.put("Nama_Lengkap", username);
+                                                    hashMap.put("Unique_ID", uid );
+                                                    hashMap.put("Image", "");
+
+                                                    try {
+                                                        outputString = encrypt(etPassword.getText().toString().trim(), pass);
+                                                        hashMap.put("Password", outputString);
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                    }
 
 
-                                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                DatabaseReference reference = database.getReference("Mobile_Apps");
-                                reference.child("User").child(uid).setValue(hashMap);
+                                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                                    DatabaseReference reference = database.getReference("Mobile_Apps");
+                                                    reference.child("User").child(uid).setValue(hashMap);
 
-                                progressDialog.dismiss();
-                                Toast.makeText(RegisterPage.this, "Email anda : " + email + "\nSukses terdaftar pada sistem", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), LoginPage.class));
-                                finish();
+                                                    progressDialog.dismiss();
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterPage.this);
+                                                    builder.setIcon(R.drawable.ic_check_black_24dp);
+                                                    builder.setTitle("Berhasil mendaftar");
+                                                    builder.setMessage("Silahkan cek pesan pada email : " + email + "\nuntuk verifikasi pengguna");
 
+                                                    builder.setNegativeButton("YES", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.cancel();
+                                                        }
+                                                    });
+                                                    AlertDialog alertDialog = builder.create();
+                                                    alertDialog.show();
+
+                                                } else {
+                                                    Toast.makeText(RegisterPage.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        });
 
                             } else {
                                 progressDialog.dismiss();
-                                Toast.makeText(RegisterPage.this, "Maaf terdapat gangguan pada sistem", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterPage.this, "Maaf terdapat gangguan pada sistem", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
