@@ -56,9 +56,9 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
     TextView tvTotalInputPenumpang, tvMetodePembayaran, tvAsalPengguna, tvTujuanPengguna, tvTanggal,tvHari, tvWaktu, tvTotalHarga;
     Button btnTambahkanPenumpang, btnDismissPenumpang, btnTambahMetodePembayaran, btnDismissMetode, btnGo;
     Spinner spinner;
-    String text, startAddress, destinationAddress, metodePembayaran, hari, tanggal, waktu;
-    Integer jumlahPenumpang;
-    Double totalHarga, startPointLat,startPointLong, destPointLat,destPointLong;
+    String text, startAddress, destinationAddress, metodePembayaran="Belum Ditambahkan", hari, tanggal, waktu;
+    Integer jumlahPenumpang=0;
+    Double totalHarga=0.0, startPointLat,startPointLong, destPointLat,destPointLong;
 
     HistoryTripModel history;
     PointAddressModel startLatLong, destinationLatLong;
@@ -112,6 +112,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if((totalHarga>0)&&(jumlahPenumpang>0)||(!metodePembayaran.equals("Belum Ditambahkan"))){
                     history.setComment(" ");
                     history.setHarga(totalHarga);
                     history.setRating(" ");
@@ -143,6 +144,10 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                     //intent to history menu
                     startActivity(new Intent(DamriStartTrip.this, History.class));
                     finish();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Silahkan Lengkapi Form !", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
