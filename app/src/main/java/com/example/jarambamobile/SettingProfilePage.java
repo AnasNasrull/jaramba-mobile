@@ -20,11 +20,13 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -71,6 +73,7 @@ public class SettingProfilePage extends AppCompatActivity {
     Button btnConfChangePassword, btnConfNameNumber, btnDismissChangeEmail, btnDismissNameNumber, btnConfEmail, btnDismissEmail;
     EditText etChangePassword, etChangeName, etChangeNumber, etChangeEmail, etPasswordValidateChangeEmail;
     TextView tvKeteranganubahNamaNomor;
+    ImageView icUsername, icEmail, icHandphone, icPassword, icAbout, whiteLogo08;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +88,20 @@ public class SettingProfilePage extends AppCompatActivity {
 
         actionBar = getSupportActionBar();
         actionBar.setTitle("Pengaturan");
+
+        icUsername = findViewById(R.id.icon_username);
+        icEmail = findViewById(R.id.icon_email);
+        icHandphone = findViewById(R.id.icon_phone);
+        icPassword = findViewById(R.id.icon_password);
+        icAbout = findViewById(R.id.icon_about_app);
+        whiteLogo08 = findViewById(R.id.logo_white);
+
+        Glide.with(SettingProfilePage.this).load(R.drawable.ic_person_black_24dp).into(icUsername);
+        Glide.with(SettingProfilePage.this).load(R.drawable.ic_email_black_24dp).into(icEmail);
+        Glide.with(SettingProfilePage.this).load(R.drawable.ic_local_phone_black_24dp).into(icHandphone);
+        Glide.with(SettingProfilePage.this).load(R.drawable.ic_lock_black_24dp).into(icPassword);
+        Glide.with(SettingProfilePage.this).load(R.drawable.ic_info_black_24dp).into(icAbout);
+        Glide.with(SettingProfilePage.this).load(R.drawable.logo08).into(whiteLogo08);
 
         progressDialog  = new ProgressDialog(SettingProfilePage.this);
 
@@ -181,9 +198,9 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                                                                 if(task.isSuccessful()) {
                                                                                                                     dialog.dismiss();
                                                                                                                     progressDialog.dismiss();
-                                                                                                                    Toast.makeText(SettingProfilePage.this, "Berhasilllllllllllll", Toast.LENGTH_SHORT).show();
+                                                                                                                    Toast.makeText(SettingProfilePage.this, "Berhasil mengirim pesan ke email anda", Toast.LENGTH_SHORT).show();
                                                                                                                 } else {
-                                                                                                                    Toast.makeText(SettingProfilePage.this, "gagaaaaaaaaaaaaaaaaaallll", Toast.LENGTH_SHORT).show();
+                                                                                                                    Toast.makeText(SettingProfilePage.this, "Maaf, aplikasi gagal mengirim pesan ke email anda", Toast.LENGTH_SHORT).show();
                                                                                                                 }
                                                                                                             }
                                                                                                         });
@@ -191,7 +208,7 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                                             } else {
                                                                                                 dialog.dismiss();
                                                                                                 progressDialog.dismiss();
-                                                                                                Toast.makeText(SettingProfilePage.this, "gagallll", Toast.LENGTH_SHORT).show();
+                                                                                                Toast.makeText(SettingProfilePage.this, "Maaf, aplikasi tidak dapat mengirim pesan ke email anda", Toast.LENGTH_SHORT).show();
                                                                                             }
                                                                                         }
                                                                                     });
@@ -209,7 +226,7 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                             //updated, dismiss progress
                                                                             progressDialog.dismiss();
                                                                             dialog.dismiss();
-                                                                            Toast.makeText(SettingProfilePage.this, key + " anda diperbarui...", Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(SettingProfilePage.this, "Data " + key + " anda diperbarui...", Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     }).addOnFailureListener(new OnFailureListener() {
                                                                 @Override
@@ -219,33 +236,22 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                 }
                                                             });
 
-//                                                            firebaseAuth.getCurrentUser().sendEmailVerification()
-//                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                                                        @Override
-//                                                                        public void onComplete(@NonNull Task<Void> task) {
-//                                                                            if(task.isSuccessful()) {
-//                                                                                AlertDialog.Builder builder = new AlertDialog.Builder(SettingProfilePage.this);
-//                                                                                builder.setIcon(R.drawable.ic_check_black_24dp);
-//                                                                                builder.setTitle("Berhasil mengubah email");
-//                                                                                builder.setMessage("Silahkan cek pesan pada email lama anda untuk verifikasi pengguna");
-//
-//                                                                                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-//                                                                                    @Override
-//                                                                                    public void onClick(DialogInterface dialog, int which) {
-//                                                                                        FirebaseAuth.getInstance().signOut();
-//                                                                                        startActivity(new Intent(SettingProfilePage.this, LoginPage.class));
-//                                                                                        finish();
-//                                                                                    }
-//                                                                                });
-//                                                                                AlertDialog alertDialog = builder.create();
-//                                                                                alertDialog.show();
-//                                                                            } else {
-//                                                                                Toast.makeText(SettingProfilePage.this, "Gagallly", Toast.LENGTH_SHORT).show();
-//                                                                            }
-//                                                                        }
-//                                                                    });
-//
 
+                                                                                AlertDialog.Builder builder = new AlertDialog.Builder(SettingProfilePage.this);
+                                                                                builder.setIcon(R.drawable.ic_check_black_24dp);
+                                                                                builder.setTitle("Berhasil mengubah email");
+                                                                                builder.setMessage("Silahkan cek pesan pada email terbaru anda untuk verifikasi pengguna");
+
+                                                                                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                                                                    @Override
+                                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                                        FirebaseAuth.getInstance().signOut();
+                                                                                        startActivity(new Intent(SettingProfilePage.this, LoginPage.class));
+                                                                                        finish();
+                                                                                    }
+                                                                                });
+                                                                                AlertDialog alertDialog = builder.create();
+                                                                                alertDialog.show();
 
 
 

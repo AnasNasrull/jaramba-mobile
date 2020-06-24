@@ -160,10 +160,11 @@
 
         <ImageView
             android:id="@+id/logo_white"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="12dp"
-            android:src="@drawable/logo08" />
+            android:src="@drawable/logo08"
+            android:contentDescription="@string/image" />
 
     </RelativeLayout>
 
