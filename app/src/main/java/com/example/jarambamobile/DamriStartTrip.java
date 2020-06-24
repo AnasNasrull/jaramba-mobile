@@ -56,7 +56,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
     TextView tvTotalInputPenumpang, tvMetodePembayaran, tvAsalPengguna, tvTujuanPengguna, tvTanggal,tvHari, tvWaktu, tvTotalHarga;
     Button btnTambahkanPenumpang, btnDismissPenumpang, btnTambahMetodePembayaran, btnDismissMetode, btnGo;
     Spinner spinner;
-    String text, startAddress, destinationAddress, metodePembayaran="Belum Ditambahkan", hari, tanggal, waktu;
+    String text, startAddress, destinationAddress, metodePembayaran="Belum Ditambahkan", hari, tanggal, waktu, from;
     Integer jumlahPenumpang=0;
     Double totalHarga=0.0, startPointLat,startPointLong, destPointLat,destPointLong;
 
@@ -76,10 +76,14 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
 
         Intent intent = getIntent();
 
-        startPointLat = Double.parseDouble(intent.getStringExtra("start_lati"));
-        startPointLong = Double.parseDouble(intent.getStringExtra("start_long"));
-        destPointLat = Double.parseDouble(intent.getStringExtra("destination_lati"));
-        destPointLong = Double.parseDouble(intent.getStringExtra("destination_long"));
+        from = intent.getStringExtra("From");
+
+        if(from.equals("Trip User")){
+            startPointLat = Double.parseDouble(intent.getStringExtra("start_lati"));
+            startPointLong = Double.parseDouble(intent.getStringExtra("start_long"));
+            destPointLat = Double.parseDouble(intent.getStringExtra("destination_lati"));
+            destPointLong = Double.parseDouble(intent.getStringExtra("destination_long"));
+        }
 
         startAddress= intent.getStringExtra("start_address");
         tvAsalPengguna = findViewById(R.id.asal_pengguna);
@@ -134,12 +138,14 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                         }
                     });
 
-                    startLatLong.setLatitude(startPointLat);
-                    startLatLong.setLongitude(startPointLong);
-                    destinationLatLong.setLatitude(destPointLat);
-                    destinationLatLong.setLongitude(destPointLong);
-                    database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(startPointLong);
-                    database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(destPointLong);
+                    if(from.equals("Trip User")){
+                        startLatLong.setLatitude(startPointLat);
+                        startLatLong.setLongitude(startPointLong);
+                        destinationLatLong.setLatitude(destPointLat);
+                        destinationLatLong.setLongitude(destPointLong);
+                        database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(startPointLong);
+                        database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(destPointLong);
+                    }
 
                     //intent to history menu
                     startActivity(new Intent(DamriStartTrip.this, History.class));
