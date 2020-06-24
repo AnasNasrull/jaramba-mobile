@@ -29,7 +29,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
     ArrayList<getAllHistory> moviesList;
     private Context context;
-
     FirebaseAuth firebaseAuth;
 
     public RecyclerAdapter(ArrayList<getAllHistory> moviesList) {
@@ -68,36 +67,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
             String mulai = isi.getStart();
             if(mulai.length()>17) {
-                char[] m = {mulai.charAt(0), mulai.charAt(1), mulai.charAt(2), mulai.charAt(3),
-                        mulai.charAt(4), mulai.charAt(5), mulai.charAt(6), mulai.charAt(7),
-                        mulai.charAt(8), mulai.charAt(9), mulai.charAt(10), mulai.charAt(11),
-                        mulai.charAt(12), mulai.charAt(13), mulai.charAt(14), mulai.charAt(15),
-                        mulai.charAt(16), '.', '.', '.'};
-
-                String str = new String(m);
-
-                viewHolderTwo.textViewFrom2.setText(str);
+                viewHolderTwo.textViewFrom2.setText(ShortChar(mulai));
             } else {
                 viewHolderTwo.textViewFrom2.setText(isi.getStart());
             }
 
             String sampai = isi.getTo();
             if(sampai.length()>17) {
-                char[] e = {sampai.charAt(0), sampai.charAt(1), sampai.charAt(2), sampai.charAt(3),
-                        sampai.charAt(4), sampai.charAt(5), sampai.charAt(6), sampai.charAt(7),
-                        sampai.charAt(8), sampai.charAt(9), sampai.charAt(10), sampai.charAt(11),
-                        sampai.charAt(12), sampai.charAt(13), sampai.charAt(14), sampai.charAt(15),
-                        sampai.charAt(16), '.', '.', '.'};
-
-                String end = new String(e);
-
-                viewHolderTwo.textViewTo2.setText(end);
+                viewHolderTwo.textViewTo2.setText(ShortChar(sampai));
             } else {
                 viewHolderTwo.textViewTo2.setText(isi.getTo());
             }
-
-            //viewHolderTwo.textViewFrom2.setText(isi.getStart());
-            //viewHolderTwo.textViewTo2.setText(isi.getTo());
 
             if (isi.getRate_status().contains("not")) {
                 viewHolderTwo.rating.setEnabled(true);
@@ -105,7 +85,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         final Dialog dialog = new Dialog(context);
-
                         dialog.setContentView(R.layout.history_rating);
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
@@ -123,19 +102,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                             public void onClick(View v) {
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference myRef = database.getReference();
-
                                 firebaseAuth = FirebaseAuth.getInstance();
-
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
-
                                 String uid = user.getUid();
 
                                 myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).setValue(new getAllHistory(Rating.getRating(), Komentar.getText().toString(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), isi.getStatus(), "done"));
-
                                 dialog.dismiss();
                             }
                         });
-
                         dialog.show();
                     }
                 });
@@ -145,7 +119,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     final Dialog dialog2 = new Dialog(context);
-
                     dialog2.setContentView(R.layout.history_detail);
                     dialog2.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
@@ -171,44 +144,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
             String mulai = isi.getStart();
             if(mulai.length()>20) {
-                char[] m = {mulai.charAt(0), mulai.charAt(1), mulai.charAt(2), mulai.charAt(3),
-                        mulai.charAt(4), mulai.charAt(5), mulai.charAt(6), mulai.charAt(7),
-                        mulai.charAt(8), mulai.charAt(9), mulai.charAt(10), mulai.charAt(11),
-                        mulai.charAt(12), mulai.charAt(13), mulai.charAt(14),mulai.charAt(15),
-                        mulai.charAt(16),mulai.charAt(17), mulai.charAt(18), mulai.charAt(19),
-                        '.', '.', '.'};
-
-                String str = new String(m);
-
-                viewHolderOne.textViewFrom1.setText(str);
+                viewHolderOne.textViewFrom1.setText(ShortChar(mulai));
             } else {
                 viewHolderOne.textViewFrom1.setText(isi.getStart());
             }
 
             String sampai = isi.getTo();
             if(sampai.length()>20) {
-                char[] e = {sampai.charAt(0), sampai.charAt(1), sampai.charAt(2), sampai.charAt(3),
-                        sampai.charAt(4), sampai.charAt(5), sampai.charAt(6), sampai.charAt(7),
-                        sampai.charAt(8), sampai.charAt(9), sampai.charAt(10), sampai.charAt(11),
-                        sampai.charAt(12), sampai.charAt(13), sampai.charAt(14),sampai.charAt(15),
-                        sampai.charAt(16),sampai.charAt(17),sampai.charAt(18),sampai.charAt(19),
-                        '.', '.', '.'};
-
-                String end = new String(e);
-
-                viewHolderOne.TextViewTo1.setText(end);
+                viewHolderOne.TextViewTo1.setText(ShortChar(sampai));
             } else {
                 viewHolderOne.TextViewTo1.setText(isi.getTo());
             }
-
-            //viewHolderOne.textViewFrom1.setText(isi.getStart());
-            //viewHolderOne.TextViewTo1.setText(isi.getTo());
 
             viewHolderOne.info.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final Dialog dialog1 = new Dialog(context);
-
                     dialog1.setContentView(R.layout.history_detail);
                     dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
@@ -241,11 +192,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference myRef = database.getReference();
-
                             firebaseAuth = FirebaseAuth.getInstance();
-
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-
                             String uid = user.getUid();
 
                             Date tanggal = new Date();
@@ -271,7 +219,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                             } else if (menuItem.getTitle().equals("Cancel")) {
                                 myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).removeValue();
                             }
-
                             return false;
                         }
                     });
@@ -287,9 +234,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
     }
 
     class ViewHolderOne extends RecyclerView.ViewHolder {
-        TextView textViewFrom1, TextViewTo1;
+        TextView textViewFrom1, TextViewTo1, status;
         ImageView info;
-        TextView status;
 
         public ViewHolderOne(@NonNull View itemView) {
             super(itemView);
@@ -315,5 +261,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
             context = itemView.getContext();
         }
+    }
+
+    public String ShortChar(String address) {
+        String cut;
+        char[] cutChar = new char[23];
+
+        for (int i=0; i<23; i++) {
+            if (i<20) {
+                cutChar[i] = address.charAt(i);
+            } else {
+                cutChar[i] = '.';
+            }
+        }
+        cut = new String(cutChar);
+        return cut;
     }
 }

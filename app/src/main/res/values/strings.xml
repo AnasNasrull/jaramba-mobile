@@ -57,6 +57,19 @@
     <string name="let_s_go">Let\'s Go</string>
     <string name="tv_keterangan_ubah_password">Jaramba akan mengirimkan pesan \nmelalui email anda, kemudian anda \ndapat mengubah kata sandi \nmelalui pesan tersebut</string>
     <string name="silahkan_masukkan">Silahkan masukkan</string>
+    <string name="icon_info">icon info</string>
+    <string name="status_list">status</string>
+    <string name="icon_bus">icon bus</string>
+    <string name="your_history_trip_with">Your History Trip with</string>
+    <string name="icon_rate">icon rate</string>
+    <string name="pembayaran_detail">Pembayaran :</string>
+    <string name="rp">Rp.</string>
+    <string name="orang">Orang</string>
+    <string name="start">Start :</string>
+    <string name="detail_trip">Detail trip</string>
+    <string name="rating_anda">Rating anda</string>
+    <string name="tambahkan_komentar">Tambahkan komentar</string>
+    <string name="submit">Submit</string>
 
     <string-array name="metode_pembayaran">
         <item>Cash</item>

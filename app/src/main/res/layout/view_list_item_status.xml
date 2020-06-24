@@ -23,7 +23,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/ic_baseline_directions_bus_24" />
+        app:srcCompat="@drawable/ic_baseline_directions_bus_24"
+        android:contentDescription="@string/icon_bus" />
 
     <TextView
         android:id="@+id/dari1"
@@ -31,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
+        android:fontFamily="@font/nunitosans_regular"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/iconbus1"
         app:layout_constraintEnd_toStartOf="@id/iconinfo1"
@@ -42,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
+        android:fontFamily="@font/nunitosans_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/iconbus1"
         app:layout_constraintEnd_toStartOf="@id/iconinfo1"
@@ -55,8 +58,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dari1"
         android:textStyle="bold"
-        android:layout_marginEnd="15dp"
-        android:text="status"
+        android:fontFamily="@font/nunitosans_regular"
+        android:layout_marginEnd="5dp"
+        android:text="@string/status_list"
+        android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iconinfo1"
@@ -70,6 +75,7 @@
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_info_24" />
+        app:srcCompat="@drawable/ic_baseline_info_24"
+        android:contentDescription="@string/icon_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

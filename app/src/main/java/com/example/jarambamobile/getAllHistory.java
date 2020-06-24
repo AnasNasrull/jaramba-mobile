@@ -2,16 +2,9 @@ package com.example.jarambamobile;
 
 public class getAllHistory {
     private float rating;
-    private String comment;
     private Double harga;
-    private String pembayaran;
-    private String start;
-    private String to;
-    private String tanggal;
+    private String comment, pembayaran, start, to, tanggal, status, key, rate_status;
     private Integer jumlah_penumpang;
-    private String status;
-    private String key;
-    private String rate_status;
 
     public getAllHistory() {
 
