@@ -169,6 +169,22 @@ public class HomeActivity extends AppCompatActivity {
     public void clickDamri(View view) {
         startActivity(new Intent(this, TripUser.class));
     }
+
+    public void clickTrain(View view) {
+        startActivity(new Intent(this, UnderConstructionScreen.class));
+    }
+
+    public void clickAngkot(View view) {
+        startActivity(new Intent(this, UnderConstructionScreen.class));
+    }
+
+    public void clickMonorail(View view) {
+        startActivity(new Intent(this, UnderConstructionScreen.class));
+    }
+
+    public void clickTravel(View view) {
+        startActivity(new Intent(this, UnderConstructionScreen.class));
+    }
   
 }
 
