@@ -35,7 +35,7 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     Spinner etStartCity, etStartArea, etDestinationCity, etDestinationArea;
     Button btnGo;
 
-    String StartCity, StartArea, DestinationCity, DestinationArea, Tanggal, Hari;
+    String StartCity, StartArea, DestinationCity, DestinationArea, Tanggal="", Hari="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,22 +94,29 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
         etStartArea.setOnItemSelectedListener(this);
         etDestinationArea.setOnItemSelectedListener(this);
 
-        StartCity = etStartCity.getSelectedItem().toString().trim();
-        StartArea = etStartArea.getSelectedItem().toString().trim();
-        DestinationCity = etDestinationCity.getSelectedItem().toString().trim();
-        DestinationArea = etDestinationArea.getSelectedItem().toString().trim();
-
         btnGo = findViewById(R.id.btn_go);
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),DamriStartTrip.class);
-                intent.putExtra("start_address", StartCity + ", " + StartArea);
-                intent.putExtra("destination_address", DestinationCity + ", " + DestinationArea);
-                intent.putExtra("From", "Trip User Home");
-                intent.putExtra("Tanggal", Tanggal);
-                intent.putExtra("Hari", Hari);
-                startActivity(intent);
+                if((!Tanggal.equals(""))&&(!Hari.equals(""))){
+                    StartCity = etStartCity.getSelectedItem().toString().trim();
+                    StartArea = etStartArea.getSelectedItem().toString().trim();
+                    DestinationCity = etDestinationCity.getSelectedItem().toString().trim();
+                    DestinationArea = etDestinationArea.getSelectedItem().toString().trim();
+                    if(!StartArea.equals(DestinationArea)){
+                        Intent intent = new Intent(getApplicationContext(),DamriStartTrip.class);
+                        intent.putExtra("start_address", StartCity + ", " + StartArea);
+                        intent.putExtra("destination_address", DestinationCity + ", " + DestinationArea);
+                        intent.putExtra("From", "Trip User Home");
+                        intent.putExtra("Tanggal", Tanggal);
+                        intent.putExtra("Hari", Hari);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Tujuan tidak valid, silahkan ulangi !", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Tentukan Tanggal Terlebih Dahulu!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -117,7 +124,6 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, parent.getSelectedItem().toString().trim(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
