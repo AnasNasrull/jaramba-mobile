@@ -112,7 +112,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if((totalHarga>0)&&(jumlahPenumpang>0)||(!metodePembayaran.equals("Belum Ditambahkan"))){
+                if((totalHarga!=0)&&(jumlahPenumpang!=0)&&(!metodePembayaran.equals("Belum Ditambahkan"))){
                     history.setComment(" ");
                     history.setHarga(totalHarga);
                     history.setRating(" ");
@@ -194,6 +194,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                     tvMetodePembayaran.setText(text);
+                    metodePembayaran = text;
                     dialog.dismiss();
             }
         });
