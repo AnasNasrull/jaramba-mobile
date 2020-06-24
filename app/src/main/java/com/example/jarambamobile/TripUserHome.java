@@ -35,7 +35,7 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     Spinner etStartCity, etStartArea, etDestinationCity, etDestinationArea;
     Button btnGo;
 
-    String StartCity, StartArea, DestinationCity, DestinationArea, Tanggal;
+    String StartCity, StartArea, DestinationCity, DestinationArea, Tanggal, Hari;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +107,8 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
                 intent.putExtra("start_address", StartCity + ", " + StartArea);
                 intent.putExtra("destination_address", DestinationCity + ", " + DestinationArea);
                 intent.putExtra("From", "Trip User Home");
-                intent.putExtra("Tanggal", Tanggal.toString());
+                intent.putExtra("Tanggal", Tanggal);
+                intent.putExtra("Hari", Hari);
                 startActivity(intent);
             }
         });
@@ -130,8 +131,9 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.MONTH,month);
         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-        String nowDate = DateFormat.getDateInstance(DateFormat.DEFAULT).format(calendar.getTime());
+        String nowDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         tvEditDate.setText(nowDate);
         Tanggal = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(calendar.getTime());
+        Hari = new SimpleDateFormat("EEEE").format(calendar.getTime());
     }
 }

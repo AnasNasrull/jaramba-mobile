@@ -78,11 +78,24 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
 
         from = intent.getStringExtra("From");
 
+        tvTanggal = findViewById(R.id.tanggal_kalender);
+        tvHari = findViewById(R.id.hari_kata);
         if(from.equals("Trip User")){
             startPointLat = Double.parseDouble(intent.getStringExtra("start_lati"));
             startPointLong = Double.parseDouble(intent.getStringExtra("start_long"));
             destPointLat = Double.parseDouble(intent.getStringExtra("destination_lati"));
             destPointLong = Double.parseDouble(intent.getStringExtra("destination_long"));
+
+            setTanggal();
+            tvTanggal.setText(tanggal);
+            tvHari.setText(hari);
+
+            setWaktu();
+            tvWaktu = findViewById(R.id.waktu);
+            tvWaktu.setText(waktu);
+        }else if(from.equals("Trip User Home")){
+            tvTanggal.setText(intent.getStringExtra("Tanggal"));
+            tvHari.setText(intent.getStringExtra("Hari"));
         }
 
         startAddress= intent.getStringExtra("start_address");
@@ -93,15 +106,6 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         tvTujuanPengguna = findViewById(R.id.asal_pengguna_to);
         tvTujuanPengguna.setText(destinationAddress);
 
-        setTanggal();
-        tvTanggal = findViewById(R.id.tanggal_kalender);
-        tvHari = findViewById(R.id.hari_kata);
-        tvTanggal.setText(tanggal);
-        tvHari.setText(hari);
-
-        setWaktu();
-        tvWaktu = findViewById(R.id.waktu);
-        tvWaktu.setText(waktu);
 
         tvTotalHarga = findViewById(R.id.sum_payment);
         database = FirebaseDatabase.getInstance().getReference();
