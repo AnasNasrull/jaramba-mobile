@@ -116,14 +116,15 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         startLatLong = new PointAddressModel();
         destinationLatLong = new PointAddressModel();
         btnGo = findViewById(R.id.btn_go);
-        final String uid = "sqNxENZFQAga0Qq9MlEyI4aCxQh2";
+        //final String uid = "sqNxENZFQAga0Qq9MlEyI4aCxQh2";
+        final String uid = user.getUid();
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if((totalHarga!=0)&&(jumlahPenumpang!=0)&&(!metodePembayaran.equals("Belum Ditambahkan"))){
                     history.setComment(" ");
                     history.setHarga(totalHarga);
-                    history.setRating(" ");
+                    history.setRating(0);
                     history.setJumlah_penumpang(jumlahPenumpang);
                     history.setPembayaran(metodePembayaran);
                     history.setTanggal(tanggal);
