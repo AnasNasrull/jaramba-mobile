@@ -50,7 +50,8 @@ public class History extends AppCompatActivity {
                 getAllHistory.clear();
 
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-                    getAllHistory data = noteDataSnapshot.getValue(getAllHistory.class);
+                    getAllHistory data = new getAllHistory();
+                    data = noteDataSnapshot.getValue(getAllHistory.class);
                     data.setKey(noteDataSnapshot.getKey());
 
                     getAllHistory.add(data);

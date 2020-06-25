@@ -1,4 +1,5 @@
 <resources>
+    <string name="register">Register</string>
     <string name="app_name">Jaramba Mobile</string>
     <string name="image">image</string>
     <string name="petualangan_seru_dimulai_dari_sini">Petualangan seru dimulai dari sini</string>
@@ -51,9 +52,9 @@
     <string name="waktu_keberangkatan">01:41</string>
     <string name="pm_am">PM</string>
     <string name="jumlah_penumpang">Jumlah Penumpang :</string>
-    <string name="keterangan_penumpang">BELUM DITAMBAHKAN</string>
+    <string name="keterangan_penumpang">Belum Ditambahkan</string>
     <string name="metode_pembayaran">Metode Pembayaran :</string>
-    <string name="keterangan_metode_pembayaran">BELUM DITAMBAHKAN</string>
+    <string name="keterangan_metode_pembayaran">Belum Ditambahkan</string>
     <string name="let_s_go">Let\'s Go</string>
     <string name="tv_keterangan_ubah_password">Jaramba akan mengirimkan pesan \nmelalui email anda, kemudian anda \ndapat mengubah kata sandi \nmelalui pesan tersebut</string>
     <string name="silahkan_masukkan">Silahkan masukkan</string>

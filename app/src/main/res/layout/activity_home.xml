@@ -203,6 +203,7 @@
                     android:layout_margin="10dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="0.33"
+                    android:onClick="clickAngkot"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp">
@@ -255,6 +256,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="0.33"
+                    android:onClick="clickTrain"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp">
@@ -297,6 +299,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="0.33"
                     android:background="?attr/selectableItemBackground"
+                    android:onClick="clickMonorail"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp">
@@ -339,6 +342,7 @@
                     android:layout_margin="10dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="0.33"
+                    android:onClick="clickTravel"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     app:cardCornerRadius="10dp"

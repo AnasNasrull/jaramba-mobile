@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance().getReference();
         databaseReference = database.child("Mobile_Apps").child("User");
 
-        //init progres dialog
+        //init progress dialog
         progressDialog = new ProgressDialog(HomeActivity.this);
 
         tvUsername = findViewById(R.id.name_user);
@@ -168,6 +168,22 @@ public class HomeActivity extends AppCompatActivity {
 
     public void clickDamri(View view) {
         startActivity(new Intent(this, TripUser.class));
+    }
+
+    public void clickTrain(View view) {
+        startActivity(new Intent(this, UnderConstructionScreen.class));
+    }
+
+    public void clickAngkot(View view) {
+        startActivity(new Intent(this, UnderConstructionScreen.class));
+    }
+
+    public void clickMonorail(View view) {
+        startActivity(new Intent(this, UnderConstructionScreen.class));
+    }
+
+    public void clickTravel(View view) {
+        startActivity(new Intent(this, UnderConstructionScreen.class));
     }
   
 }
