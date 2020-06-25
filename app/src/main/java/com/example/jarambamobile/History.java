@@ -3,6 +3,7 @@ package com.example.jarambamobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,11 +40,8 @@ public class History extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         database = FirebaseDatabase.getInstance().getReference();
-
         firebaseAuth = FirebaseAuth.getInstance();
-
         FirebaseUser user = firebaseAuth.getCurrentUser();
-
         String uid = user.getUid();
 
         database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").addValueEventListener(new ValueEventListener() {
@@ -52,22 +50,21 @@ public class History extends AppCompatActivity {
                 getAllHistory.clear();
 
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-                    getAllHistory data = noteDataSnapshot.getValue(getAllHistory.class);
+                    getAllHistory data = new getAllHistory();
+                    data = noteDataSnapshot.getValue(getAllHistory.class);
                     data.setKey(noteDataSnapshot.getKey());
 
                     getAllHistory.add(data);
                 }
 
                 Collections.reverse(getAllHistory);
-
                 recyclerAdapter = new RecyclerAdapter(getAllHistory);
                 recyclerView.setAdapter(recyclerAdapter);
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                //Log.w(TAG, "Failed to read value.", error.toException());
+
             }
         });
 
@@ -91,7 +88,6 @@ public class History extends AppCompatActivity {
                         finish();
                         break;
                 }
-
                 return false;
             }
         });

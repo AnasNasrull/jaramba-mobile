@@ -29,7 +29,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
     ArrayList<getAllHistory> moviesList;
     private Context context;
-
     FirebaseAuth firebaseAuth;
 
     public RecyclerAdapter(ArrayList<getAllHistory> moviesList) {
@@ -65,8 +64,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         final getAllHistory isi = moviesList.get(position);
         if (isi.getStatus().contains("done")) {
             ViewHolderTwo viewHolderTwo = (ViewHolderTwo) holder;
-            viewHolderTwo.textViewFrom2.setText(isi.getStart());
-            viewHolderTwo.textViewTo2.setText(isi.getTo());
+
+            String mulai = isi.getStart();
+            if(mulai.length()>17) {
+                viewHolderTwo.textViewFrom2.setText(ShortChar(mulai));
+            } else {
+                viewHolderTwo.textViewFrom2.setText(isi.getStart());
+            }
+
+            String sampai = isi.getTo();
+            if(sampai.length()>17) {
+                viewHolderTwo.textViewTo2.setText(ShortChar(sampai));
+            } else {
+                viewHolderTwo.textViewTo2.setText(isi.getTo());
+            }
 
             if (isi.getRate_status().contains("not")) {
                 viewHolderTwo.rating.setEnabled(true);
@@ -74,7 +85,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         final Dialog dialog = new Dialog(context);
-
                         dialog.setContentView(R.layout.history_rating);
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
@@ -84,7 +94,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                         final TextView Harga = dialog.findViewById(R.id.harga_rate);
                         final TextView Pembayaran = dialog.findViewById(R.id.crbyr_rate);
 
-                        Harga.setText(isi.getHarga());
+                        Harga.setText(isi.getHarga().toString());
                         Pembayaran.setText(isi.getPembayaran());
 
                         Submit.setOnClickListener(new View.OnClickListener() {
@@ -92,19 +102,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                             public void onClick(View v) {
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference myRef = database.getReference();
-
                                 firebaseAuth = FirebaseAuth.getInstance();
-
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
-
                                 String uid = user.getUid();
 
                                 myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).setValue(new getAllHistory(Rating.getRating(), Komentar.getText().toString(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), isi.getStatus(), "done"));
-
                                 dialog.dismiss();
                             }
                         });
-
                         dialog.show();
                     }
                 });
@@ -114,7 +119,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     final Dialog dialog2 = new Dialog(context);
-
                     dialog2.setContentView(R.layout.history_detail);
                     dialog2.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
@@ -128,8 +132,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     start.setText(isi.getStart());
                     to.setText(isi.getTo());
                     tanggal.setText(isi.getTanggal());
-                    jumlah.setText(isi.getJumlah_penumpang());
-                    harga.setText(isi.getHarga());
+                    jumlah.setText(isi.getJumlah_penumpang().toString());
+                    harga.setText(isi.getHarga().toString());
                     pembayaran.setText(isi.getPembayaran());
 
                     dialog2.show();
@@ -137,14 +141,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             });
         } else {
             final ViewHolderOne viewHolderOne = (ViewHolderOne) holder;
-            viewHolderOne.textViewFrom1.setText(isi.getStart());
-            viewHolderOne.TextViewTo1.setText(isi.getTo());
+
+            String mulai = isi.getStart();
+            if(mulai.length()>20) {
+                viewHolderOne.textViewFrom1.setText(ShortChar(mulai));
+            } else {
+                viewHolderOne.textViewFrom1.setText(isi.getStart());
+            }
+
+            String sampai = isi.getTo();
+            if(sampai.length()>20) {
+                viewHolderOne.TextViewTo1.setText(ShortChar(sampai));
+            } else {
+                viewHolderOne.TextViewTo1.setText(isi.getTo());
+            }
 
             viewHolderOne.info.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final Dialog dialog1 = new Dialog(context);
-
                     dialog1.setContentView(R.layout.history_detail);
                     dialog1.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
@@ -158,8 +173,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     start.setText(isi.getStart());
                     to.setText(isi.getTo());
                     tanggal.setText(isi.getTanggal());
-                    jumlah.setText(isi.getJumlah_penumpang());
-                    harga.setText(isi.getHarga());
+                    jumlah.setText(isi.getJumlah_penumpang().toString());
+                    harga.setText(isi.getHarga().toString());
                     pembayaran.setText(isi.getPembayaran());
 
                     dialog1.show();
@@ -177,11 +192,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference myRef = database.getReference();
-
                             firebaseAuth = FirebaseAuth.getInstance();
-
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-
                             String uid = user.getUid();
 
                             Date tanggal = new Date();
@@ -207,7 +219,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                             } else if (menuItem.getTitle().equals("Cancel")) {
                                 myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).removeValue();
                             }
-
                             return false;
                         }
                     });
@@ -223,9 +234,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
     }
 
     class ViewHolderOne extends RecyclerView.ViewHolder {
-        TextView textViewFrom1, TextViewTo1;
+        TextView textViewFrom1, TextViewTo1, status;
         ImageView info;
-        TextView status;
 
         public ViewHolderOne(@NonNull View itemView) {
             super(itemView);
@@ -251,5 +261,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
             context = itemView.getContext();
         }
+    }
+
+    public String ShortChar(String address) {
+        String cut;
+        char[] cutChar = new char[23];
+
+        for (int i=0; i<23; i++) {
+            if (i<20) {
+                cutChar[i] = address.charAt(i);
+            } else {
+                cutChar[i] = '.';
+            }
+        }
+        cut = new String(cutChar);
+        return cut;
     }
 }

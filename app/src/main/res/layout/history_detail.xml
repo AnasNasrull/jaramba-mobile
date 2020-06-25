@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:padding="15dp"
@@ -13,7 +13,10 @@
         android:id="@+id/detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Detail trip"
+        android:text="@string/detail_trip"
+        android:fontFamily="@font/nunitosans_semibold"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,29 +24,34 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="47dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail"
-        app:srcCompat="@drawable/ic_baseline_directions_bus_24" />
+        app:layout_constraintEnd_toStartOf="@id/detail"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_directions_bus_24"
+        android:contentDescription="@string/icon_bus" />
 
     <TextView
         android:id="@+id/start_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Start : "
+        android:text="@string/start"
+        android:fontFamily="@font/nunitosans_regular"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail" />
 
     <TextView
         android:id="@+id/start_data"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textColor="@color/black"
+        android:maxLines="4"
+        android:layout_marginStart="3dp"
+        android:fontFamily="@font/nunitosans_regular"
         app:layout_constraintStart_toEndOf="@id/start_text"
         app:layout_constraintTop_toBottomOf="@+id/detail" />
 
@@ -51,44 +59,57 @@
         android:id="@+id/to_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="To : "
+        android:text="@string/to"
+        android:fontFamily="@font/nunitosans_regular"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/start_text" />
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_data" />
 
     <TextView
         android:id="@+id/to_data"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:layout_marginStart="3dp"
+        android:fontFamily="@font/nunitosans_regular"
         android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@id/to_text"
-        app:layout_constraintTop_toBottomOf="@+id/start_text" />
+        app:layout_constraintTop_toBottomOf="@+id/start_data" />
 
     <TextView
         android:id="@+id/tgl_text_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tanggal : "
+        android:text="@string/tanggal"
+        android:fontFamily="@font/nunitosans_regular"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/to_text" />
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/to_data" />
 
     <TextView
         android:id="@+id/tgl_data_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:fontFamily="@font/nunitosans_regular"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@id/tgl_text_det"
-        app:layout_constraintTop_toBottomOf="@+id/to_text" />
+        app:layout_constraintTop_toBottomOf="@+id/to_data" />
 
     <TextView
         android:id="@+id/jml_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Jumlah Penumpang : "
+        android:text="@string/jumlah_penumpang"
+        android:fontFamily="@font/nunitosans_regular"
         android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         android:paddingBottom="20dp"
-        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tgl_text_det" />
 
     <TextView
@@ -96,24 +117,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:fontFamily="@font/nunitosans_regular"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="3dp"
         android:paddingBottom="20dp"
         app:layout_constraintStart_toEndOf="@id/jml_text"
         app:layout_constraintTop_toBottomOf="@+id/tgl_text_det" />
+
+    <TextView
+        android:id="@+id/jml_orang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunitosans_regular"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="20dp"
+        android:layout_marginStart="3dp"
+        android:text="@string/orang"
+        app:layout_constraintStart_toEndOf="@id/jml_data"
+        app:layout_constraintTop_toBottomOf="@+id/tgl_text_det" />
+
+    <TextView
+        android:id="@+id/harga_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="@string/rp"
+        android:fontFamily="@font/nunitosans_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jml_text" />
 
     <TextView
         android:id="@+id/harga_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="3dp"
+        android:fontFamily="@font/nunitosans_regular"
+        app:layout_constraintStart_toEndOf="@+id/harga_text"
         app:layout_constraintTop_toBottomOf="@+id/jml_text" />
 
     <TextView
         android:id="@+id/byr_det"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pembayaran : "
+        android:text="@string/pembayaran_detail"
+        android:fontFamily="@font/nunitosans_regular"
         android:textColor="@color/black"
+        android:layout_marginEnd="3dp"
         app:layout_constraintEnd_toStartOf="@id/crbyr_det"
         app:layout_constraintTop_toBottomOf="@+id/jml_text" />
 
@@ -122,6 +173,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:fontFamily="@font/nunitosans_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jml_data" />
 
