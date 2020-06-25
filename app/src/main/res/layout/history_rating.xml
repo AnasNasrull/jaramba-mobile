@@ -13,7 +13,9 @@
         android:id="@+id/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rating anda"
+        android:text="@string/rating_anda"
+        android:fontFamily="@font/nunitosans_semibold"
+        android:textSize="18sp"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,28 +39,44 @@
         android:id="@+id/comment_rate"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:hint="Tambahkan komentar"
+        android:hint="@string/tambahkan_komentar"
+        android:fontFamily="@font/nunitosans_regular"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/harga_rp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="@string/rp"
+        android:fontFamily="@font/nunitosans_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comment_rate" />
 
     <TextView
         android:id="@+id/harga_rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="3dp"
+        android:fontFamily="@font/nunitosans_regular"
+        app:layout_constraintStart_toEndOf="@+id/harga_rp"
         app:layout_constraintTop_toBottomOf="@+id/comment_rate" />
 
     <TextView
         android:id="@+id/byr_rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pembayaran : "
+        android:text="@string/pembayaran_detail"
+        android:fontFamily="@font/nunitosans_regular"
         android:textColor="@color/black"
+        android:layout_marginEnd="3dp"
         app:layout_constraintEnd_toStartOf="@id/crbyr_rate"
         app:layout_constraintTop_toBottomOf="@+id/comment_rate" />
 
@@ -67,6 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:fontFamily="@font/nunitosans_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comment_rate" />
 
@@ -74,7 +93,8 @@
         android:id="@+id/submit_rate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Submit"
+        android:text="@string/submit"
+        android:fontFamily="@font/nunitosans_regular"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

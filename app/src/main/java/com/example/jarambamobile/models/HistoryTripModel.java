@@ -2,7 +2,8 @@ package com.example.jarambamobile.models;
 
 public class HistoryTripModel {
     private Double harga;
-    private String start,to, status, tanggal, rating, comment, pembayaran;
+    private String start,to, status, tanggal, comment, pembayaran;
+    private float rating;
     private Integer jumlah_penumpang;
 
     public HistoryTripModel(){}
@@ -47,11 +48,11 @@ public class HistoryTripModel {
         this.tanggal = tanggal;
     }
 
-    public String getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
