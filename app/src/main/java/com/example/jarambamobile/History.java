@@ -1,11 +1,15 @@
 package com.example.jarambamobile;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,7 +52,8 @@ public class History extends AppCompatActivity {
                 getAllHistory.clear();
 
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-                    getAllHistory data = noteDataSnapshot.getValue(getAllHistory.class);
+                    getAllHistory data = new getAllHistory();
+                    data = noteDataSnapshot.getValue(getAllHistory.class);
                     data.setKey(noteDataSnapshot.getKey());
 
                     getAllHistory.add(data);
@@ -64,6 +69,31 @@ public class History extends AppCompatActivity {
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 //Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi_history);
+        bottomNavigationView.setSelectedItemId(R.id.nav_history);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        startActivity(new Intent(History.this, HomeActivity.class));
+                        finish();
+                        break;
+                    case R.id.nav_trip:
+                        startActivity(new Intent(History.this, TripUserHome.class));
+                        finish();
+                        break;
+                    case R.id.nav_profile:
+                        startActivity(new Intent(History.this, ProfilePage.class));
+                        finish();
+                        break;
+                }
+
+                return false;
             }
         });
     }

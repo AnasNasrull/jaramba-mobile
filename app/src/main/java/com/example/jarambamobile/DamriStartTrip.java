@@ -1,15 +1,18 @@
 package com.example.jarambamobile;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DirectAction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -26,11 +29,15 @@ import com.example.jarambamobile.fragment.DatePickerFragment;
 import com.example.jarambamobile.models.HistoryTripModel;
 import com.example.jarambamobile.models.PointAddressModel;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.DatabaseMetaData;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -49,9 +56,9 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
     TextView tvTotalInputPenumpang, tvMetodePembayaran, tvAsalPengguna, tvTujuanPengguna, tvTanggal,tvHari, tvWaktu, tvTotalHarga;
     Button btnTambahkanPenumpang, btnDismissPenumpang, btnTambahMetodePembayaran, btnDismissMetode, btnGo;
     Spinner spinner;
-    String text, startAddress, destinationAddress, metodePembayaran, hari, tanggal, waktu;
-    Integer jumlahPenumpang;
-    Double totalHarga, startPointLat,startPointLong, destPointLat,destPointLong;
+    String text, startAddress, destinationAddress, metodePembayaran="Belum Ditambahkan", hari, tanggal, waktu, from;
+    Integer jumlahPenumpang=0;
+    Double totalHarga=0.0, startPointLat,startPointLong, destPointLat,destPointLong;
 
     HistoryTripModel history;
     PointAddressModel startLatLong, destinationLatLong;
@@ -69,10 +76,27 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
 
         Intent intent = getIntent();
 
-        startPointLat = Double.parseDouble(intent.getStringExtra("start_lati"));
-        startPointLong = Double.parseDouble(intent.getStringExtra("start_long"));
-        destPointLat = Double.parseDouble(intent.getStringExtra("destination_lati"));
-        destPointLong = Double.parseDouble(intent.getStringExtra("destination_long"));
+        from = intent.getStringExtra("From");
+
+        tvTanggal = findViewById(R.id.tanggal_kalender);
+        tvHari = findViewById(R.id.hari_kata);
+        if(from.equals("Trip User")){
+            startPointLat = Double.parseDouble(intent.getStringExtra("start_lati"));
+            startPointLong = Double.parseDouble(intent.getStringExtra("start_long"));
+            destPointLat = Double.parseDouble(intent.getStringExtra("destination_lati"));
+            destPointLong = Double.parseDouble(intent.getStringExtra("destination_long"));
+
+            setTanggal();
+            tvTanggal.setText(tanggal);
+            tvHari.setText(hari);
+
+            setWaktu();
+            tvWaktu = findViewById(R.id.waktu);
+            tvWaktu.setText(waktu);
+        }else if(from.equals("Trip User Home")){
+            tvTanggal.setText(intent.getStringExtra("Tanggal"));
+            tvHari.setText(intent.getStringExtra("Hari"));
+        }
 
         startAddress= intent.getStringExtra("start_address");
         tvAsalPengguna = findViewById(R.id.asal_pengguna);
@@ -82,15 +106,6 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         tvTujuanPengguna = findViewById(R.id.asal_pengguna_to);
         tvTujuanPengguna.setText(destinationAddress);
 
-        setTanggal();
-        tvTanggal = findViewById(R.id.tanggal_kalender);
-        tvHari = findViewById(R.id.hari_kata);
-        tvTanggal.setText(tanggal);
-        tvHari.setText(hari);
-
-        setWaktu();
-        tvWaktu = findViewById(R.id.waktu);
-        tvWaktu.setText(waktu);
 
         tvTotalHarga = findViewById(R.id.sum_payment);
         database = FirebaseDatabase.getInstance().getReference();
@@ -105,23 +120,44 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                history.setComment(" ");
-                history.setHarga(totalHarga);
-                history.setRating(" ");
-                history.setJumlah_penumpang(jumlahPenumpang);
-                history.setPembayaran(metodePembayaran);
-                history.setTanggal(tanggal);
-                history.setStart(startAddress);
-                history.setTo(destinationAddress);
-                history.setStatus("Pending");
-                database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child("Trip_User").setValue(history);
+                if((totalHarga!=0)&&(jumlahPenumpang!=0)&&(!metodePembayaran.equals("Belum Ditambahkan"))){
+                    history.setComment(" ");
+                    history.setHarga(totalHarga);
+                    history.setRating(" ");
+                    history.setJumlah_penumpang(jumlahPenumpang);
+                    history.setPembayaran(metodePembayaran);
+                    history.setTanggal(tanggal);
+                    history.setStart(startAddress);
+                    history.setTo(destinationAddress);
+                    history.setStatus("Pending");
+                    database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child("Trip_User").setValue(history).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan !", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Data Gagal Disimpan, silahkan ulangi kembali!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                startLatLong.setLatitude(startPointLat);
-                startLatLong.setLongitude(startPointLong);
-                destinationLatLong.setLatitude(destPointLat);
-                destinationLatLong.setLongitude(destPointLong);
-                database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(startPointLong);
-                database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(destPointLong);
+                    if(from.equals("Trip User")){
+                        startLatLong.setLatitude(startPointLat);
+                        startLatLong.setLongitude(startPointLong);
+                        destinationLatLong.setLatitude(destPointLat);
+                        destinationLatLong.setLongitude(destPointLong);
+                        database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(startPointLong);
+                        database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(destPointLong);
+                    }
+
+                    //intent to history menu
+                    startActivity(new Intent(DamriStartTrip.this, History.class));
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Silahkan Lengkapi Form !", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
@@ -168,6 +204,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                     tvMetodePembayaran.setText(text);
+                    metodePembayaran = text;
                     dialog.dismiss();
             }
         });

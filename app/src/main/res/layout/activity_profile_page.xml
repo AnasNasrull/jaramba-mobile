@@ -115,9 +115,18 @@
         android:layout_margin="40dp"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/menu_navigasi_profil"
         android:onClick="logout"
         tools:ignore="OnClick" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/menu_navigasi_profil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffff"
+        app:menu="@menu/menu_navigasi"
+        android:layout_alignParentBottom="true"
+        tools:ignore="MissingConstraints" />
 
 
     

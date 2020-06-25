@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.spark.submitbutton.SubmitButton;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.HashMap;
 
@@ -41,7 +42,6 @@ import javax.crypto.spec.SecretKeySpec;
 public class RegisterPage extends AppCompatActivity {
 
     private EditText etEmail, etNomor, etNama, etPassword;
-    private Button btnRegister;
 
     private TextInputLayout txtPass;
     private ImageView img_logo;
@@ -49,11 +49,6 @@ public class RegisterPage extends AppCompatActivity {
     private SubmitButton register;
 
     Animation rightin_anim,top_anim, bottom_anim;
-
-    String outputString;
-    String passwords;
-    String AES = "AES";
-    String pass = "testmypassword";
 
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
@@ -166,45 +161,70 @@ public class RegisterPage extends AppCompatActivity {
             final String username = etNama.getText().toString().trim();
             final String password = etPassword.getText().toString().trim();
 
-            try {
-                outputString = encrypt(password, pass);
-                passwords = outputString;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(RegisterPage.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
-                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                firebaseAuth.getCurrentUser().sendEmailVerification()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful()) {
+                                                    FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                                String email = user.getEmail();
-                                String uid = user.getUid();
+                                                    String email = user.getEmail();
+                                                    String uid = user.getUid();
 
-                                HashMap <Object, String> hashMap = new HashMap<>();
-                                hashMap.put("Email", email);
-                              
-                                hashMap.put("Nomor_Handphone", number);
-                                hashMap.put("Nama_Lengkap", username);
-                                hashMap.put("Unique_ID", uid );
-                                hashMap.put("Image", "");
+                                                    HashMap <Object, String> hashMap = new HashMap<>();
+                                                    hashMap.put("Email", email);
+                                                    hashMap.put("Nomor_Handphone", number);
+                                                    hashMap.put("Nama_Lengkap", username);
+                                                    hashMap.put("Unique_ID", uid );
+                                                    hashMap.put("Image", "");
 
-                                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                DatabaseReference reference = database.getReference("Mobile_Apps");
-                                reference.child("User").child(uid).setValue(hashMap);
+                                                    byte[] inputData = etPassword.getText().toString().getBytes();
+                                                    byte[] outputData = new byte[0];
 
-                                progressDialog.dismiss();
-                                Toast.makeText(RegisterPage.this, "Email anda : " + email + "\nSukses terdaftar pada sistem", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), LoginPage.class));
-                                finish();
+                                                    try {
+                                                        outputData = sha.encryptSHA(inputData, "SHA-256");
+                                                    } catch (Exception e){
+                                                        e.printStackTrace();
+                                                    }
 
+                                                    BigInteger shaData = new BigInteger(1, outputData);
+                                                    String shaValue = shaData.toString(16);
+                                                    hashMap.put("Password", shaValue);
+
+                                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                                    DatabaseReference reference = database.getReference("Mobile_Apps");
+                                                    reference.child("User").child(uid).setValue(hashMap);
+
+                                                    progressDialog.dismiss();
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterPage.this);
+                                                    builder.setIcon(R.drawable.ic_check_black_24dp);
+                                                    builder.setTitle("Berhasil mendaftar");
+                                                    builder.setMessage("Silahkan cek pesan pada email : " + email + "\nuntuk verifikasi pengguna");
+
+                                                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            startActivity(new Intent(RegisterPage.this, LoginPage.class));
+                                                            finish();
+                                                        }
+                                                    });
+                                                    AlertDialog alertDialog = builder.create();
+                                                    alertDialog.show();
+
+                                                } else {
+                                                    Toast.makeText(RegisterPage.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        });
 
                             } else {
                                 progressDialog.dismiss();
-                                Toast.makeText(RegisterPage.this, "Maaf terdapat gangguan pada sistem", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterPage.this, "Maaf terdapat gangguan pada sistem", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -215,23 +235,5 @@ public class RegisterPage extends AppCompatActivity {
 
 
 
-    }
-
-    private String encrypt(String Data, String password) throws Exception {
-        SecretKeySpec key = generateKey(password);
-        Cipher c = Cipher.getInstance(AES);
-        c.init(Cipher.ENCRYPT_MODE, key);
-        byte[] encVal = c.doFinal(Data.getBytes());
-        String encryptedValue = Base64.encodeToString(encVal, Base64.DEFAULT);
-        return encryptedValue;
-    }
-
-    private SecretKeySpec generateKey(String password) throws  Exception{
-        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] bytes = password.getBytes("UTF-8");
-        digest.update(bytes, 0, bytes.length);
-        byte[] key = digest.digest();
-        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
-        return secretKeySpec;
     }
 }
