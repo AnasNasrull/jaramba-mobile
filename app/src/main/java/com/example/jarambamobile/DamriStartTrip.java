@@ -122,40 +122,43 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                 if((totalHarga!=0)&&(jumlahPenumpang!=0)&&(!metodePembayaran.equals("Belum Ditambahkan"))){
-                    history.setComment(" ");
-                    history.setHarga(totalHarga);
-                    history.setRating(0);
-                    history.setJumlah_penumpang(jumlahPenumpang);
-                    history.setPembayaran(metodePembayaran);
-                    history.setTanggal(tanggal);
-                    history.setStart(startAddress);
-                    history.setTo(destinationAddress);
-                    history.setStatus("Pending");
-                    history.setRate_status("not");
-                    database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child("Trip_User").setValue(history).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan !", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "Data Gagal Disimpan, silahkan ulangi kembali!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    if(jumlahPenumpang > 500){
+                        Toast.makeText(getApplicationContext(), "Jumlah Penumpang melebihi kapasitas", Toast.LENGTH_SHORT).show();
+                    }else{
+                        history.setComment(" ");
+                        history.setHarga(totalHarga);
+                        history.setRating(0);
+                        history.setJumlah_penumpang(jumlahPenumpang);
+                        history.setPembayaran(metodePembayaran);
+                        history.setTanggal(tanggal);
+                        history.setStart(startAddress);
+                        history.setTo(destinationAddress);
+                        history.setStatus("Pending");
+                        database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child("Trip_User").setValue(history).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan !", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(), "Data Gagal Disimpan, silahkan ulangi kembali!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-                    if(from.equals("Trip User")){
-                        startLatLong.setLatitude(startPointLat);
-                        startLatLong.setLongitude(startPointLong);
-                        destinationLatLong.setLatitude(destPointLat);
-                        destinationLatLong.setLongitude(destPointLong);
-                        database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(startPointLong);
-                        database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(destPointLong);
+                        if(from.equals("Trip User")){
+                            startLatLong.setLatitude(startPointLat);
+                            startLatLong.setLongitude(startPointLong);
+                            destinationLatLong.setLatitude(destPointLat);
+                            destinationLatLong.setLongitude(destPointLong);
+                            database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(startPointLong);
+                            database.child("Mobile_Apps").child("User").child("LongLat").push().setValue(destPointLong);
+                        }
+
+                        //intent to history menu
+                        startActivity(new Intent(DamriStartTrip.this, History.class));
+                        finish();
                     }
-
-                    //intent to history menu
-                    startActivity(new Intent(DamriStartTrip.this, History.class));
-                    finish();
                 }else{
                     Toast.makeText(getApplicationContext(), "Silahkan Lengkapi Form !", Toast.LENGTH_SHORT).show();
 
