@@ -131,6 +131,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                     history.setStart(startAddress);
                     history.setTo(destinationAddress);
                     history.setStatus("Pending");
+                    history.setRate_status("not");
                     database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child("Trip_User").setValue(history).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
