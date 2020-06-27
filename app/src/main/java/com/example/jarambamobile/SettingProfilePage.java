@@ -324,7 +324,22 @@ public class SettingProfilePage extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         progressDialog.dismiss();
                                         dialog.dismiss();
-                                        Toast.makeText(SettingProfilePage.this, "Email anda terkonfirmasi, silahkan cek email anda untuk ubah kata sandi", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(SettingProfilePage.this, "Email anda terkonfirmasi, silahkan cek email anda untuk ubah kata sandi", Toast.LENGTH_SHORT).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(SettingProfilePage.this);
+                                        builder.setIcon(R.drawable.ic_check_black_24dp);
+                                        builder.setTitle("Email anda terkonfirmasi");
+                                        builder.setMessage("silahkan cek email anda untuk ubah kata sandi");
+
+                                        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                FirebaseAuth.getInstance().signOut();
+                                                startActivity(new Intent(SettingProfilePage.this, LoginPage.class));
+                                                finish();
+                                            }
+                                        });
+                                        AlertDialog alertDialog = builder.create();
+                                        alertDialog.show();
                                     } else {
                                         progressDialog.dismiss();
                                         Toast.makeText(SettingProfilePage.this, "Email anda tidak terkonfirmasi, cek koneksi internet anda", Toast.LENGTH_SHORT).show();
