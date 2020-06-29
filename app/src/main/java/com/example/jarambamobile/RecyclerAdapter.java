@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -106,11 +107,29 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
                                 String uid = user.getUid();
 
-                                myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).setValue(new getAllHistory(Rating.getRating(), Komentar.getText().toString(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), isi.getStatus(), "done"));
-                                dialog.dismiss();
+                                if (Rating.getRating()!=0 && !Komentar.getText().toString().equals("")) {
+                                    myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).setValue(new getAllHistory(Rating.getRating(), Komentar.getText().toString(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), isi.getStatus(), "done"));
+                                    dialog.dismiss();
+
+                                    Toast.makeText(context, "Pemberian Rating dan Komentar Berhasil", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    if (Rating.getRating()==0) {
+                                        Toast.makeText(context, "Anda Belum Memberi Rating!", Toast.LENGTH_SHORT).show();
+                                    } else if (Komentar.getText().toString().equals("")) {
+                                        Toast.makeText(context, "Anda Belum Mengisi Komentar!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
                             }
                         });
+
                         dialog.show();
+                    }
+                });
+            } else {
+                viewHolderTwo.rating.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, "Anda Telah Memberikan Rating dan Komentar", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
