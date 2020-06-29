@@ -382,6 +382,7 @@
             android:id="@+id/btn_go"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/icon_add_pembayaran"
             android:text="@string/let_s_go"
             android:textAllCaps="false"
             android:fontFamily="@font/nunitosans_semibold"
@@ -391,7 +392,6 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             tools:ignore="OnClick" />
-
 
     </RelativeLayout>
     </RelativeLayout>
