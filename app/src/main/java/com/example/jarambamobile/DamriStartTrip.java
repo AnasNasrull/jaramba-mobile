@@ -94,8 +94,11 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
             tvWaktu = findViewById(R.id.waktu);
             tvWaktu.setText(waktu);
         }else if(from.equals("Trip User Home")){
-            tvTanggal.setText(intent.getStringExtra("Tanggal"));
-            tvHari.setText(intent.getStringExtra("Hari"));
+            this.tanggal = intent.getStringExtra("Tanggal");
+            this.hari = intent.getStringExtra("Hari");
+
+            tvTanggal.setText(tanggal);
+            tvHari.setText(hari);
         }
 
         startAddress= intent.getStringExtra("start_address");
