@@ -191,10 +191,10 @@ public class ProfilePage extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
-        if (timeOfDay >= 0 && timeOfDay < 18){
+        if (timeOfDay > 0 && timeOfDay < 18){
             bgDynamic.setImageResource(R.drawable.img_default_half_morning);
             Glide.with(ProfilePage.this).load(R.drawable.img_default_half_morning).into(bgDynamic);
-        } else if (timeOfDay >= 18 && timeOfDay < 24) {
+        } else if (timeOfDay > 18 && timeOfDay < 23) {
             bgDynamic.setImageResource(R.drawable.img_default_half_night);
             Glide.with(ProfilePage.this).load(R.drawable.img_default_half_night).into(bgDynamic);
         }
