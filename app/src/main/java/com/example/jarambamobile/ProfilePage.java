@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -41,6 +42,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class ProfilePage extends AppCompatActivity {
@@ -65,7 +67,7 @@ public class ProfilePage extends AppCompatActivity {
     private static final int IMAGE_PICK_CAMERA_CODE = 400;
 
     private TextView nameTv, emailTv, phoneTv;
-    private ImageView avatarIv;
+    private ImageView avatarIv, bgDynamic, icSetting;
 
     String cameraPermission[];
     String storagePermission[];
@@ -102,7 +104,11 @@ public class ProfilePage extends AppCompatActivity {
         nameTv = findViewById(R.id.tv_profil_username);
         emailTv = findViewById(R.id.tv_profil_email);
         phoneTv = findViewById(R.id.tv_profil_phone);
+        bgDynamic = findViewById(R.id.greeting_img_profile);
+        icSetting = findViewById(R.id.setting_profile_page);
 
+        Glide.with(ProfilePage.this).load(R.drawable.ic_settings_black_48dp).into(icSetting);
+        greeting();
 
         //init progres dialog
         progressDialog = new ProgressDialog(ProfilePage.this);
@@ -178,6 +184,20 @@ public class ProfilePage extends AppCompatActivity {
             }
         });
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void greeting() {
+        Calendar calendar = Calendar.getInstance();
+        int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+
+        if (timeOfDay >= 0 && timeOfDay < 18){
+            bgDynamic.setImageResource(R.drawable.img_default_half_morning);
+            Glide.with(ProfilePage.this).load(R.drawable.img_default_half_morning).into(bgDynamic);
+        } else if (timeOfDay >= 18 && timeOfDay < 24) {
+            bgDynamic.setImageResource(R.drawable.img_default_half_night);
+            Glide.with(ProfilePage.this).load(R.drawable.img_default_half_night).into(bgDynamic);
+        }
     }
 
     private void progressDialog() {
