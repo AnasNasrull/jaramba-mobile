@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
@@ -9,14 +9,18 @@
     android:background="@android:color/white"
     android:id="@+id/homeactivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="855dp"
+        android:layout_height="wrap_content"
         android:layout_weight="2.2"
         android:gravity="center"
-        android:orientation="horizontal"
-   >
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/greeting_img"
@@ -82,19 +86,20 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txte"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="3dp"
                     android:layout_marginRight="10dp"
+                    android:gravity="center"
                     android:text="Choose Transportation mode"
                     android:textColor="#000"
                     android:textSize="23dp" />
@@ -394,5 +399,5 @@
         android:layout_height="wrap_content"
         android:background="#ffff"
         app:menu="@menu/menu_navigasi"/>
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
