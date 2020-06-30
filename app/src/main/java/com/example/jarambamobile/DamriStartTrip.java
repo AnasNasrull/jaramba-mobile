@@ -119,7 +119,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         startLatLong = new PointAddressModel();
         destinationLatLong = new PointAddressModel();
         btnGo = findViewById(R.id.btn_go);
-        //final String uid = "sqNxENZFQAga0Qq9MlEyI4aCxQh2";
+        
         final String uid = user.getUid();
         btnGo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,9 +128,10 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                     if(jumlahPenumpang > 500){
                         Toast.makeText(getApplicationContext(), "Jumlah Penumpang melebihi kapasitas", Toast.LENGTH_SHORT).show();
                     }else{
-                        history.setComment(" ");
+                        history.setComment("");
                         history.setHarga(totalHarga);
                         history.setRating(0);
+                        history.setRate_status("not");
                         history.setJumlah_penumpang(jumlahPenumpang);
                         history.setPembayaran(metodePembayaran);
                         history.setTanggal(tanggal);
