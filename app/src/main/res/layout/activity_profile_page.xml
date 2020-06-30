@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +8,10 @@
     android:background="@android:color/white"
     tools:context=".ProfilePage">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
     <ImageView
         android:id="@+id/greeting_img_profile"
         android:layout_width="match_parent"
@@ -116,6 +121,7 @@
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="150dp"
+        android:layout_below="@+id/info_profile_page"
         android:layout_height="wrap_content"
         android:text="@string/logout"
         android:fontFamily="@font/nunitosans_semibold"
@@ -124,20 +130,26 @@
         android:layout_margin="40dp"
         android:layout_centerHorizontal="true"
         android:textStyle="bold"
-        android:layout_above="@+id/menu_navigasi_profil"
         android:onClick="logout"
         tools:ignore="OnClick" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/menu_navigasi_profil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffff"
-        app:menu="@menu/menu_navigasi"
-        android:layout_alignParentBottom="true"
-        tools:ignore="MissingConstraints" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/menu_navigasi_profil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffff"
+                app:menu="@menu/menu_navigasi"
+                tools:ignore="MissingConstraints" />
+        </RelativeLayout>
+    </RelativeLayout>
+
 
 
     
 
-</RelativeLayout>
+</ScrollView>

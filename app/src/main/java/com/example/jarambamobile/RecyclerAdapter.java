@@ -1,7 +1,10 @@
 package com.example.jarambamobile;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,7 +64,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final getAllHistory isi = moviesList.get(position);
         if (isi.getStatus().contains("done")) {
             ViewHolderTwo viewHolderTwo = (ViewHolderTwo) holder;
@@ -81,6 +85,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
             if (isi.getRate_status().contains("not")) {
                 viewHolderTwo.rating.setEnabled(true);
+                viewHolderTwo.rating.setColorFilter(Color.rgb(255,204,0));
                 viewHolderTwo.rating.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -106,11 +111,30 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
                                 String uid = user.getUid();
 
-                                myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).setValue(new getAllHistory(Rating.getRating(), Komentar.getText().toString(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), isi.getStatus(), "done"));
-                                dialog.dismiss();
+                                if (Rating.getRating()!=0 && !Komentar.getText().toString().equals("")) {
+                                    myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).setValue(new getAllHistory(Rating.getRating(), Komentar.getText().toString(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), isi.getStatus(), "done"));
+                                    dialog.dismiss();
+
+                                    Toast.makeText(context, "Pemberian Rating dan Komentar Berhasil", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    if (Rating.getRating()==0) {
+                                        Toast.makeText(context, "Anda Belum Memberi Rating!", Toast.LENGTH_SHORT).show();
+                                    } else if (Komentar.getText().toString().equals("")) {
+                                        Toast.makeText(context, "Anda Belum Mengisi Komentar!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
                             }
                         });
+
                         dialog.show();
+                    }
+                });
+            } else if (isi.getRate_status().contains("done")){
+                viewHolderTwo.rating.setColorFilter(Color.rgb(128,128,128));
+                viewHolderTwo.rating.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, "Anda Telah Memberikan Rating dan Komentar", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -190,34 +214,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef = database.getReference();
-                            firebaseAuth = FirebaseAuth.getInstance();
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            String uid = user.getUid();
-
-                            Date tanggal = new Date();
-
-                            SimpleDateFormat format = new SimpleDateFormat("H");
-                            String tgl = isi.getTanggal();
-                            String jam = format.format(tanggal);
-                            SimpleDateFormat format2 = new SimpleDateFormat("m");
-                            String menit = format2.format(tanggal);
-                            SimpleDateFormat format3 = new SimpleDateFormat("s");
-                            String detik = format3.format(tanggal);
-                            char[] dd = {tgl.charAt(0), tgl.charAt(1)};
-                            char[] mm = {tgl.charAt(3), tgl.charAt(4)};
-                            char[] yyyy = {tgl.charAt(6), tgl.charAt(7), tgl.charAt(8), tgl.charAt(9)};
-                            String day = new String(dd);
-                            String month = new String(mm);
-                            String year = new String(yyyy);
-                            String key = year + month + day + jam + menit + detik;
 
                             if (menuItem.getTitle().equals("Done")) {
-                                myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(key).setValue(new getAllHistory(isi.getRating(), isi.getComment(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), "done", isi.getRate_status()));
-                                myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).removeValue();
+                                showDialog("Done", position);
                             } else if (menuItem.getTitle().equals("Cancel")) {
-                                myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).removeValue();
+                                showDialog("Cancel", position);
                             }
                             return false;
                         }
@@ -276,5 +277,74 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         }
         cut = new String(cutChar);
         return cut;
+    }
+
+    private void showDialog(String status, int position){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+
+        final getAllHistory isi = moviesList.get(position);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        final String uid = user.getUid();
+
+        alertDialogBuilder.setTitle("History User");
+
+        if (status.equals("Done")) {
+            alertDialogBuilder
+                    .setMessage("Klik Ya Jika Trip Selesai!")
+                    .setCancelable(false)
+                    .setPositiveButton("Ya",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            Date tanggal = new Date();
+
+                            SimpleDateFormat format = new SimpleDateFormat("HH");
+                            String tgl = isi.getTanggal();
+                            String jam = format.format(tanggal);
+                            SimpleDateFormat format2 = new SimpleDateFormat("mm");
+                            String menit = format2.format(tanggal);
+                            SimpleDateFormat format3 = new SimpleDateFormat("ss");
+                            String detik = format3.format(tanggal);
+                            char[] dd = {tgl.charAt(0), tgl.charAt(1)};
+                            char[] mm = {tgl.charAt(3), tgl.charAt(4)};
+                            char[] yyyy = {tgl.charAt(6), tgl.charAt(7), tgl.charAt(8), tgl.charAt(9)};
+                            String day = new String(dd);
+                            String month = new String(mm);
+                            String year = new String(yyyy);
+                            String key = year + month + day + jam + menit + detik;
+
+                            myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(key).setValue(new getAllHistory(isi.getRating(), isi.getComment(), isi.getHarga(), isi.getPembayaran(), isi.getStart(), isi.getTo(), isi.getTanggal(), isi.getJumlah_penumpang(), "done", isi.getRate_status()));
+                            myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).removeValue();
+                        }
+                    })
+                    .setNegativeButton("Tidak",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+        } else if (status.contains("Cancel")) {
+            // set pesan dari dialog
+            alertDialogBuilder
+                    .setMessage("Klik Ya untuk Membatalkan Trip!")
+                    .setCancelable(false)
+                    .setPositiveButton("Ya",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            myRef.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(isi.getKey()).removeValue();
+                            Toast.makeText(context, "Trip Berhasil Dibatalkan",Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("Tidak",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+        }
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.show();
     }
 }

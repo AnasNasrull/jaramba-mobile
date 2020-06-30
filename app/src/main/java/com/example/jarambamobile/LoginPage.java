@@ -23,12 +23,23 @@ import android.widget.Toast;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.spark.submitbutton.SubmitButton;
+
+import java.math.BigInteger;
+import java.util.HashMap;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -41,10 +52,14 @@ public class LoginPage extends AppCompatActivity {
 
     Animation rightin_anim,top_anim, bottom_anim;
     AwesomeValidation awesomeValidation;
+    //firebase
     FirebaseAuth firebaseAuth;
-    ProgressDialog progressDialog;
     FirebaseUser firebaseUser;
+    DatabaseReference database;
+    DatabaseReference databaseReference;
     FirebaseAuth.AuthStateListener mAuthStateListener;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onStart() {
@@ -64,10 +79,15 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
 
+        //init firebase
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance().getReference();
+        databaseReference = database.child("Mobile_Apps").child("User");
+
         etEmail = findViewById(R.id.et_email_login);
         etPassword = findViewById(R.id.et_password_login);
 
-        firebaseAuth = FirebaseAuth.getInstance();
 
         rightin_anim = AnimationUtils.loadAnimation(this,R.anim.right_in);
         top_anim = AnimationUtils.loadAnimation(this,R.anim.splash_top);
@@ -137,6 +157,12 @@ public class LoginPage extends AppCompatActivity {
 
 
     public void login(View view) {
+        //init firebase
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance().getReference();
+        databaseReference = database.child("Mobile_Apps").child("User");
+
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
         awesomeValidation.addValidation(this, R.id.et_email_login,
                 Patterns.EMAIL_ADDRESS, R.string.invalid_email);
@@ -163,6 +189,66 @@ public class LoginPage extends AppCompatActivity {
                                 Toast.makeText(LoginPage.this, "Maaf, Email atau password anda salah, dan Pastikan Anda Terhubung dengan Internet", Toast.LENGTH_SHORT).show();
                             } else {
                                 if (firebaseAuth.getCurrentUser().isEmailVerified()) {
+
+                                    //encrypt password
+                                    byte[] inputData = etPassword.getText().toString().getBytes();
+                                    byte[] outputData = new byte[0];
+
+                                    try {
+                                        outputData = sha.encryptSHA(inputData, "SHA-256");
+                                    } catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+
+                                    BigInteger shaData = new BigInteger(1, outputData);
+                                    final String passwords = shaData.toString(16);
+
+
+                                    //get current password
+                                    Query query = databaseReference.orderByChild("Email").equalTo(etEmail.getText().toString().trim());
+                                    query.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            //load password
+                                            for(DataSnapshot ds: dataSnapshot.getChildren()) {
+                                                //get current password from database
+                                                String pwd = ""+ds.child("Password").getValue();
+                                                String UID = ""+ds.child("Unique_ID").getValue();
+                                               // Toast.makeText(LoginPage.this, UID, Toast.LENGTH_SHORT).show();
+
+                                                //check if password different
+                                                if(!passwords.equals(pwd)){
+                                                    HashMap<String, Object> result = new HashMap<>();
+                                                    result.put("Password", passwords);
+
+                                                    databaseReference.child(UID).updateChildren(result)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    //updated, dismiss progress
+                                                                    progressDialog.dismiss();
+                                                                    Toast.makeText(LoginPage.this, "Password anda telah diperbarui...", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            progressDialog.dismiss();
+                                                            Toast.makeText(LoginPage.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+
+
                                     progressDialog.dismiss();
                                     Toast.makeText(LoginPage.this, "Selamat datang di Jaramba", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(LoginPage.this, HomeActivity.class));
