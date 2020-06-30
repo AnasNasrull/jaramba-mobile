@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     tools:context=".DamriStartTrip">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -378,6 +382,7 @@
             android:id="@+id/btn_go"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/icon_add_pembayaran"
             android:text="@string/let_s_go"
             android:textAllCaps="false"
             android:fontFamily="@font/nunitosans_semibold"
@@ -388,7 +393,6 @@
             android:layout_alignParentBottom="true"
             tools:ignore="OnClick" />
 
-
     </RelativeLayout>
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

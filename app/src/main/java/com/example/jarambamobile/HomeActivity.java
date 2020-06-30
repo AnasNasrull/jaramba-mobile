@@ -92,34 +92,6 @@ public class HomeActivity extends AppCompatActivity {
 
         greeting();
 
-//        nameUser = findViewById(R.id.name_user);
-
-//        database = FirebaseDatabase.getInstance().getReference();
-//
-//        firebaseAuth = FirebaseAuth.getInstance();
-//
-//        FirebaseUser user = firebaseAuth.getCurrentUser();
-//
-//        String uid = user.getUid();
-//
-//        database.child("Mobile_Apps").child("User").child(uid).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-//                    String name = ""+noteDataSnapshot.child("Nama_Lengkap").getValue();
-//
-//                    nameUser.setText(name);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                //Log.w(TAG, "Failed to read value.", error.toException());
-//            }
-//        });
-
     }
 
     private void getNamaUser() {
