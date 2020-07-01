@@ -85,7 +85,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
             if (isi.getRate_status().contains("not")) {
                 viewHolderTwo.rating.setEnabled(true);
-                viewHolderTwo.rating.setColorFilter(Color.rgb(255,204,0));
+                viewHolderTwo.rating.setColorFilter(Color.rgb(128,128,128));
                 viewHolderTwo.rating.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -130,7 +130,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                     }
                 });
             } else if (isi.getRate_status().contains("done")){
-                viewHolderTwo.rating.setColorFilter(Color.rgb(128,128,128));
+                viewHolderTwo.rating.setColorFilter(Color.rgb(255,204,0));
                 viewHolderTwo.rating.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
