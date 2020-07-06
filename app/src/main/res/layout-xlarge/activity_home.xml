@@ -5,13 +5,12 @@
     tools:context=".HomeActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/white_background"
-    >
+    android:background="@drawable/white_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:background="@drawable/img_default_half_morning"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,7 +35,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Welcome"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="55sp" />
 
             <TextView
                 android:id="@+id/txtUsername"
@@ -47,14 +46,14 @@
                 android:layout_marginTop="8dp"
                 android:text="Rivaldo Fernandes"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="45sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
@@ -78,7 +77,7 @@
         android:text="Choose Mode Transportation"
         android:textColor="@color/black"
         android:textAlignment="center"
-        android:textSize="22sp"
+        android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,15 +102,16 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:clickable="true"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="@color/white"
             android:onClick="clickRide"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">
 
             <LinearLayout
@@ -123,15 +123,17 @@
 
                 <ImageView
                     android:src="@drawable/d_bicycle_icon"
-                    android:layout_width="60dp"
-                    android:layout_height="50dp"
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
                     android:text="Ride Sharing"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -144,14 +146,15 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="@color/white"
             android:onClick="clickDamri"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">
 
             <LinearLayout
@@ -163,15 +166,17 @@
 
                 <ImageView
                     android:src="@drawable/d_bus_icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="120dp"
+                    android:layout_height="95dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
                     android:text="Damri"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -184,14 +189,15 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="@color/white"
             android:onClick="clickAngkot"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">
 
             <LinearLayout
@@ -203,15 +209,17 @@
 
                 <ImageView
                     android:src="@drawable/d_angkot_icon"
-                    android:layout_width="70dp"
-                    android:layout_height="50dp"
+                    android:layout_width="140dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
                     android:text="Angkot"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -226,13 +234,14 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             android:onClick="clickTrain"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">>
 
             <LinearLayout
@@ -244,15 +253,17 @@
 
                 <ImageView
                     android:src="@drawable/d_krl_icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
                     android:text="KRL"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -265,13 +276,14 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             android:onClick="clickMonorail"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">>
 
             <LinearLayout
@@ -283,15 +295,17 @@
 
                 <ImageView
                     android:src="@drawable/d_monorail_icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
                     android:text="Monorail"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -304,13 +318,14 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             android:onClick="clickTravel"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">>
 
             <LinearLayout
@@ -322,15 +337,17 @@
 
                 <ImageView
                     android:src="@drawable/d_travel_icon"
-                    android:layout_width="60dp"
-                    android:layout_height="50dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
                     android:text="Travel"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -343,7 +360,7 @@
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/chipNavigationBar"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="90dp"
         android:background="@drawable/header_navbar"
         android:elevation="16dp"
         android:padding="8dp"

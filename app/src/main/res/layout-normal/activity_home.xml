@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:background="@drawable/img_default_half_morning"
-        android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
@@ -112,6 +111,7 @@
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="@color/white"
             android:onClick="clickRide"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">
 
             <LinearLayout
@@ -130,6 +130,8 @@
                 <TextView
                     android:text="Ride Sharing"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -152,6 +154,7 @@
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="@color/white"
             android:onClick="clickDamri"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">
 
             <LinearLayout
@@ -170,6 +173,8 @@
                 <TextView
                     android:text="Damri"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -192,6 +197,7 @@
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="@color/white"
             android:onClick="clickAngkot"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">
 
             <LinearLayout
@@ -210,6 +216,8 @@
                 <TextView
                     android:text="Angkot"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -233,6 +241,7 @@
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             android:onClick="clickTrain"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">>
 
             <LinearLayout
@@ -251,6 +260,8 @@
                 <TextView
                     android:text="KRL"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -272,6 +283,7 @@
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             android:onClick="clickMonorail"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">>
 
             <LinearLayout
@@ -290,6 +302,8 @@
                 <TextView
                     android:text="Monorail"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -311,6 +325,7 @@
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             android:onClick="clickTravel"
+            android:foreground="?android:attr/selectableItemBackground"
             tools:ignore="OnClick">>
 
             <LinearLayout
@@ -329,6 +344,8 @@
                 <TextView
                     android:text="Travel"
                     android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
