@@ -88,9 +88,9 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        greetImg = findViewById(R.id.layoutHeader);
-
-        greeting();
+//        greetImg = findViewById(R.id.layoutHeader);
+//
+//        greeting();
 
     }
 
@@ -155,6 +155,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void clickTravel(View view) {
+        startActivity(new Intent(this, UnderConstructionScreen.class));
+    }
+
+    public void clickRide(View view) {
         startActivity(new Intent(this, UnderConstructionScreen.class));
     }
   
