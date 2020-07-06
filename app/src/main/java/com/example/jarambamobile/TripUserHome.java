@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -21,6 +22,14 @@ import android.widget.Toast;
 
 import com.example.jarambamobile.fragment.DatePickerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,6 +44,14 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     Spinner etStartCity, etStartArea, etDestinationCity, etDestinationArea;
     Button btnGo;
 
+    TextView tvUsername;
+
+    //firebase
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    DatabaseReference database;
+    DatabaseReference databaseReference;
+    ProgressDialog progressDialog;
     String StartCity, StartArea, DestinationCity, DestinationArea, Tanggal="", Hari="";
 
     @Override
@@ -67,6 +84,14 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance().getReference();
+        databaseReference = database.child("Mobile_Apps").child("User");
+
+        //init progress dialog
+        progressDialog = new ProgressDialog(TripUserHome.this);
+
         tvEditDate = findViewById(R.id.edit_date);
         tvEditDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +100,9 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
                 datepicker.show(getSupportFragmentManager(),"date picker");
             }
         });
+
+        tvUsername = findViewById(R.id.txt_salam);
+        getNamaUser();
 
         etStartCity = findViewById(R.id.btn_start_city);
         etStartCity.setOnItemSelectedListener(this);
@@ -120,6 +148,38 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+    }
+
+    private void getNamaUser() {
+        //progress dialog
+        progressDialog();
+
+        Query query = databaseReference.orderByChild("Email").equalTo(user.getEmail());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    //get data
+                    String name = ""+ds.child("Nama_Lengkap").getValue();
+
+                    //set data
+                    tvUsername.setText("Good Morning "+name);
+
+                    progressDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void progressDialog() {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
     @Override

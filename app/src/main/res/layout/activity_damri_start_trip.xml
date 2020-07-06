@@ -37,7 +37,7 @@
             android:layout_height="81dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="123dp"
+
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_toEndOf="@+id/judul_lets_start_your_trip"

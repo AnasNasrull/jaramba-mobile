@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,148 +8,144 @@
     android:background="@android:color/white"
     tools:context=".ProfilePage">
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white">
-    <ImageView
-        android:id="@+id/greeting_img_profile"
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:scaleType="fitXY"
-        android:contentDescription="@string/image" />
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/setting_profile_page"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ic_settings_black_48dp"
-        android:layout_margin="10dp"
-        android:onClick="userSettings"
-        android:padding="10dp"
-        android:layout_alignParentEnd="true"
-        android:contentDescription="@string/image"
-        tools:ignore="OnClick" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_profile_page"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:background="@drawable/avatar_blank"
-        android:layout_below="@+id/setting_profile_page"
-        app:civ_border_width="4dp"
-        app:civ_border_color="#77000000"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/edit_profile_page"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/edit_profil"
-        android:padding="10dp"
-        android:fontFamily="@font/nunitosans_semibold"
-        android:layout_below="@+id/greeting_img_profile"
-        android:layout_centerHorizontal="true"
-        android:onClick="changePictureProfileUser"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-        tools:ignore="OnClick" />
-
-    <View
-        android:id="@+id/view_line"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@+id/edit_profile_page"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/darker_gray" />
-
-    <LinearLayout
-        android:id="@+id/info_profile_page"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/edit_profile_page"
-        android:layout_marginTop="30dp"
-        android:background="#77000000">
-
-        <TextView
-            android:id="@+id/tv_profil_username"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_regular"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="5dp"
-            android:textSize="23sp"
-            android:textColor="@android:color/white"
-            />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_profil_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_regular"
-            android:layout_marginStart="16dp"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="5dp"
-            />
-
-        <TextView
-            android:id="@+id/tv_profil_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunitosans_regular"
-            android:layout_marginStart="16dp"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            />
-
-
-    </LinearLayout>
-
-
-
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="150dp"
-        android:layout_below="@+id/info_profile_page"
-        android:layout_height="wrap_content"
-        android:text="@string/logout"
-        android:fontFamily="@font/nunitosans_semibold"
-        android:textColor="@android:color/white"
-        android:background="@drawable/rounded_btn"
-        android:layout_margin="40dp"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:onClick="logout"
-        tools:ignore="OnClick" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true">
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/menu_navigasi_profil"
+            <ImageView
+                android:id="@+id/greeting_img_profile"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/image"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/setting_profile_page"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/image"
+                android:onClick="userSettings"
+                android:padding="10dp"
+                android:src="@drawable/ic_settings_black_48dp"
+                tools:ignore="OnClick" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile_page"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_below="@+id/setting_profile_page"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/avatar_blank"
+                app:civ_border_color="#77000000"
+                app:civ_border_width="4dp" />
+
+            <TextView
+                android:id="@+id/edit_profile_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/greeting_img_profile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/nunitosans_semibold"
+                android:onClick="changePictureProfileUser"
+                android:padding="10dp"
+                android:text="@string/edit_profil"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:ignore="OnClick" />
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_below="@+id/edit_profile_page"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:id="@+id/info_profile_page"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffff"
-                app:menu="@menu/menu_navigasi"
-                tools:ignore="MissingConstraints" />
+                android:layout_below="@+id/edit_profile_page"
+                android:layout_marginTop="30dp"
+                android:background="#77000000"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_profil_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/nunitosans_regular"
+                    android:textColor="@android:color/white"
+                    android:textSize="23sp" />
+
+                <TextView
+                    android:id="@+id/tv_profil_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/nunitosans_regular"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_profil_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/nunitosans_regular"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_profile_page"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/rounded_btn"
+                android:fontFamily="@font/nunitosans_semibold"
+                android:onClick="logout"
+                android:text="@string/logout"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                tools:ignore="OnClick" />
         </RelativeLayout>
-    </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
-
-
-    
-
-</ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/menu_navigasi_profil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_navigasi"
+        tools:ignore="MissingConstraints" />
+</androidx.constraintlayout.widget.ConstraintLayout>

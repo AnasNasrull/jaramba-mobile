@@ -140,13 +140,13 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@drawable/ic_bike_24dp"
+                    android:src="@drawable/ic_baseline_directions_bus_24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
-                    android:text="Ride Sharing"
+                    android:text="Damri"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -183,7 +183,7 @@
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
-                    android:text="Ride Sharing"
+                    android:text="Angkot"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -202,7 +202,7 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             app:cardElevation="8dp"
@@ -222,7 +222,7 @@
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
-                    android:text="Ride Sharing"
+                    android:text="KRL"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -239,7 +239,7 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             app:cardElevation="8dp"
@@ -259,7 +259,7 @@
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
-                    android:text="Ride Sharing"
+                    android:text="Monorail"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -276,7 +276,7 @@
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             app:cardElevation="8dp"
@@ -296,7 +296,7 @@
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
-                    android:text="Ride Sharing"
+                    android:text="Travel"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"

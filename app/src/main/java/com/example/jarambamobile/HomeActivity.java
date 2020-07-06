@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.squareup.picasso.Picasso;
 
 
@@ -41,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
 
-    ImageView greetImg;
+    ConstraintLayout greetImg;
     TextView tvUsername;
 
 //    TextView nameUser;
@@ -59,17 +61,17 @@ public class HomeActivity extends AppCompatActivity {
         //init progress dialog
         progressDialog = new ProgressDialog(HomeActivity.this);
 
-        tvUsername = findViewById(R.id.name_user);
+        tvUsername = findViewById(R.id.txtUsername);
         getNamaUser();
 
 
-        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi_home);
-        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        ChipNavigationBar  bottomNavigationView =  findViewById(R.id.chipNavigationBar);
+        bottomNavigationView.setItemSelected(R.id.nav_home,true);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+            public void onItemSelected(int i) {
+                switch (i) {
                     case R.id.nav_trip:
                         startActivity(new Intent(HomeActivity.this, TripUserHome.class));
                         finish();
@@ -83,12 +85,10 @@ public class HomeActivity extends AppCompatActivity {
                         finish();
                         break;
                 }
-
-                return false;
             }
         });
 
-        greetImg = findViewById(R.id.greeting_img);
+        greetImg = findViewById(R.id.layoutHeader);
 
         greeting();
 
@@ -132,9 +132,9 @@ public class HomeActivity extends AppCompatActivity {
         int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
         if (timeOfDay >= 0 && timeOfDay < 18){
-            greetImg.setImageResource(R.drawable.img_default_half_morning);
+            greetImg.setBackgroundResource(R.drawable.img_default_half_morning);
         } else if (timeOfDay >= 18 && timeOfDay < 24) {
-            greetImg.setImageResource(R.drawable.img_default_half_night);
+            greetImg.setBackgroundResource(R.drawable.img_default_half_night);
         }
     }
 
