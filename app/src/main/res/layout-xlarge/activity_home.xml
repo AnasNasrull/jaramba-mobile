@@ -11,7 +11,7 @@
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:background="@drawable/img_default_half_morning"
+        android:background="@drawable/header_morning"
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout

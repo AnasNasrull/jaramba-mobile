@@ -4,20 +4,14 @@ package com.example.jarambamobile;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.bumptech.glide.Glide;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,11 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
-import com.squareup.picasso.Picasso;
 
 
 import java.util.Calendar;
-import java.util.Collections;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -88,9 +80,9 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-//        greetImg = findViewById(R.id.layoutHeader);
-//
-//        greeting();
+        greetImg = findViewById(R.id.layoutHeader);
+
+        greeting();
 
     }
 
@@ -132,9 +124,9 @@ public class HomeActivity extends AppCompatActivity {
         int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
         if (timeOfDay >= 0 && timeOfDay < 18){
-            greetImg.setBackgroundResource(R.drawable.img_default_half_morning);
+            greetImg.setBackgroundResource(R.drawable.header_morning);
         } else if (timeOfDay >= 18 && timeOfDay < 24) {
-            greetImg.setBackgroundResource(R.drawable.img_default_half_night);
+            greetImg.setBackgroundResource(R.drawable.header_night);
         }
     }
 
