@@ -177,6 +177,8 @@
         android:id="@+id/rellay1"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/shape_button_trip"
         app:layout_constraintBottom_toTopOf="@+id/chipNavigationBar"
         app:layout_constraintEnd_toEndOf="parent"
