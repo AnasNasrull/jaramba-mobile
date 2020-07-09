@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -59,13 +60,12 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_user_home);
 
-        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi_trip);
-        bottomNavigationView.setSelectedItemId(R.id.nav_trip);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        ChipNavigationBar bottomNavigationView =  findViewById(R.id.chipNavigationBar);
+        bottomNavigationView.setItemSelected(R.id.nav_home,true);
+        bottomNavigationView.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+            public void onItemSelected(int i) {
+                switch (i) {
                     case R.id.nav_home:
                         startActivity(new Intent(TripUserHome.this, HomeActivity.class));
                         finish();
@@ -79,8 +79,6 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
                         finish();
                         break;
                 }
-
-                return false;
             }
         });
 
@@ -101,7 +99,7 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        tvUsername = findViewById(R.id.txt_salam);
+        tvUsername = findViewById(R.id.txtUsername);
         getNamaUser();
 
         etStartCity = findViewById(R.id.btn_start_city);
@@ -163,7 +161,7 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
                     String name = ""+ds.child("Nama_Lengkap").getValue();
 
                     //set data
-                    tvUsername.setText("Good Morning "+name);
+                    tvUsername.setText(name);
 
                     progressDialog.dismiss();
                 }
