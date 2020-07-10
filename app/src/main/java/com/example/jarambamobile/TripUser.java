@@ -310,7 +310,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
             if (polylineOptions!=null) {
                 mMap.addPolyline(polylineOptions);
             } else {
-                Toast.makeText(getApplicationContext(), "Address NUll", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Address Null", Toast.LENGTH_SHORT).show();
             }
 
         }
