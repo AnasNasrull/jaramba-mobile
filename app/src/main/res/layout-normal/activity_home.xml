@@ -11,7 +11,7 @@
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/header_night"
+        android:background="@drawable/header_morning"
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
@@ -85,14 +85,14 @@
         app:layout_constraintTop_toBottomOf="@+id/layoutHeader" />
 
     <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:alignmentMode="alignMargins"
-        android:columnCount="3"
-        android:columnOrderPreserved="false"
-        android:padding="8dp"
-        android:rowCount="2"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="10"
+    android:alignmentMode="alignMargins"
+    android:columnCount="3"
+    android:columnOrderPreserved="false"
+    android:padding="8dp"
+    android:rowCount="2"
         app:layout_constraintBottom_toTopOf="@+id/chipNavigationBar"
         app:layout_constraintTop_toBottomOf="@+id/txtMode">
 

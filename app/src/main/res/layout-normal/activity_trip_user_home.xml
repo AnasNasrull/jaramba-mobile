@@ -172,15 +172,15 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rellay1"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/shape_button_trip"
-        app:layout_constraintBottom_toTopOf="@+id/chipNavigationBar"
+        android:background="@drawable/card_style"
+        android:elevation="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutHeader">
@@ -194,16 +194,17 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/nunitosans_regular"
             android:gravity="center"
-            android:text="BUS DAMRI"
-            android:textColor="#000000"
-            android:textSize="18sp"
+            android:text="Damri"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txt_tarif"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -211,9 +212,10 @@
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/nunitosans_regular"
             android:gravity="center"
-            android:text="Tarif"
-            android:textColor="#000000"
-            android:textSize="18sp"
+            android:text="Rp.30.000,-"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_go"
             app:layout_constraintStart_toEndOf="@+id/txt_mode"
@@ -221,11 +223,13 @@
 
         <Button
             android:id="@+id/btn_go"
-            android:layout_width="74dp"
-            android:layout_height="43dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/shape_button_trip"
+            android:background="@drawable/shape_circle"
             android:text="Go"
+            android:textColor="@color/white"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
