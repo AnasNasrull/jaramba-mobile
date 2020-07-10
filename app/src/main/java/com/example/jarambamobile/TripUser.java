@@ -64,6 +64,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_user);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -302,15 +303,15 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                 }
 
                 polylineOptions.addAll(points);
-                polylineOptions.width(15);
-                polylineOptions.color(Color.BLUE);
+                polylineOptions.width(2);
+                polylineOptions.color(Color.rgb(234, 96, 78));
                 polylineOptions.geodesic(true);
             }
 
             if (polylineOptions!=null) {
                 mMap.addPolyline(polylineOptions);
             } else {
-                Toast.makeText(getApplicationContext(), "Address Null", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Rute tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
 
         }
