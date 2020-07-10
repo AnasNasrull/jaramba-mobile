@@ -52,7 +52,7 @@ import java.util.List;
 public class TripUser extends FragmentActivity implements OnMapReadyCallback {
     AutoCompleteTextView start_point, destination_point;
     private GoogleMap mMap;
-    private static final int LOCATION_REQUEST = 500;
+    private static final int LOCATION_REQUEST = 2000;
     private ResultReceiver startPointReceiver;
     private ResultReceiver destinationPointReceiver;
     private Double startLat,startLong,destinationLat,destinationLong;
@@ -143,9 +143,10 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                 }
                 //Save marker start
                 listPoints.add(latLng);
+
                 //Inisialisasi marker
                 MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
+                markerOptions.position(latLng).title(start_point.getText().toString());
 
                 if (listPoints.size() == 1) {
                     //Menambahkan marker pertama ke map
@@ -303,7 +304,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                 }
 
                 polylineOptions.addAll(points);
-                polylineOptions.width(2);
+                polylineOptions.width(5);
                 polylineOptions.color(Color.rgb(234, 96, 78));
                 polylineOptions.geodesic(true);
             }
