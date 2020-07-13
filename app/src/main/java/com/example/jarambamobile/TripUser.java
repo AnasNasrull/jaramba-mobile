@@ -17,10 +17,12 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.text.Layout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jarambamobile.adapter.Constants;
@@ -48,6 +50,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
 public class TripUser extends FragmentActivity implements OnMapReadyCallback {
     AutoCompleteTextView start_point, destination_point;
@@ -56,6 +59,8 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
     private ResultReceiver startPointReceiver;
     private ResultReceiver destinationPointReceiver;
     private Double startLat,startLong,destinationLat,destinationLong;
+
+    private Double totalDistance = 0.0;
 
     ArrayList<LatLng> listPoints;
     Button btn_go;
@@ -98,6 +103,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                     intent.putExtra("destination_lati", destinationLat.toString());
                     intent.putExtra("destination_long", destinationLong.toString());
                     intent.putExtra("From", "Trip User");
+                    intent.putExtra("Jarak", totalDistance.toString());
                     startActivity(intent);
                 }
             }
@@ -146,24 +152,27 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
 
                 //Inisialisasi marker
                 MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng).title(start_point.getText().toString());
+                markerOptions.position(latLng);
 
                 if (listPoints.size() == 1) {
                     //Menambahkan marker pertama ke map
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-
                     Location location = new Location("provideNA");
                     location.setLatitude(listPoints.get(0).latitude);
                     location.setLongitude(listPoints.get(0).longitude);
                     fetchStartAddress(location);
+                    markerOptions.title(start_point.getText().toString());
+
                 } else {
                     //Menambahkan marker kedua ke map
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-
                     Location location = new Location("provideNA");
                     location.setLatitude(listPoints.get(1).latitude);
                     location.setLongitude(listPoints.get(1).longitude);
                     fetchDestinationAddress(location);
+                    totalDistance = distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude);
+                    markerOptions.title(String.format(Locale.US, " Jarak %2f Km", totalDistance));
+
 
                 }
                 mMap.addMarker(markerOptions);
@@ -173,10 +182,45 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                     String url = getRequestUrl(listPoints.get(0), listPoints.get(1));
                     TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
                     taskRequestDirections.execute(url);
+
+                    Log.v("Distance",String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
                 }
             }
         });
 
+    }
+
+    private double distances(double latStart, double longStart, double latDest, double longDest){
+        //Menghitung selisih longitude
+        double longDiff = longStart - longDest;
+        //Menghitung jarak
+        double distance = Math.sin(deg2rad(latStart))
+                * Math.sin(deg2rad(latDest))
+                + Math.cos(deg2rad(latStart))
+                * Math.cos(deg2rad(latDest))
+                * Math.cos(deg2rad(longDiff));
+        distance = Math.acos(distance);
+        
+        //Convert distance radian ke degree
+        distance = rad2deg(distance);
+
+        //Distance dalam miles
+        distance = distance * 60 * 1.1515;
+
+        //Distance dalam kilomaters
+        distance = distance * 1.609344;
+
+        return distance;
+    }
+
+    //Convert radian ke degree
+    private double rad2deg(double distance) {
+        return (distance * 180.0 / Math.PI);
+    }
+
+    //Convert degree ke radian
+    private double deg2rad(double latStart) {
+        return (latStart * Math.PI/180.0);
     }
 
     private String getRequestUrl(LatLng origin, LatLng dest) {

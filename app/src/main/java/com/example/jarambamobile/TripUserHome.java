@@ -2,11 +2,13 @@ package com.example.jarambamobile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +48,9 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     Spinner etStartCity, etStartArea, etDestinationCity, etDestinationArea;
     Button btnGo;
 
-    TextView tvUsername;
+    TextView tvUsername, tvWelcome, tvEnterStart, tvEnterDestination, tvEnterDate;
+    ImageView imgLogo;
+    ConstraintLayout greetImg;
 
     //firebase
     FirebaseAuth firebaseAuth;
@@ -99,8 +104,16 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        tvWelcome = findViewById(R.id.txtWelcome);
+        tvEnterStart = findViewById(R.id.txtEnterPoint);
+        tvEnterDestination = findViewById(R.id.txtEnterDestination);
+        tvEnterDate = findViewById(R.id.txtEnterDate);
+        imgLogo = findViewById(R.id.imgLogo);
         tvUsername = findViewById(R.id.txtUsername);
         getNamaUser();
+
+        greetImg = findViewById(R.id.layoutHeader);
+        greeting();
 
         etStartCity = findViewById(R.id.btn_start_city);
         etStartCity.setOnItemSelectedListener(this);
@@ -146,6 +159,27 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+    }
+
+    private void greeting() {
+        Calendar calendar = Calendar.getInstance();
+        int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+
+        if (timeOfDay >= 0 && timeOfDay < 18){
+            greetImg.setBackgroundResource(R.drawable.header_morning);
+        } else if (timeOfDay >= 18 && timeOfDay < 24) {
+
+            tvWelcome.setTextColor(Color.parseColor("#FFFFFF"));
+            tvEnterStart.setTextColor(Color.parseColor("#FFFFFF"));
+            tvEnterDestination.setTextColor(Color.parseColor("#FFFFFF"));
+            tvEnterDate.setTextColor(Color.parseColor("#FFFFFF"));
+            tvEditDate.setTextColor(Color.parseColor("#FFFFFF"));
+            imgLogo.setImageResource(R.drawable.jaramba_logo_night);
+            tvUsername.setTextColor(Color.parseColor("#FFFFFF"));
+            greetImg.setBackgroundResource(R.drawable.header_night);
+
+//            etStartArea.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        }
     }
 
     private void getNamaUser() {

@@ -90,9 +90,6 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
             tvTanggal.setText(tanggal);
             tvHari.setText(hari);
 
-            setWaktu();
-            tvWaktu = findViewById(R.id.waktu);
-            tvWaktu.setText(waktu);
         }else if(from.equals("Trip User Home")){
             this.tanggal = intent.getStringExtra("Tanggal");
             this.hari = intent.getStringExtra("Hari");
