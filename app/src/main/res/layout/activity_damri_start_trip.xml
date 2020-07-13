@@ -37,7 +37,7 @@
             android:layout_height="81dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="123dp"
+
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_toEndOf="@+id/judul_lets_start_your_trip"
@@ -197,39 +197,16 @@
             android:layout_marginStart="96dp"
             android:layout_marginTop="19dp"
             android:layout_marginEnd="30dp"
-            android:layout_alignParentEnd="true">
-
-            <TextView
-                android:id="@+id/waktu_judul"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_access_time_black_24dp"
-                android:drawablePadding="10dp"
-                android:fontFamily="@font/nunitosans_regular"
-                android:text="@string/waktu"
-                android:textColor="@android:color/black" />
-
-            <TextView
-                android:id="@+id/waktu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/waktu_judul"
-                android:layout_marginStart="40dp"
-                android:fontFamily="@font/nunitosans_regular"
-                android:text="@string/waktu_keberangkatan"
-                android:textColor="@android:color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
+            android:layout_alignParentEnd="true"/>
 
         <View
             android:id="@+id/view_line3"
-            android:layout_width="170dp"
+            android:layout_width="match_parent"
             android:layout_height="3dp"
+            android:layout_below="@id/rel_tanggal"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_below="@id/rel_tanggal"
             android:background="@android:color/darker_gray" />
 
         <View
@@ -281,7 +258,7 @@
             android:onClick="addJumlahPenumpang"
             android:padding="10dp"
             android:layout_margin="10dp"
-            android:layout_below="@id/view_line4"
+            android:layout_below="@id/view_line3"
             android:layout_alignParentEnd="true"
             tools:ignore="OnClick"
             android:contentDescription="@string/image" />

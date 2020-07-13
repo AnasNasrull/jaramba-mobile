@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="400dp"
         android:background="@drawable/header_morning"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -35,7 +35,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Welcome"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="55sp" />
 
             <TextView
                 android:id="@+id/txtUsername"
@@ -46,14 +46,14 @@
                 android:layout_marginTop="8dp"
                 android:text="Rivaldo Fernandes"
                 android:textColor="#000000"
-                android:textSize="18sp"
+                android:textSize="45sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
@@ -72,15 +72,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:text="Choose Mode Transportation"
-        android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutHeader" />
 
@@ -103,10 +102,10 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:clickable="true"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
@@ -124,8 +123,8 @@
 
                 <ImageView
                     android:src="@drawable/d_bicycle_icon"
-                    android:layout_width="55dp"
-                    android:layout_height="45dp"
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -133,8 +132,8 @@
                     android:textAlignment="center"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -147,10 +146,10 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="@color/white"
@@ -167,8 +166,8 @@
 
                 <ImageView
                     android:src="@drawable/d_bus_icon"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="120dp"
+                    android:layout_height="95dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -177,7 +176,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -190,10 +189,10 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="@color/white"
@@ -210,8 +209,8 @@
 
                 <ImageView
                     android:src="@drawable/d_angkot_icon"
-                    android:layout_width="65dp"
-                    android:layout_height="45dp"
+                    android:layout_width="140dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -220,7 +219,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -235,10 +234,10 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             android:onClick="clickTrain"
@@ -254,8 +253,8 @@
 
                 <ImageView
                     android:src="@drawable/d_krl_icon"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -264,7 +263,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -277,10 +276,10 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             android:onClick="clickMonorail"
@@ -296,8 +295,8 @@
 
                 <ImageView
                     android:src="@drawable/d_monorail_icon"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -306,7 +305,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -319,10 +318,10 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_rowWeight="1"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             app:cardElevation="8dp"
             app:cardCornerRadius="8dp"
             android:onClick="clickTravel"
@@ -338,8 +337,8 @@
 
                 <ImageView
                     android:src="@drawable/d_travel_icon"
-                    android:layout_width="55dp"
-                    android:layout_height="45dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -348,7 +347,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="35sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -361,7 +360,7 @@
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/chipNavigationBar"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="90dp"
         android:background="@drawable/header_navbar"
         android:elevation="16dp"
         android:padding="8dp"

@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -68,13 +69,12 @@ public class History extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi_history);
-        bottomNavigationView.setSelectedItemId(R.id.nav_history);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        ChipNavigationBar bottomNavigationView =  findViewById(R.id.chipNavigationBar);
+        bottomNavigationView.setItemSelected(R.id.nav_home,true);
+        bottomNavigationView.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+            public void onItemSelected(int i) {
+                switch (i) {
                     case R.id.nav_home:
                         startActivity(new Intent(History.this, HomeActivity.class));
                         finish();
@@ -88,7 +88,6 @@ public class History extends AppCompatActivity {
                         finish();
                         break;
                 }
-                return false;
             }
         });
     }

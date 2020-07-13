@@ -2,10 +2,13 @@ package com.example.jarambamobile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.view.MenuItem;
@@ -15,12 +18,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jarambamobile.fragment.DatePickerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,6 +48,16 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     Spinner etStartCity, etStartArea, etDestinationCity, etDestinationArea;
     Button btnGo;
 
+    TextView tvUsername, tvWelcome, tvEnterStart, tvEnterDestination, tvEnterDate;
+    ImageView imgLogo;
+    ConstraintLayout greetImg;
+
+    //firebase
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    DatabaseReference database;
+    DatabaseReference databaseReference;
+    ProgressDialog progressDialog;
     String StartCity, StartArea, DestinationCity, DestinationArea, Tanggal="", Hari="";
 
     @Override
@@ -42,13 +65,12 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_user_home);
 
-        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi_trip);
-        bottomNavigationView.setSelectedItemId(R.id.nav_trip);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        ChipNavigationBar bottomNavigationView =  findViewById(R.id.chipNavigationBar);
+        bottomNavigationView.setItemSelected(R.id.nav_trip,true);
+        bottomNavigationView.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+            public void onItemSelected(int i) {
+                switch (i) {
                     case R.id.nav_home:
                         startActivity(new Intent(TripUserHome.this, HomeActivity.class));
                         finish();
@@ -62,10 +84,16 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
                         finish();
                         break;
                 }
-
-                return false;
             }
         });
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance().getReference();
+        databaseReference = database.child("Mobile_Apps").child("User");
+
+        //init progress dialog
+        progressDialog = new ProgressDialog(TripUserHome.this);
 
         tvEditDate = findViewById(R.id.edit_date);
         tvEditDate.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +103,17 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
                 datepicker.show(getSupportFragmentManager(),"date picker");
             }
         });
+
+        tvWelcome = findViewById(R.id.txtWelcome);
+        tvEnterStart = findViewById(R.id.txtEnterPoint);
+        tvEnterDestination = findViewById(R.id.txtEnterDestination);
+        tvEnterDate = findViewById(R.id.txtEnterDate);
+        imgLogo = findViewById(R.id.imgLogo);
+        tvUsername = findViewById(R.id.txtUsername);
+        getNamaUser();
+
+        greetImg = findViewById(R.id.layoutHeader);
+        greeting();
 
         etStartCity = findViewById(R.id.btn_start_city);
         etStartCity.setOnItemSelectedListener(this);
@@ -120,6 +159,59 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+    }
+
+    private void greeting() {
+        Calendar calendar = Calendar.getInstance();
+        int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+
+        if (timeOfDay >= 0 && timeOfDay < 18){
+            greetImg.setBackgroundResource(R.drawable.header_morning);
+        } else if (timeOfDay >= 18 && timeOfDay < 24) {
+
+            tvWelcome.setTextColor(Color.parseColor("#FFFFFF"));
+            tvEnterStart.setTextColor(Color.parseColor("#FFFFFF"));
+            tvEnterDestination.setTextColor(Color.parseColor("#FFFFFF"));
+            tvEnterDate.setTextColor(Color.parseColor("#FFFFFF"));
+            tvEditDate.setTextColor(Color.parseColor("#FFFFFF"));
+            imgLogo.setImageResource(R.drawable.jaramba_logo_night);
+            tvUsername.setTextColor(Color.parseColor("#FFFFFF"));
+            greetImg.setBackgroundResource(R.drawable.header_night);
+
+//            etStartArea.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        }
+    }
+
+    private void getNamaUser() {
+        //progress dialog
+        progressDialog();
+
+        Query query = databaseReference.orderByChild("Email").equalTo(user.getEmail());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    //get data
+                    String name = ""+ds.child("Nama_Lengkap").getValue();
+
+                    //set data
+                    tvUsername.setText(name);
+
+                    progressDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void progressDialog() {
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
     @Override

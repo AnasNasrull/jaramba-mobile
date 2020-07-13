@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:background="@drawable/header_morning"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -35,7 +35,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Welcome"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/txtUsername"
@@ -46,14 +46,14 @@
                 android:layout_marginTop="8dp"
                 android:text="Rivaldo Fernandes"
                 android:textColor="#000000"
-                android:textSize="18sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
@@ -72,15 +72,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:text="Choose Mode Transportation"
-        android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutHeader" />
 
@@ -124,8 +123,8 @@
 
                 <ImageView
                     android:src="@drawable/d_bicycle_icon"
-                    android:layout_width="55dp"
-                    android:layout_height="45dp"
+                    android:layout_width="80dp"
+                    android:layout_height="70dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -133,8 +132,8 @@
                     android:textAlignment="center"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -167,8 +166,8 @@
 
                 <ImageView
                     android:src="@drawable/d_bus_icon"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -177,7 +176,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -210,8 +209,8 @@
 
                 <ImageView
                     android:src="@drawable/d_angkot_icon"
-                    android:layout_width="65dp"
-                    android:layout_height="45dp"
+                    android:layout_width="90dp"
+                    android:layout_height="70dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -220,7 +219,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -254,8 +253,8 @@
 
                 <ImageView
                     android:src="@drawable/d_krl_icon"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -264,7 +263,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -296,8 +295,8 @@
 
                 <ImageView
                     android:src="@drawable/d_monorail_icon"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -306,7 +305,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -338,8 +337,8 @@
 
                 <ImageView
                     android:src="@drawable/d_travel_icon"
-                    android:layout_width="55dp"
-                    android:layout_height="45dp"
+                    android:layout_width="80dp"
+                    android:layout_height="70dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -348,7 +347,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -361,7 +360,7 @@
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/chipNavigationBar"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="80dp"
         android:background="@drawable/header_navbar"
         android:elevation="16dp"
         android:padding="8dp"

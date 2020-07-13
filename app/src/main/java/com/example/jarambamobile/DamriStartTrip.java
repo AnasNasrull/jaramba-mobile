@@ -58,7 +58,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
     Spinner spinner;
     String text, startAddress, destinationAddress, metodePembayaran="Belum Ditambahkan", hari, tanggal, waktu, from;
     Integer jumlahPenumpang=0;
-    Double totalHarga=0.0, startPointLat,startPointLong, destPointLat,destPointLong;
+    Double totalHarga=0.0,totalJarak=0.0, startPointLat,startPointLong, destPointLat,destPointLong;
 
     HistoryTripModel history;
     PointAddressModel startLatLong, destinationLatLong;
@@ -86,16 +86,17 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
             destPointLat = Double.parseDouble(intent.getStringExtra("destination_lati"));
             destPointLong = Double.parseDouble(intent.getStringExtra("destination_long"));
 
+            totalJarak = Double.parseDouble(intent.getStringExtra("Jarak"));
+
+
             setTanggal();
             tvTanggal.setText(tanggal);
             tvHari.setText(hari);
 
-            setWaktu();
-            tvWaktu = findViewById(R.id.waktu);
-            tvWaktu.setText(waktu);
         }else if(from.equals("Trip User Home")){
             this.tanggal = intent.getStringExtra("Tanggal");
             this.hari = intent.getStringExtra("Hari");
+            this.totalJarak = 1.0;
 
             tvTanggal.setText(tanggal);
             tvHari.setText(hari);
@@ -182,8 +183,8 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
         this.hari = new SimpleDateFormat("EEEE").format(new Date());
     }
 
-    public String getHarga (int penumpang, double biaya ){
-        Double total = penumpang * biaya;
+    public String getHarga (int penumpang, double biaya, double jarak ){
+        Double total = penumpang * biaya * jarak;
         return (Double.toString(total));
     }
 
@@ -251,7 +252,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
 
                 if(!UserInput.isEmpty()){
                     jumlahPenumpang = Integer.parseInt(UserInput);
-                    totalHarga = Double.parseDouble(getHarga(Integer.parseInt(UserInput),3000));
+                    totalHarga = Math.ceil(Double.parseDouble(getHarga(Integer.parseInt(UserInput),3000, totalJarak)));
                     tvTotalInputPenumpang.setText(UserInput + " Orang");
                     tvTotalHarga.setText("Rp." + totalHarga.toString() +",-");
                 } else {
