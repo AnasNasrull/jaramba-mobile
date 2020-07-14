@@ -172,7 +172,7 @@
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
-                    android:text="Damri"
+                    android:text="Bus"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:layout_gravity="center"

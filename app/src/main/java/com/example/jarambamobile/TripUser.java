@@ -191,23 +191,15 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
     }
 
     private double distances(double latStart, double longStart, double latDest, double longDest){
-        //Menghitung selisih longitude
         double longDiff = longStart - longDest;
-        //Menghitung jarak
         double distance = Math.sin(deg2rad(latStart))
                 * Math.sin(deg2rad(latDest))
                 + Math.cos(deg2rad(latStart))
                 * Math.cos(deg2rad(latDest))
                 * Math.cos(deg2rad(longDiff));
         distance = Math.acos(distance);
-        
-        //Convert distance radian ke degree
         distance = rad2deg(distance);
-
-        //Distance dalam miles
         distance = distance * 60 * 1.1515;
-
-        //Distance dalam kilomaters
         distance = distance * 1.609344;
 
         return distance;
