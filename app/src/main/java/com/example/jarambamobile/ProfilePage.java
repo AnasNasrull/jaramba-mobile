@@ -69,7 +69,7 @@ public class ProfilePage extends AppCompatActivity {
     private static final int IMAGE_PICK_GALLERY_CODE = 300;
     private static final int IMAGE_PICK_CAMERA_CODE = 400;
 
-    private TextView nameTv, emailTv, phoneTv;
+    private TextView nameTv, emailTv, phoneTv, nameProfileTv;
     private ImageView avatarIv, bgDynamic, icSetting;
 
     String cameraPermission[];
@@ -104,7 +104,7 @@ public class ProfilePage extends AppCompatActivity {
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-
+        nameProfileTv = findViewById(R.id.txtNameProfile);
         avatarIv = findViewById(R.id.img_profile_page);
         nameTv = findViewById(R.id.txtName);
         emailTv = findViewById(R.id.txtEmail);
@@ -132,6 +132,7 @@ public class ProfilePage extends AppCompatActivity {
 
                     //set data
                     nameTv.setText(name);
+                    nameProfileTv.setText(name);
                     emailTv.setText(email);
                     phoneTv.setText(phone);
 
@@ -143,14 +144,7 @@ public class ProfilePage extends AppCompatActivity {
                         //if there is any exception while getting image then set default
                         Picasso.get().load(R.drawable.ic_face_black_24dp).into(avatarIv);
                     }
-
-
-
-
                     progressDialog.dismiss();
-
-
-
                 }
             }
 

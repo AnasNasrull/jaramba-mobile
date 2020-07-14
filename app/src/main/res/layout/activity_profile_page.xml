@@ -64,6 +64,7 @@
                 tools:ignore="OnClick" />
 
             <TextView
+                android:id="@+id/txtNameProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rivaldo Fernandes"
