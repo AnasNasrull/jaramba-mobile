@@ -112,26 +112,13 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
         tvUsername = findViewById(R.id.txtUsername);
         getNamaUser();
 
+        etStartArea = findViewById(R.id.btn_start_area);
+        etDestinationArea = findViewById(R.id.btn_dest_area);
+        etDestinationCity = findViewById(R.id.btn_dest_city);
+        etStartCity = findViewById(R.id.btn_start_city);
+
         greetImg = findViewById(R.id.layoutHeader);
         greeting();
-
-        etStartCity = findViewById(R.id.btn_start_city);
-        etStartCity.setOnItemSelectedListener(this);
-
-        etStartArea = findViewById(R.id.btn_start_area);
-
-        etDestinationCity = findViewById(R.id.btn_dest_city);
-        etDestinationCity.setOnItemSelectedListener(this);
-
-        etDestinationArea = findViewById(R.id.btn_dest_area);
-
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.area, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        etStartArea.setAdapter(adapter);
-        etDestinationArea.setAdapter(adapter);
-        etStartArea.setOnItemSelectedListener(this);
-        etDestinationArea.setOnItemSelectedListener(this);
 
         btnGo = findViewById(R.id.btn_go);
         btnGo.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +154,21 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
 
         if (timeOfDay >= 0 && timeOfDay < 18){
             greetImg.setBackgroundResource(R.drawable.header_morning);
+
+            ArrayAdapter<CharSequence> adapter_area = ArrayAdapter.createFromResource(this, R.array.area, R.layout.spinner_view_morning );
+            ArrayAdapter<CharSequence> adapter_city = ArrayAdapter.createFromResource(this, R.array.city, R.layout.spinner_view_morning );
+
+            adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            etStartCity.setAdapter(adapter_city);
+            etDestinationCity.setAdapter(adapter_city);
+            etDestinationCity.setOnItemSelectedListener(this);
+            etStartCity.setOnItemSelectedListener(this);
+
+            adapter_area.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            etStartArea.setAdapter(adapter_area);
+            etDestinationArea.setAdapter(adapter_area);
+            etStartArea.setOnItemSelectedListener(this);
+            etDestinationArea.setOnItemSelectedListener(this);
         } else if (timeOfDay >= 18 && timeOfDay < 24) {
 
             tvWelcome.setTextColor(Color.parseColor("#FFFFFF"));
@@ -178,7 +180,20 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
             tvUsername.setTextColor(Color.parseColor("#FFFFFF"));
             greetImg.setBackgroundResource(R.drawable.header_night);
 
-//            etStartArea.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            ArrayAdapter<CharSequence> adapter_area = ArrayAdapter.createFromResource(this, R.array.area, R.layout.spinner_view_night );
+            ArrayAdapter<CharSequence> adapter_city = ArrayAdapter.createFromResource(this, R.array.city, R.layout.spinner_view_night );
+
+            adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            etStartCity.setAdapter(adapter_city);
+            etDestinationCity.setAdapter(adapter_city);
+            etDestinationCity.setOnItemSelectedListener(this);
+            etStartCity.setOnItemSelectedListener(this);
+
+            adapter_area.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            etStartArea.setAdapter(adapter_area);
+            etDestinationArea.setAdapter(adapter_area);
+            etStartArea.setOnItemSelectedListener(this);
+            etDestinationArea.setOnItemSelectedListener(this);
         }
     }
 

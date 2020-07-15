@@ -4,8 +4,11 @@ package com.example.jarambamobile;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,7 +39,8 @@ public class HomeActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     ConstraintLayout greetImg;
-    TextView tvUsername;
+    TextView tvUsername, tvWelcome;
+    ImageView imgLogo;
 
 //    TextView nameUser;
 
@@ -80,6 +84,8 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         greetImg = findViewById(R.id.layoutHeader);
+        tvWelcome = findViewById(R.id.txtWelcome);
+        imgLogo = findViewById(R.id.imgLogo);
 
         greeting();
 
@@ -126,6 +132,9 @@ public class HomeActivity extends AppCompatActivity {
             greetImg.setBackgroundResource(R.drawable.header_morning);
         } else if (timeOfDay >= 18 && timeOfDay < 24) {
             greetImg.setBackgroundResource(R.drawable.header_night);
+            tvWelcome.setTextColor(Color.parseColor("#FFFFFF"));
+            tvUsername.setTextColor(Color.parseColor("#FFFFFF"));
+            imgLogo.setImageResource(R.drawable.jaramba_logo_night);
         }
     }
 
