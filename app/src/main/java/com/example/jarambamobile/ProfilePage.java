@@ -15,6 +15,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -193,6 +194,7 @@ public class ProfilePage extends AppCompatActivity {
             greetImg.setBackgroundResource(R.drawable.header_morning);
         } else if (timeOfDay >= 18 && timeOfDay < 24) {
             greetImg.setBackgroundResource(R.drawable.header_night);
+            nameProfileTv.setTextColor(Color.parseColor("#FFFFFF"));
         }
     }
 
