@@ -77,6 +77,8 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
         listPoints = new ArrayList<>();
         btn_go = findViewById(R.id.btn_go);
 
@@ -134,9 +136,10 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
             return;
@@ -199,6 +202,9 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
 
                 if(latLng!=null){
                     listPoints.add(0,latLng);
+
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng);
 
@@ -216,6 +222,16 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                         taskRequestDirections.execute(url);
                         totalDistance = distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude);
                         Log.v("Distance",String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
+
+                        markerOptions.position(latLng);
+                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                        location = new Location("provideNA");
+                        location.setLatitude(listPoints.get(1).latitude);
+                        location.setLongitude(listPoints.get(1).longitude);
+                        markerOptions.title(destination_point.getText().toString())
+                                .snippet(String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
+                        mMap.addMarker(markerOptions);
+
                     }
                 }else{
                     Toast.makeText(getApplicationContext(), "Titik tidak valid", Toast.LENGTH_SHORT).show();
@@ -228,6 +244,8 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("Address :", destination_point.getText().toString());
                 LatLng latLng = getLatLongFromAddress(destination_point.getText().toString());
+
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
 
                 if(latLng!=null){
                     listPoints.add(1,latLng);
