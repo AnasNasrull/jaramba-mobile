@@ -43,6 +43,7 @@ import java.util.Locale;
 
 public class TripUserHome extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
+    Calendar calendar;
     TextView tvEditDate;
     Spinner etStartCity, etStartArea, etDestinationCity, etDestinationArea;
     Button btnGo;
@@ -58,10 +59,6 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     DatabaseReference databaseReference;
     ProgressDialog progressDialog;
     String StartCity, StartArea, DestinationCity, DestinationArea, Tanggal="", Hari="";
-
-    Calendar calendar = Calendar.getInstance();
-    //int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-    int timeOfDay = 21;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,44 +112,13 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
         tvUsername = findViewById(R.id.txtUsername);
         getNamaUser();
 
-        greetImg = findViewById(R.id.layoutHeader);
-        greeting();
-
+        etStartArea = findViewById(R.id.btn_start_area);
+        etDestinationArea = findViewById(R.id.btn_dest_area);
+        etDestinationCity = findViewById(R.id.btn_dest_city);
         etStartCity = findViewById(R.id.btn_start_city);
 
-        etStartArea = findViewById(R.id.btn_start_area);
-
-        etDestinationCity = findViewById(R.id.btn_dest_city);
-
-        etDestinationArea = findViewById(R.id.btn_dest_area);
-
-        if (timeOfDay >= 0 && timeOfDay < 18) {
-            ArrayAdapter<CharSequence> adter = ArrayAdapter.createFromResource(this, R.array.city, android.R.layout.simple_spinner_item);
-            adter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            etStartCity.setAdapter(adter);
-            etDestinationCity.setAdapter(adter);
-        } else if (timeOfDay >= 18 && timeOfDay < 24) {
-            ArrayAdapter<CharSequence> adter = ArrayAdapter.createFromResource(this, R.array.city, R.layout.color_spinner_layout);
-            adter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            etStartCity.setAdapter(adter);
-            etDestinationCity.setAdapter(adter);
-        }
-        etDestinationCity.setOnItemSelectedListener(this);
-        etStartCity.setOnItemSelectedListener(this);
-
-        if (timeOfDay >= 0 && timeOfDay < 18) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.area, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            etStartArea.setAdapter(adapter);
-            etDestinationArea.setAdapter(adapter);
-        } else if (timeOfDay >= 18 && timeOfDay < 24) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.area, R.layout.color_spinner_layout);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            etStartArea.setAdapter(adapter);
-            etDestinationArea.setAdapter(adapter);
-        }
-        etStartArea.setOnItemSelectedListener(this);
-        etDestinationArea.setOnItemSelectedListener(this);
+        greetImg = findViewById(R.id.layoutHeader);
+        greeting();
 
         btnGo = findViewById(R.id.btn_go);
         btnGo.setOnClickListener(new View.OnClickListener() {
@@ -183,8 +149,26 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void greeting() {
+        Calendar calendar = Calendar.getInstance();
+        int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+
         if (timeOfDay >= 0 && timeOfDay < 18){
             greetImg.setBackgroundResource(R.drawable.header_morning);
+
+            ArrayAdapter<CharSequence> adapter_area = ArrayAdapter.createFromResource(this, R.array.area, R.layout.spinner_view_morning );
+            ArrayAdapter<CharSequence> adapter_city = ArrayAdapter.createFromResource(this, R.array.city, R.layout.spinner_view_morning );
+
+            adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            etStartCity.setAdapter(adapter_city);
+            etDestinationCity.setAdapter(adapter_city);
+            etDestinationCity.setOnItemSelectedListener(this);
+            etStartCity.setOnItemSelectedListener(this);
+
+            adapter_area.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            etStartArea.setAdapter(adapter_area);
+            etDestinationArea.setAdapter(adapter_area);
+            etStartArea.setOnItemSelectedListener(this);
+            etDestinationArea.setOnItemSelectedListener(this);
         } else if (timeOfDay >= 18 && timeOfDay < 24) {
 
             tvWelcome.setTextColor(Color.parseColor("#FFFFFF"));
@@ -195,9 +179,21 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
             imgLogo.setImageResource(R.drawable.jaramba_logo_night);
             tvUsername.setTextColor(Color.parseColor("#FFFFFF"));
             greetImg.setBackgroundResource(R.drawable.header_night);
-            tvEnterStart.setBackgroundColor(Color.parseColor("#000000"));
-            tvEnterDestination.setBackgroundColor(Color.parseColor("#000000"));
 
+            ArrayAdapter<CharSequence> adapter_area = ArrayAdapter.createFromResource(this, R.array.area, R.layout.spinner_view_night );
+            ArrayAdapter<CharSequence> adapter_city = ArrayAdapter.createFromResource(this, R.array.city, R.layout.spinner_view_night );
+
+            adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            etStartCity.setAdapter(adapter_city);
+            etDestinationCity.setAdapter(adapter_city);
+            etDestinationCity.setOnItemSelectedListener(this);
+            etStartCity.setOnItemSelectedListener(this);
+
+            adapter_area.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            etStartArea.setAdapter(adapter_area);
+            etDestinationArea.setAdapter(adapter_area);
+            etStartArea.setOnItemSelectedListener(this);
+            etDestinationArea.setOnItemSelectedListener(this);
         }
     }
 
@@ -244,6 +240,7 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.MONTH,month);
         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);

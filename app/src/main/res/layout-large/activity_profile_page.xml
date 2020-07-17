@@ -64,6 +64,7 @@
             tools:ignore="OnClick" />
 
         <TextView
+            android:id="@+id/txtNameProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rivaldo Fernandes"
@@ -153,7 +154,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/email_icon"
+                android:src="@drawable/d_email_icon"
                 android:layout_gravity="center_vertical"/>
 
             <LinearLayout
@@ -194,7 +195,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="8dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/phone_icon" />
+                android:src="@drawable/d_phone_icon" />
 
             <LinearLayout
                 android:layout_width="match_parent"
