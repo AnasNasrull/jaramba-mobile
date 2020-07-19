@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
@@ -14,6 +15,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +43,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -66,7 +70,7 @@ public class ProfilePage extends AppCompatActivity {
     private static final int IMAGE_PICK_GALLERY_CODE = 300;
     private static final int IMAGE_PICK_CAMERA_CODE = 400;
 
-    private TextView nameTv, emailTv, phoneTv;
+    private TextView nameTv, emailTv, phoneTv, nameProfileTv;
     private ImageView avatarIv, bgDynamic, icSetting;
 
     String cameraPermission[];
@@ -79,6 +83,8 @@ public class ProfilePage extends AppCompatActivity {
 
     //for checking profile picture
     String profile;
+
+    RelativeLayout greetImg;
 
 
 
@@ -99,16 +105,14 @@ public class ProfilePage extends AppCompatActivity {
         cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-
+        nameProfileTv = findViewById(R.id.txtNameProfile);
         avatarIv = findViewById(R.id.img_profile_page);
-        nameTv = findViewById(R.id.tv_profil_username);
-        emailTv = findViewById(R.id.tv_profil_email);
-        phoneTv = findViewById(R.id.tv_profil_phone);
-        bgDynamic = findViewById(R.id.greeting_img_profile);
+        nameTv = findViewById(R.id.txtName);
+        emailTv = findViewById(R.id.txtEmail);
+        phoneTv = findViewById(R.id.txtPhone);
         icSetting = findViewById(R.id.setting_profile_page);
 
         Glide.with(ProfilePage.this).load(R.drawable.ic_settings_black_48dp).into(icSetting);
-        greeting();
 
         //init progres dialog
         progressDialog = new ProgressDialog(ProfilePage.this);
@@ -129,6 +133,7 @@ public class ProfilePage extends AppCompatActivity {
 
                     //set data
                     nameTv.setText(name);
+                    nameProfileTv.setText(name);
                     emailTv.setText(email);
                     phoneTv.setText(phone);
 
@@ -140,14 +145,7 @@ public class ProfilePage extends AppCompatActivity {
                         //if there is any exception while getting image then set default
                         Picasso.get().load(R.drawable.ic_face_black_24dp).into(avatarIv);
                     }
-
-
-
-
                     progressDialog.dismiss();
-
-
-
                 }
             }
 
@@ -159,13 +157,12 @@ public class ProfilePage extends AppCompatActivity {
 
         checkUserStatus();
 
-        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi_profil);
-        bottomNavigationView.setSelectedItemId(R.id.nav_profile);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        ChipNavigationBar bottomNavigationView =  findViewById(R.id.chipNavigationBar);
+        bottomNavigationView.setItemSelected(R.id.nav_profile,true);
+        bottomNavigationView.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+            public void onItemSelected(int i) {
+                switch (i) {
                     case R.id.nav_trip:
                         startActivity(new Intent(ProfilePage.this, TripUserHome.class));
                         finish();
@@ -179,10 +176,12 @@ public class ProfilePage extends AppCompatActivity {
                         finish();
                         break;
                 }
-
-                return false;
             }
         });
+
+
+        greetImg = findViewById(R.id.layoutHeader);
+        greeting();
 
     }
 
@@ -191,12 +190,11 @@ public class ProfilePage extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
-        if (timeOfDay > 0 && timeOfDay < 18){
-            bgDynamic.setImageResource(R.drawable.img_default_half_morning);
-            Glide.with(ProfilePage.this).load(R.drawable.img_default_half_morning).into(bgDynamic);
-        } else if (timeOfDay > 18 && timeOfDay < 23) {
-            bgDynamic.setImageResource(R.drawable.img_default_half_night);
-            Glide.with(ProfilePage.this).load(R.drawable.img_default_half_night).into(bgDynamic);
+        if (timeOfDay >= 0 && timeOfDay < 18){
+            greetImg.setBackgroundResource(R.drawable.header_morning);
+        } else if (timeOfDay >= 18 && timeOfDay < 24) {
+            greetImg.setBackgroundResource(R.drawable.header_night);
+            nameProfileTv.setTextColor(Color.parseColor("#FFFFFF"));
         }
     }
 

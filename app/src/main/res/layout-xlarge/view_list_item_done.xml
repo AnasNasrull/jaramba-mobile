@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp"
+    android:layout_marginTop="25dp"
+    android:background="@drawable/card_style"
+    android:elevation="16dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iconbus2"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/icon_bus"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/d_bus_icon" />
+
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/relativeLayout3"
+        app:layout_constraintStart_toEndOf="@+id/iconbus2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/dari2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitosans_regular"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Bandung, Andir"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tujuan2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/nunitosans_regular"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/dari2"
+            android:text="Bandung, Arcamanik"
+            android:textColor="@color/black" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="110dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/rate"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:contentDescription="@string/icon_rate"
+            android:enabled="false"
+            app:srcCompat="@drawable/ic_baseline_star_24" />
+
+        <ImageView
+            android:id="@+id/iconinfo2"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_toEndOf="@+id/rate"
+            android:contentDescription="@string/icon_info"
+            android:gravity="center"
+
+            app:srcCompat="@drawable/ic_baseline_info_black_24" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.jarambamobile"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -54,9 +54,13 @@ dependencies {
 
 
     //noinspection GradleCompatible
-    implementation 'com.android.support:design:26.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:support-v13:28.0.0'
 
+    //Button and Navigation Bar
     implementation 'me.spark:submitbutton:1.0.1'
+    implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.3.2'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.3.70'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -1,12 +1,16 @@
 package com.example.jarambamobile;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +22,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 
 public class History extends AppCompatActivity {
@@ -27,6 +33,10 @@ public class History extends AppCompatActivity {
     RecyclerAdapter recyclerAdapter;
     private DatabaseReference database;
     FirebaseAuth firebaseAuth;
+
+    TextView tvTrip, tvWith;
+    ConstraintLayout greetImg;
+    ImageView imgLogo;
 
     private ArrayList<getAllHistory> getAllHistory = new ArrayList<>();
 
@@ -43,6 +53,13 @@ public class History extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String uid = user.getUid();
+
+        tvTrip = findViewById(R.id.txtTrip);
+        tvWith = findViewById(R.id.txtWith);
+        greetImg = findViewById(R.id.layoutHeader);
+        imgLogo = findViewById(R.id.imgLogo);
+
+        greeting();
 
         database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").addValueEventListener(new ValueEventListener() {
             @Override
@@ -68,13 +85,12 @@ public class History extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView bottomNavigationView =  findViewById(R.id.menu_navigasi_history);
-        bottomNavigationView.setSelectedItemId(R.id.nav_history);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        ChipNavigationBar bottomNavigationView =  findViewById(R.id.chipNavigationBar);
+        bottomNavigationView.setItemSelected(R.id.nav_history,true);
+        bottomNavigationView.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+            public void onItemSelected(int i) {
+                switch (i) {
                     case R.id.nav_home:
                         startActivity(new Intent(History.this, HomeActivity.class));
                         finish();
@@ -88,8 +104,21 @@ public class History extends AppCompatActivity {
                         finish();
                         break;
                 }
-                return false;
             }
         });
+    }
+
+    private void greeting() {
+        Calendar calendar = Calendar.getInstance();
+        int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+
+        if (timeOfDay >= 0 && timeOfDay < 18){
+            greetImg.setBackgroundResource(R.drawable.header_morning);
+        } else if (timeOfDay >= 18 && timeOfDay < 24) {
+            tvTrip.setTextColor(Color.parseColor("#FFFFFF"));
+            tvWith.setTextColor(Color.parseColor("#FFFFFF"));
+            greetImg.setBackgroundResource(R.drawable.header_night);
+            imgLogo.setImageResource(R.drawable.jaramba_logo_night);
+        }
     }
 }

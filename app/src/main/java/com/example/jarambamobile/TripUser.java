@@ -10,6 +10,8 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,10 +19,13 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.text.Layout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jarambamobile.adapter.Constants;
@@ -48,14 +53,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
 public class TripUser extends FragmentActivity implements OnMapReadyCallback {
     AutoCompleteTextView start_point, destination_point;
     private GoogleMap mMap;
-    private static final int LOCATION_REQUEST = 500;
+    private static final int LOCATION_REQUEST = 2000;
     private ResultReceiver startPointReceiver;
     private ResultReceiver destinationPointReceiver;
     private Double startLat,startLong,destinationLat,destinationLong;
+
+    private Double totalDistance = 0.0;
 
     ArrayList<LatLng> listPoints;
     Button btn_go;
@@ -64,10 +72,13 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_user);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
         listPoints = new ArrayList<>();
         btn_go = findViewById(R.id.btn_go);
 
@@ -97,6 +108,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                     intent.putExtra("destination_lati", destinationLat.toString());
                     intent.putExtra("destination_long", destinationLong.toString());
                     intent.putExtra("From", "Trip User");
+                    intent.putExtra("Jarak", totalDistance.toString());
                     startActivity(intent);
                 }
             }
@@ -124,9 +136,10 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
             return;
@@ -142,6 +155,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                 }
                 //Save marker start
                 listPoints.add(latLng);
+
                 //Inisialisasi marker
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
@@ -149,19 +163,22 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                 if (listPoints.size() == 1) {
                     //Menambahkan marker pertama ke map
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-
                     Location location = new Location("provideNA");
                     location.setLatitude(listPoints.get(0).latitude);
                     location.setLongitude(listPoints.get(0).longitude);
                     fetchStartAddress(location);
+                    markerOptions.title(start_point.getText().toString());
+
                 } else {
                     //Menambahkan marker kedua ke map
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-
                     Location location = new Location("provideNA");
                     location.setLatitude(listPoints.get(1).latitude);
                     location.setLongitude(listPoints.get(1).longitude);
                     fetchDestinationAddress(location);
+                    totalDistance = distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude);
+                    markerOptions.title(String.format(Locale.US, " Jarak %2f Km", totalDistance));
+
 
                 }
                 mMap.addMarker(markerOptions);
@@ -171,10 +188,115 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                     String url = getRequestUrl(listPoints.get(0), listPoints.get(1));
                     TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
                     taskRequestDirections.execute(url);
+
+                    Log.v("Distance",String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
                 }
             }
         });
 
+        start_point.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Address :", start_point.getText().toString());
+                LatLng latLng = getLatLongFromAddress(start_point.getText().toString());
+
+                if(latLng!=null){
+                    listPoints.add(0,latLng);
+
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                    Location location = new Location("provideNA");
+                    location.setLatitude(listPoints.get(0).latitude);
+                    location.setLongitude(listPoints.get(0).longitude);
+                    markerOptions.title(start_point.getText().toString());
+                    mMap.addMarker(markerOptions);
+
+                    if (listPoints.size() == 2) {
+                        //Membuat url dari marker start ke marker destination
+                        String url = getRequestUrl(listPoints.get(0), listPoints.get(1));
+                        TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
+                        taskRequestDirections.execute(url);
+                        totalDistance = distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude);
+                        Log.v("Distance",String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
+
+                        markerOptions.position(latLng);
+                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                        location = new Location("provideNA");
+                        location.setLatitude(listPoints.get(1).latitude);
+                        location.setLongitude(listPoints.get(1).longitude);
+                        markerOptions.title(destination_point.getText().toString())
+                                .snippet(String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
+                        mMap.addMarker(markerOptions);
+
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Titik tidak valid", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        destination_point.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Address :", destination_point.getText().toString());
+                LatLng latLng = getLatLongFromAddress(destination_point.getText().toString());
+
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+
+                if(latLng!=null){
+                    listPoints.add(1,latLng);
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(latLng);
+
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    Location location = new Location("provideNA");
+                    location.setLatitude(listPoints.get(1).latitude);
+                    location.setLongitude(listPoints.get(1).longitude);
+                    markerOptions.title(destination_point.getText().toString());
+                    mMap.addMarker(markerOptions);
+
+                    if (listPoints.size() == 2) {
+                        //Membuat url dari marker start ke marker destination
+                        String url = getRequestUrl(listPoints.get(0), listPoints.get(1));
+                        TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
+                        taskRequestDirections.execute(url);
+                        totalDistance = distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude);
+                        Log.v("Distance",String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Titik tidak valid", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private double distances(double latStart, double longStart, double latDest, double longDest){
+        double longDiff = longStart - longDest;
+        double distance = Math.sin(deg2rad(latStart))
+                * Math.sin(deg2rad(latDest))
+                + Math.cos(deg2rad(latStart))
+                * Math.cos(deg2rad(latDest))
+                * Math.cos(deg2rad(longDiff));
+        distance = Math.acos(distance);
+        distance = rad2deg(distance);
+        distance = distance * 60 * 1.1515;
+        distance = distance * 1.609344;
+
+        return distance;
+    }
+
+    //Convert radian ke degree
+    private double rad2deg(double distance) {
+        return (distance * 180.0 / Math.PI);
+    }
+
+    //Convert degree ke radian
+    private double deg2rad(double latStart) {
+        return (latStart * Math.PI/180.0);
     }
 
     private String getRequestUrl(LatLng origin, LatLng dest) {
@@ -302,15 +424,15 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                 }
 
                 polylineOptions.addAll(points);
-                polylineOptions.width(15);
-                polylineOptions.color(Color.BLUE);
+                polylineOptions.width(5);
+                polylineOptions.color(Color.rgb(234, 96, 78));
                 polylineOptions.geodesic(true);
             }
 
             if (polylineOptions!=null) {
                 mMap.addPolyline(polylineOptions);
             } else {
-                //Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Rute tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -361,6 +483,26 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
             }else {
                 Toast.makeText(TripUser.this, resultData.getString(Constants.RESULT_DATA_KEY), Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    private LatLng getLatLongFromAddress(String address){
+        Geocoder geocoder = new Geocoder(TripUser.this);
+        List<Address> addressList;
+
+        try {
+            addressList = geocoder.getFromLocationName(address,1);
+            if(addressList != null){
+                Address singleaddress = addressList.get(0);
+                LatLng latLng = new LatLng(singleaddress.getLatitude(),singleaddress.getLongitude());
+                return latLng;
+            }else{
+                return null;
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
