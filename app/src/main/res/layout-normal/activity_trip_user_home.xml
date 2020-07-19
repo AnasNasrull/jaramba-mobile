@@ -89,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="datePicker"
                 android:text="DD/MM/YY"
+                android:textSize="12sp"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
