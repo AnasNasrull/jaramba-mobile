@@ -43,7 +43,6 @@ import java.util.Locale;
 
 public class TripUserHome extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
-    Calendar calendar;
     TextView tvEditDate;
     Spinner etStartCity, etStartArea, etDestinationCity, etDestinationArea;
     Button btnGo;
@@ -59,6 +58,10 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     DatabaseReference databaseReference;
     ProgressDialog progressDialog;
     String StartCity, StartArea, DestinationCity, DestinationArea, Tanggal="", Hari="";
+
+    Calendar calendar = Calendar.getInstance();
+    //int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+    int timeOfDay = 21;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,10 +116,9 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
         getNamaUser();
 
         etStartArea = findViewById(R.id.btn_start_area);
-        etDestinationArea = findViewById(R.id.btn_dest_area);
-        etDestinationCity = findViewById(R.id.btn_dest_city);
         etStartCity = findViewById(R.id.btn_start_city);
-
+        etDestinationCity = findViewById(R.id.btn_dest_city);
+        etDestinationArea = findViewById(R.id.btn_dest_area);
         greetImg = findViewById(R.id.layoutHeader);
         greeting();
 
@@ -149,9 +151,6 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void greeting() {
-        Calendar calendar = Calendar.getInstance();
-        int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-
         if (timeOfDay >= 0 && timeOfDay < 18){
             greetImg.setBackgroundResource(R.drawable.header_morning);
 
@@ -179,6 +178,8 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
             imgLogo.setImageResource(R.drawable.jaramba_logo_night);
             tvUsername.setTextColor(Color.parseColor("#FFFFFF"));
             greetImg.setBackgroundResource(R.drawable.header_night);
+            tvEnterStart.setBackgroundColor(Color.parseColor("#000000"));
+            tvEnterDestination.setBackgroundColor(Color.parseColor("#000000"));
 
             ArrayAdapter<CharSequence> adapter_area = ArrayAdapter.createFromResource(this, R.array.area, R.layout.spinner_view_night );
             ArrayAdapter<CharSequence> adapter_city = ArrayAdapter.createFromResource(this, R.array.city, R.layout.spinner_view_night );
@@ -240,7 +241,6 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.MONTH,month);
         calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
