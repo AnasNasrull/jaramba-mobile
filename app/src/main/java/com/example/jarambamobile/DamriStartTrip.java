@@ -63,7 +63,6 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
     HistoryTripModel history;
     PointAddressModel startLatLong, destinationLatLong;
 
-
     DatabaseReference database;
     FirebaseAuth firebaseAuth;
 
@@ -87,7 +86,6 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
             destPointLong = Double.parseDouble(intent.getStringExtra("destination_long"));
 
             totalJarak = Double.parseDouble(intent.getStringExtra("Jarak"));
-
 
             setTanggal();
             tvTanggal.setText(tanggal);
