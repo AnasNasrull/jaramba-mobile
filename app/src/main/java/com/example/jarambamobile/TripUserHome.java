@@ -60,8 +60,7 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
     String StartCity, StartArea, DestinationCity, DestinationArea, Tanggal="", Hari="";
 
     Calendar calendar = Calendar.getInstance();
-    //int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-    int timeOfDay = 21;
+    int timeOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
