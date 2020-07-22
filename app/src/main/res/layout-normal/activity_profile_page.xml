@@ -12,7 +12,7 @@
     <RelativeLayout
         android:id="@+id/layoutHeader"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:background="@drawable/header_morning"
         android:layout_gravity="center_horizontal"
         android:layout_margin="0dp"
@@ -30,7 +30,7 @@
             android:onClick="userSettings"
             android:padding="5dp"
             android:src="@drawable/ic_settings_black_48dp"
-            tools:ignore="OnClick" />
+            tools:ignore="DuplicateIds" />
 
 
         <RelativeLayout
@@ -61,7 +61,7 @@
                 android:padding="5dp"
                 android:src="@drawable/ic_photo_camera_black_24dp"
                 android:onClick="changePictureProfileUser"
-                tools:ignore="OnClick" />
+                tools:ignore="DuplicateIds,OnClick" />
 
             <TextView
                 android:id="@+id/txtNameProfile"
@@ -98,7 +98,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="3dp"
             />
 
         <LinearLayout
@@ -225,8 +225,9 @@
 
     <Button
         android:id="@+id/btn_logout"
-        android:layout_width="100dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/rounded_btn"
         android:fontFamily="@font/nunitosans_semibold"
         android:onClick="logout"
@@ -237,7 +238,6 @@
         app:layout_constraintBottom_toTopOf="@+id/chipNavigationBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:ignore="OnClick" />
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
