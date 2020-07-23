@@ -37,7 +37,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONException;
@@ -55,7 +57,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
-public class TripUser extends FragmentActivity implements OnMapReadyCallback {
+public class TripUser extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
     AutoCompleteTextView start_point, destination_point;
     private GoogleMap mMap;
     private static final int LOCATION_REQUEST = 2000;
@@ -64,6 +66,9 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
     private Double startLat,startLong,destinationLat,destinationLong;
 
     private Double totalDistance = 0.0;
+
+    private HashMap<String,Marker> hashMapMarker;
+    private HashMap<String, Polyline> hashMapPolyline;
 
     ArrayList<LatLng> listPoints;
     Button btn_go;
@@ -80,6 +85,8 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
 
 
         listPoints = new ArrayList<>();
+        hashMapMarker = new HashMap<>();
+        hashMapPolyline = new HashMap<>();
         btn_go = findViewById(R.id.btn_go);
 
         btn_go.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +152,10 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
             return;
         }
         mMap.setMyLocationEnabled(true);
+//        mMap.setOnMapLongClickListener(this);
+        mMap.setOnMarkerDragListener(this);
+
+
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -183,14 +194,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
                 }
                 mMap.addMarker(markerOptions);
 
-                if (listPoints.size() == 2) {
-                    //Membuat url dari marker start ke marker destination
-                    String url = getRequestUrl(listPoints.get(0), listPoints.get(1));
-                    TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
-                    taskRequestDirections.execute(url);
-
-                    Log.v("Distance",String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
-                }
+                drawPolyline();
             }
         });
 
@@ -199,40 +203,32 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("Address :", start_point.getText().toString());
                 LatLng latLng = getLatLongFromAddress(start_point.getText().toString());
+                String key_start = "start";
 
                 if(latLng!=null){
-                    listPoints.add(0,latLng);
+                    if(hashMapMarker.containsKey(key_start)){
+                        Marker marker = hashMapMarker.get(key_start);
+                        marker.remove();
+                        hashMapMarker.remove(key_start);
+                    }
 
+                    listPoints.add(0,latLng);
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
 
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng);
-
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+
                     Location location = new Location("provideNA");
                     location.setLatitude(listPoints.get(0).latitude);
                     location.setLongitude(listPoints.get(0).longitude);
-                    markerOptions.title(start_point.getText().toString());
-                    mMap.addMarker(markerOptions);
 
-                    if (listPoints.size() == 2) {
-                        //Membuat url dari marker start ke marker destination
-                        String url = getRequestUrl(listPoints.get(0), listPoints.get(1));
-                        TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
-                        taskRequestDirections.execute(url);
-                        totalDistance = distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude);
-                        Log.v("Distance",String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
+                    markerOptions.title(start_point.getText().toString()).draggable(true);
+                    Marker marker = mMap.addMarker(markerOptions);
+                    hashMapMarker.put(key_start,marker);
 
-                        markerOptions.position(latLng);
-                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                        location = new Location("provideNA");
-                        location.setLatitude(listPoints.get(1).latitude);
-                        location.setLongitude(listPoints.get(1).longitude);
-                        markerOptions.title(destination_point.getText().toString())
-                                .snippet(String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
-                        mMap.addMarker(markerOptions);
+                    drawPolyline();
 
-                    }
                 }else{
                     Toast.makeText(getApplicationContext(), "Titik tidak valid", Toast.LENGTH_SHORT).show();
                 }
@@ -244,29 +240,32 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("Address :", destination_point.getText().toString());
                 LatLng latLng = getLatLongFromAddress(destination_point.getText().toString());
-
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                String key_dest = "destination";
 
                 if(latLng!=null){
+                    if(hashMapMarker.containsKey(key_dest)){
+                        Marker marker = hashMapMarker.get(key_dest);
+                        marker.remove();
+                        hashMapMarker.remove(key_dest);
+                    }
+
                     listPoints.add(1,latLng);
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+
                     MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(latLng);
-
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
                     Location location = new Location("provideNA");
                     location.setLatitude(listPoints.get(1).latitude);
                     location.setLongitude(listPoints.get(1).longitude);
-                    markerOptions.title(destination_point.getText().toString());
-                    mMap.addMarker(markerOptions);
 
-                    if (listPoints.size() == 2) {
-                        //Membuat url dari marker start ke marker destination
-                        String url = getRequestUrl(listPoints.get(0), listPoints.get(1));
-                        TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
-                        taskRequestDirections.execute(url);
-                        totalDistance = distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude);
-                        Log.v("Distance",String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
-                    }
+                    markerOptions.title(destination_point.getText().toString()).draggable(true);
+                    Marker marker = mMap.addMarker(markerOptions);
+                    hashMapMarker.put(key_dest,marker);
+
+                    drawPolyline();
+
                 }else{
                     Toast.makeText(getApplicationContext(), "Titik tidak valid", Toast.LENGTH_SHORT).show();
                 }
@@ -287,6 +286,17 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
         distance = distance * 1.609344;
 
         return distance;
+    }
+
+    private void drawPolyline(){
+        if (listPoints.size() == 2) {
+            //Membuat url dari marker start ke marker destination
+            String url = getRequestUrl(listPoints.get(0), listPoints.get(1));
+            TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
+            taskRequestDirections.execute(url);
+
+            Log.v("Distance",String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
+        }
     }
 
     //Convert radian ke degree
@@ -366,6 +376,81 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
         }
     }
 
+//    @Override
+//    public void onMapLongClick(LatLng latLng) {
+//        Log.v("Click", "OnMapLongClick" + latLng.toString());
+//        Geocoder geocoder = new Geocoder(TripUser.this);
+//        try {
+//            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+//            if (addresses.size() > 0) {
+//                Address address = addresses.get(0);
+//                String streetAddress = address.getAddressLine(0);
+//                mMap.addMarker(new MarkerOptions().position(latLng).title(streetAddress).draggable(true));
+//            }
+//        } catch (IOException e) {
+//          e.printStackTrace();
+//        }
+//    }
+
+    @Override
+    public void onMarkerDragStart(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+        LatLng latLng = marker.getPosition();
+        Geocoder geocoder = new Geocoder(TripUser.this);
+        if(marker.equals(hashMapMarker.get("destination"))){
+            try {
+                List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+                if (addresses.size() > 0) {
+                    Address address = addresses.get(0);
+                    String streetAddress = address.getAddressLine(0);
+                    marker.setTitle(streetAddress);
+                    listPoints.set(1,latLng);
+                    destination_point.setText(streetAddress);
+
+                    if(!hashMapPolyline.isEmpty()){
+                        Polyline polyline = hashMapPolyline.get("polyline");
+                        polyline.remove();
+                        hashMapPolyline.remove("polyline");
+
+                        drawPolyline();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            try {
+                List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+                if (addresses.size() > 0) {
+                    Address address = addresses.get(0);
+                    String streetAddress = address.getAddressLine(0);
+                    marker.setTitle(streetAddress);
+                    listPoints.set(0,latLng);
+                    start_point.setText(streetAddress);
+
+                    if(!hashMapPolyline.isEmpty()){
+                        Polyline polyline = hashMapPolyline.get("polyline");
+                        polyline.remove();
+                        hashMapPolyline.remove("polyline");
+
+                        drawPolyline();
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public class TaskRequestDirections extends AsyncTask<String, Void, String> {
 
         @Override
@@ -430,7 +515,9 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback {
             }
 
             if (polylineOptions!=null) {
-                mMap.addPolyline(polylineOptions);
+                Polyline polyline = mMap.addPolyline(polylineOptions);
+                String key_polyline = "polyline";
+                hashMapPolyline.put(key_polyline,polyline);
             } else {
                 Toast.makeText(getApplicationContext(), "Rute tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
