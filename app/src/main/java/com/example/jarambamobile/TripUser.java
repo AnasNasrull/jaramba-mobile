@@ -152,9 +152,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
             return;
         }
         mMap.setMyLocationEnabled(true);
-//        mMap.setOnMapLongClickListener(this);
         mMap.setOnMarkerDragListener(this);
-
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -170,6 +168,8 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
                 //Inisialisasi marker
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
+                List<Address> addresses;
+                Geocoder geocoder = new Geocoder(TripUser.this);
 
                 if (listPoints.size() == 1) {
                     //Menambahkan marker pertama ke map
@@ -177,8 +177,19 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
                     Location location = new Location("provideNA");
                     location.setLatitude(listPoints.get(0).latitude);
                     location.setLongitude(listPoints.get(0).longitude);
-                    fetchStartAddress(location);
-                    markerOptions.title(start_point.getText().toString());
+
+                    try {
+
+                        addresses = geocoder.getFromLocation(listPoints.get(0).latitude, listPoints.get(0).longitude, 1);
+                        if (addresses.size() > 0) {
+                            Address address = addresses.get(0);
+                            String streetAddress = address.getAddressLine(0);
+                            markerOptions.title(streetAddress).draggable(true);
+                            start_point.setText(streetAddress);
+                        }
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
 
                 } else {
                     //Menambahkan marker kedua ke map
@@ -186,10 +197,19 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
                     Location location = new Location("provideNA");
                     location.setLatitude(listPoints.get(1).latitude);
                     location.setLongitude(listPoints.get(1).longitude);
-                    fetchDestinationAddress(location);
-                    totalDistance = distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude);
-                    markerOptions.title(String.format(Locale.US, " Jarak %2f Km", totalDistance));
+//                    fetchDestinationAddress(location);
 
+                    try {
+                        addresses = geocoder.getFromLocation(listPoints.get(1).latitude, listPoints.get(1).longitude, 1);
+                        if (addresses.size() > 0) {
+                            Address address = addresses.get(0);
+                            String streetAddress = address.getAddressLine(0);
+                            markerOptions.title(streetAddress).draggable(true);
+                            destination_point.setText(streetAddress);
+                        }
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
 
                 }
                 mMap.addMarker(markerOptions);
@@ -294,7 +314,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
             String url = getRequestUrl(listPoints.get(0), listPoints.get(1));
             TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
             taskRequestDirections.execute(url);
-
+            totalDistance = distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude);
             Log.v("Distance",String.format(Locale.US, "%2f Kilometers", distances(listPoints.get(0).latitude,listPoints.get(0).longitude,listPoints.get(1).latitude,listPoints.get(1).longitude)));
         }
     }
@@ -523,22 +543,6 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
             }
 
         }
-    }
-
-    private void fetchStartAddress(Location location){
-        Intent intent = new Intent(this, FetchAddress.class);
-        intent.putExtra(Constants.RECEIVER, startPointReceiver);
-        intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
-        startService(intent);
-
-    }
-
-    private void fetchDestinationAddress(Location location){
-        Intent intent = new Intent(this, FetchAddress.class);
-        intent.putExtra(Constants.RECEIVER, destinationPointReceiver);
-        intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
-        startService(intent);
-
     }
 
     private class StartPointReceiver extends ResultReceiver {
