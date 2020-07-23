@@ -30,7 +30,7 @@
             android:onClick="userSettings"
             android:padding="5dp"
             android:src="@drawable/ic_settings_black_48dp"
-            tools:ignore="OnClick" />
+            tools:ignore="DuplicateIds,OnClick" />
 
 
         <RelativeLayout
@@ -61,7 +61,7 @@
                 android:padding="10dp"
                 android:src="@drawable/ic_photo_camera_black_24dp"
                 android:onClick="changePictureProfileUser"
-                tools:ignore="OnClick" />
+                tools:ignore="DuplicateIds,OnClick" />
 
             <TextView
                 android:id="@+id/txtNameProfile"

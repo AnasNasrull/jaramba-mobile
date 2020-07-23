@@ -98,7 +98,6 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="3dp"
             />
 
         <LinearLayout
@@ -227,7 +226,7 @@
         android:id="@+id/btn_logout"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="45dp"
         android:background="@drawable/rounded_btn"
         android:fontFamily="@font/nunitosans_semibold"
         android:onClick="logout"
@@ -243,7 +242,7 @@
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/chipNavigationBar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/header_navbar"
         android:elevation="16dp"
         android:padding="8dp"
