@@ -177,8 +177,6 @@ public class TripUserHome extends AppCompatActivity implements AdapterView.OnIte
             imgLogo.setImageResource(R.drawable.jaramba_logo_night);
             tvUsername.setTextColor(Color.parseColor("#FFFFFF"));
             greetImg.setBackgroundResource(R.drawable.header_night);
-            tvEnterStart.setBackgroundColor(Color.parseColor("#000000"));
-            tvEnterDestination.setBackgroundColor(Color.parseColor("#000000"));
 
             ArrayAdapter<CharSequence> adapter_area = ArrayAdapter.createFromResource(this, R.array.area, R.layout.spinner_view_night );
             ArrayAdapter<CharSequence> adapter_city = ArrayAdapter.createFromResource(this, R.array.city, R.layout.spinner_view_night );

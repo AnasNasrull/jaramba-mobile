@@ -215,7 +215,7 @@
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/nunitosans_regular"
             android:gravity="center"
-            android:text="Rp.30.000,-"
+            android:text="Rp.3000,-"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="italic"
