@@ -125,9 +125,8 @@
             android:drawablePadding="10dp"
             android:padding="15dp"
             android:fontFamily="@font/nunitosans_regular"
-            android:hint="@string/kata_sandi"
             android:inputType="textPassword"
-            tools:ignore="TextFields" />
+            tools:ignore="LabelFor,TextFields" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.spark.submitbutton.SubmitButton
