@@ -69,6 +69,8 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
 
     private HashMap<String,Marker> hashMapMarker;
     private HashMap<String, Polyline> hashMapPolyline;
+    private String key_start = "start";
+    private String key_dest = "destination";
 
     ArrayList<LatLng> listPoints;
     Button btn_go;
@@ -161,6 +163,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
                 if (listPoints.size() == 2) {
                     listPoints.clear();
                     mMap.clear();
+                    hashMapMarker.clear();
                 }
                 //Save marker start
                 listPoints.add(latLng);
@@ -179,13 +182,14 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
                     location.setLongitude(listPoints.get(0).longitude);
 
                     try {
-
                         addresses = geocoder.getFromLocation(listPoints.get(0).latitude, listPoints.get(0).longitude, 1);
                         if (addresses.size() > 0) {
                             Address address = addresses.get(0);
                             String streetAddress = address.getAddressLine(0);
                             markerOptions.title(streetAddress).draggable(true);
                             start_point.setText(streetAddress);
+                            Marker marker = mMap.addMarker(markerOptions);
+                            hashMapMarker.put(key_start,marker);
                         }
                     }catch (IOException e){
                         e.printStackTrace();
@@ -206,13 +210,15 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
                             String streetAddress = address.getAddressLine(0);
                             markerOptions.title(streetAddress).draggable(true);
                             destination_point.setText(streetAddress);
+
+                            Marker marker = mMap.addMarker(markerOptions);
+                            hashMapMarker.put(key_dest,marker);
                         }
                     }catch (IOException e){
                         e.printStackTrace();
                     }
 
                 }
-                mMap.addMarker(markerOptions);
 
                 drawPolyline();
             }
@@ -223,7 +229,6 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("Address :", start_point.getText().toString());
                 LatLng latLng = getLatLongFromAddress(start_point.getText().toString());
-                String key_start = "start";
 
                 if(latLng!=null){
                     if(hashMapMarker.containsKey(key_start)){
@@ -232,7 +237,13 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
                         hashMapMarker.remove(key_start);
                     }
 
-                    listPoints.add(0,latLng);
+                    if(listPoints.size()==1){
+                        listPoints.set(0,latLng);
+                    }else if (listPoints.size()==0){
+                        listPoints.add(0,latLng);
+                    }else if (listPoints.size() == 2){
+                        listPoints.set(0,latLng);
+                    }
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
 
                     MarkerOptions markerOptions = new MarkerOptions();
@@ -247,6 +258,12 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
                     Marker marker = mMap.addMarker(markerOptions);
                     hashMapMarker.put(key_start,marker);
 
+                    if(!hashMapPolyline.isEmpty()){
+                        Polyline polyline = hashMapPolyline.get("polyline");
+                        polyline.remove();
+                        hashMapPolyline.remove("polyline");
+                    }
+
                     drawPolyline();
 
                 }else{
@@ -260,7 +277,6 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("Address :", destination_point.getText().toString());
                 LatLng latLng = getLatLongFromAddress(destination_point.getText().toString());
-                String key_dest = "destination";
 
                 if(latLng!=null){
                     if(hashMapMarker.containsKey(key_dest)){
@@ -269,7 +285,12 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
                         hashMapMarker.remove(key_dest);
                     }
 
-                    listPoints.add(1,latLng);
+                    if(listPoints.size()==2){
+                        listPoints.set(1,latLng);
+                    }else if (listPoints.size()==1){
+                        listPoints.add(1,latLng);
+                    }
+
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
 
                     MarkerOptions markerOptions = new MarkerOptions();
@@ -283,6 +304,12 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
                     markerOptions.title(destination_point.getText().toString()).draggable(true);
                     Marker marker = mMap.addMarker(markerOptions);
                     hashMapMarker.put(key_dest,marker);
+
+                    if(!hashMapPolyline.isEmpty()){
+                        Polyline polyline = hashMapPolyline.get("polyline");
+                        polyline.remove();
+                        hashMapPolyline.remove("polyline");
+                    }
 
                     drawPolyline();
 
@@ -396,22 +423,6 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
         }
     }
 
-//    @Override
-//    public void onMapLongClick(LatLng latLng) {
-//        Log.v("Click", "OnMapLongClick" + latLng.toString());
-//        Geocoder geocoder = new Geocoder(TripUser.this);
-//        try {
-//            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-//            if (addresses.size() > 0) {
-//                Address address = addresses.get(0);
-//                String streetAddress = address.getAddressLine(0);
-//                mMap.addMarker(new MarkerOptions().position(latLng).title(streetAddress).draggable(true));
-//            }
-//        } catch (IOException e) {
-//          e.printStackTrace();
-//        }
-//    }
-
     @Override
     public void onMarkerDragStart(Marker marker) {
 
@@ -447,7 +458,7 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else{
+        }else if(marker.equals(hashMapMarker.get("start"))){
             try {
                 List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
                 if (addresses.size() > 0) {
