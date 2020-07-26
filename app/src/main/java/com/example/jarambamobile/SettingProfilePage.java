@@ -198,7 +198,22 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                                                                 if(task.isSuccessful()) {
                                                                                                                     dialog.dismiss();
                                                                                                                     progressDialog.dismiss();
-                                                                                                                    Toast.makeText(SettingProfilePage.this, "Berhasil mengirim pesan ke email anda", Toast.LENGTH_SHORT).show();
+                                                                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(SettingProfilePage.this);
+                                                                                                                    builder.setIcon(R.drawable.ic_check_black_24dp);
+                                                                                                                    builder.setTitle("Berhasil mengubah email");
+                                                                                                                    builder.setMessage("Silahkan cek pesan pada email terbaru anda untuk verifikasi pengguna");
+
+                                                                                                                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                                                                                                        @Override
+                                                                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                                                                            FirebaseAuth.getInstance().signOut();
+                                                                                                                            startActivity(new Intent(SettingProfilePage.this, LoginPage.class));
+                                                                                                                            finish();
+                                                                                                                        }
+                                                                                                                    });
+                                                                                                                    AlertDialog alertDialog = builder.create();
+                                                                                                                    alertDialog.show();
+
                                                                                                                 } else {
                                                                                                                     Toast.makeText(SettingProfilePage.this, "Maaf, aplikasi gagal mengirim pesan ke email anda", Toast.LENGTH_SHORT).show();
                                                                                                                 }
@@ -224,7 +239,7 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                         @Override
                                                                         public void onSuccess(Void aVoid) {
                                                                             //updated, dismiss progress
-                                                                            progressDialog.dismiss();
+//                                                                            progressDialog.dismiss();
                                                                             dialog.dismiss();
                                                                             Toast.makeText(SettingProfilePage.this, "Data " + key + " anda diperbarui...", Toast.LENGTH_SHORT).show();
                                                                         }
@@ -237,21 +252,6 @@ public class SettingProfilePage extends AppCompatActivity {
                                                             });
 
 
-                                                                                AlertDialog.Builder builder = new AlertDialog.Builder(SettingProfilePage.this);
-                                                                                builder.setIcon(R.drawable.ic_check_black_24dp);
-                                                                                builder.setTitle("Berhasil mengubah email");
-                                                                                builder.setMessage("Silahkan cek pesan pada email terbaru anda untuk verifikasi pengguna");
-
-                                                                                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                                                                                    @Override
-                                                                                    public void onClick(DialogInterface dialog, int which) {
-                                                                                        FirebaseAuth.getInstance().signOut();
-                                                                                        startActivity(new Intent(SettingProfilePage.this, LoginPage.class));
-                                                                                        finish();
-                                                                                    }
-                                                                                });
-                                                                                AlertDialog alertDialog = builder.create();
-                                                                                alertDialog.show();
 
 
 
