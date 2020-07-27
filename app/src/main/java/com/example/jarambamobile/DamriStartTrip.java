@@ -127,6 +127,13 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                     if(jumlahPenumpang > 500){
                         Toast.makeText(getApplicationContext(), "Jumlah Penumpang melebihi kapasitas", Toast.LENGTH_SHORT).show();
                     }else{
+                        Date c = Calendar.getInstance().getTime();
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat dt = new SimpleDateFormat("yyyyMMdd");
+                        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
+                        String tm = new SimpleDateFormat("HHmmss").format(cal.getTime());
+                        String tgl = dt.format(c);
+                        String chKey = tgl + "" + tm;
+
                         history.setComment("");
                         history.setHarga(totalHarga);
                         history.setRating(0);
@@ -137,7 +144,7 @@ public class DamriStartTrip extends AppCompatActivity implements AdapterView.OnI
                         history.setStart(startAddress);
                         history.setTo(destinationAddress);
                         history.setStatus("Pending");
-                        database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child("Trip_User").setValue(history).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        database.child("Mobile_Apps").child("User").child(uid).child("History_Trip_User").child(chKey).setValue(history).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(getApplicationContext(), "Data Berhasil Disimpan !", Toast.LENGTH_SHORT).show();
