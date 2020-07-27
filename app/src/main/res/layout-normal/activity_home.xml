@@ -18,7 +18,7 @@
             android:id="@+id/relativeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Welcome"
+                android:text="@string/welcome"
                 android:textColor="#000000"
                 android:textSize="18sp" />
 
@@ -44,7 +44,7 @@
                 android:layout_below="@+id/txtWelcome"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
-                android:text="Rivaldo Fernandes"
+                android:text="@string/rivaldo_fernandes"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -63,7 +63,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/relativeLayout"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_jaramba_full" />
+            app:srcCompat="@drawable/logo_jaramba_full"
+            android:contentDescription="@string/image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -74,7 +75,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="10dp"
-        android:text="Choose Mode Transportation"
+        android:text="@string/choose_mode_transportation"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -113,7 +114,8 @@
             app:cardBackgroundColor="@color/white"
             android:onClick="clickRide"
             android:foreground="?android:attr/selectableItemBackground"
-            tools:ignore="OnClick">
+            tools:ignore="OnClick"
+            android:focusable="true">
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
@@ -126,10 +128,11 @@
                     android:src="@drawable/d_bicycle_icon"
                     android:layout_width="55dp"
                     android:layout_height="45dp"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/image" />
 
                 <TextView
-                    android:text="Ride Sharing"
+                    android:text="@string/ride_sharing"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -169,10 +172,11 @@
                     android:src="@drawable/d_bus_icon"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/image" />
 
                 <TextView
-                    android:text="Damri"
+                    android:text="@string/bus"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -212,10 +216,11 @@
                     android:src="@drawable/d_angkot_icon"
                     android:layout_width="65dp"
                     android:layout_height="45dp"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/image" />
 
                 <TextView
-                    android:text="Angkot"
+                    android:text="@string/angkot"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -243,7 +248,7 @@
             app:cardCornerRadius="8dp"
             android:onClick="clickTrain"
             android:foreground="?android:attr/selectableItemBackground"
-            tools:ignore="OnClick">>
+            tools:ignore="OnClick">
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
@@ -256,10 +261,11 @@
                     android:src="@drawable/d_krl_icon"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/image" />
 
                 <TextView
-                    android:text="KRL"
+                    android:text="@string/krl"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -285,7 +291,7 @@
             app:cardCornerRadius="8dp"
             android:onClick="clickMonorail"
             android:foreground="?android:attr/selectableItemBackground"
-            tools:ignore="OnClick">>
+            tools:ignore="OnClick">
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
@@ -298,10 +304,11 @@
                     android:src="@drawable/d_monorail_icon"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/image" />
 
                 <TextView
-                    android:text="Monorail"
+                    android:text="@string/monorail"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -327,7 +334,7 @@
             app:cardCornerRadius="8dp"
             android:onClick="clickTravel"
             android:foreground="?android:attr/selectableItemBackground"
-            tools:ignore="OnClick">>
+            tools:ignore="OnClick">
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
@@ -340,10 +347,11 @@
                     android:src="@drawable/d_travel_icon"
                     android:layout_width="55dp"
                     android:layout_height="45dp"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/image" />
 
                 <TextView
-                    android:text="Travel"
+                    android:text="@string/travel"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:layout_gravity="center"

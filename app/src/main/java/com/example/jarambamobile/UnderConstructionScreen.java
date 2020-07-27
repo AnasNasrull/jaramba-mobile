@@ -21,7 +21,10 @@ public class UnderConstructionScreen extends AppCompatActivity {
         btnStartTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
         });
 
