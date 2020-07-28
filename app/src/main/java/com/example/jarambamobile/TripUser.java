@@ -31,6 +31,8 @@ import android.widget.Toast;
 import com.example.jarambamobile.adapter.Constants;
 import com.example.jarambamobile.adapter.FetchAddress;
 import com.example.jarambamobile.adapter.PlaceAutoSuggestionAdapter;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,6 +43,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,13 +79,16 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
     ArrayList<LatLng> listPoints;
     Button btn_go;
 
+    FusedLocationProviderClient fusedLocationProviderClient;
+    SupportMapFragment mapFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_user);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -132,6 +139,54 @@ public class TripUser extends FragmentActivity implements OnMapReadyCallback, Go
         startPointReceiver = new StartPointReceiver(new Handler());
         destinationPointReceiver = new DestinationPointReceiver(new Handler());
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(TripUser.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getCurrentLocation();
+        }
+
+    }
+
+    private void getCurrentLocation() {
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(final Location location) {
+                if(location!=null){
+                    mapFragment.getMapAsync(new OnMapReadyCallback() {
+                        @Override
+                        public void onMapReady(GoogleMap googleMap) {
+                            LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+
+                            listPoints.add(0,latLng);
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.position(latLng);
+                            List<Address> addresses;
+                            Geocoder geocoder = new Geocoder(TripUser.this);
+                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                            Location location = new Location("provideNA");
+                            location.setLatitude(listPoints.get(0).latitude);
+                            location.setLongitude(listPoints.get(0).longitude);
+
+                            try {
+                                addresses = geocoder.getFromLocation(listPoints.get(0).latitude, listPoints.get(0).longitude, 1);
+                                if (addresses.size() > 0) {
+                                    Address address = addresses.get(0);
+                                    String streetAddress = address.getAddressLine(0);
+                                    markerOptions.title(streetAddress).draggable(true);
+                                    start_point.setText(streetAddress);
+                                    Marker marker = mMap.addMarker(markerOptions);
+                                    hashMapMarker.put(key_start,marker);
+                                }
+                            }catch (IOException e){
+                                e.printStackTrace();
+                            }
+
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+                        }
+                    });
+                }
+            }
+        });
     }
 
 
