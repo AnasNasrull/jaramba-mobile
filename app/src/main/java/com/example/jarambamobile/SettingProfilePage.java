@@ -164,8 +164,6 @@ public class SettingProfilePage extends AppCompatActivity {
                                 BigInteger shaData = new BigInteger(1, outputData);
                                 passwords = shaData.toString(16);
 
-                              //  Toast.makeText(SettingProfilePage.this, password + "\n\n" + passwords, Toast.LENGTH_LONG).show();
-
                                 if(!TextUtils.isEmpty(value)){
                                     firebaseAuth.fetchSignInMethodsForEmail(value)
                                             .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
@@ -175,8 +173,7 @@ public class SettingProfilePage extends AppCompatActivity {
 
                                                     if(!check) {
                                                         if (password.equals(passwords)) {
-
-
+                                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                                             AuthCredential credential = EmailAuthProvider
                                                                     .getCredential(email, passwords);
 
@@ -185,7 +182,13 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                         @Override
                                                                         public void onComplete(@NonNull Task<Void> task) {
                                                                             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                                                            user.updateEmail(value)
+                                                                            String val = etChangeEmail.getText().toString().trim();
+                                                                            //Kalau misalkan gagal mengirim email, maka permasalahannya ada di method updateEmail()
+                                                                            //saya sebelumnya mencoba menggunakan kode berikut
+                                                                            // String val = user.getEmail(); dan saya memaskkan variabel val ke dalam method updateEmail(val)
+                                                                            // Email pun sukses terkirim, namun terkirim ke email kita sendiri (Current user)
+                                                                            // untuk mengatasinya, saya mengembalikan updateEmail(val) menjadi seperti semula yaitu updateEmail(value)
+                                                                            user.updateEmail(val)
                                                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                         @Override
                                                                                         public void onComplete(@NonNull Task<Void> task) {
@@ -198,21 +201,39 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                                                                 if(task.isSuccessful()) {
                                                                                                                     dialog.dismiss();
                                                                                                                     progressDialog.dismiss();
-                                                                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(SettingProfilePage.this);
-                                                                                                                    builder.setIcon(R.drawable.ic_check_black_24dp);
-                                                                                                                    builder.setTitle("Berhasil mengubah email");
-                                                                                                                    builder.setMessage("Silahkan cek pesan pada email terbaru anda untuk verifikasi pengguna");
 
-                                                                                                                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                                                                                                    HashMap<String, Object> result = new HashMap<>();
+                                                                                                                    result.put("Email", value);
+
+                                                                                                                    databaseReference.child(user.getUid()).updateChildren(result)
+                                                                                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                                                                @Override
+                                                                                                                                public void onSuccess(Void aVoid) {
+                                                                                                                                    AlertDialog.Builder builder = new AlertDialog.Builder(SettingProfilePage.this);
+                                                                                                                                    builder.setIcon(R.drawable.ic_check_black_24dp);
+                                                                                                                                    builder.setTitle("Berhasil mengubah email");
+                                                                                                                                    builder.setMessage("Silahkan cek pesan pada email terbaru anda untuk verifikasi pengguna");
+
+                                                                                                                                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                                                                                                                        @Override
+                                                                                                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                                                                                            FirebaseAuth.getInstance().signOut();
+                                                                                                                                            startActivity(new Intent(SettingProfilePage.this, LoginPage.class));
+                                                                                                                                            finish();
+                                                                                                                                        }
+                                                                                                                                    });
+                                                                                                                                    AlertDialog alertDialog = builder.create();
+                                                                                                                                    alertDialog.show();
+                                                                                                                                }
+                                                                                                                            }).addOnFailureListener(new OnFailureListener() {
                                                                                                                         @Override
-                                                                                                                        public void onClick(DialogInterface dialog, int which) {
-                                                                                                                            FirebaseAuth.getInstance().signOut();
-                                                                                                                            startActivity(new Intent(SettingProfilePage.this, LoginPage.class));
-                                                                                                                            finish();
+                                                                                                                        public void onFailure(@NonNull Exception e) {
+                                                                                                                            progressDialog.dismiss();
+                                                                                                                            Toast.makeText(SettingProfilePage.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                                                                                                         }
                                                                                                                     });
-                                                                                                                    AlertDialog alertDialog = builder.create();
-                                                                                                                    alertDialog.show();
+
+
 
                                                                                                                 } else {
                                                                                                                     Toast.makeText(SettingProfilePage.this, "Maaf, aplikasi gagal mengirim pesan ke email anda", Toast.LENGTH_SHORT).show();
@@ -230,26 +251,8 @@ public class SettingProfilePage extends AppCompatActivity {
                                                                         }
                                                                     });
 
-                                                            final String key = "Email";
-                                                            HashMap<String, Object> result = new HashMap<>();
-                                                            result.put(key, value);
 
-                                                            databaseReference.child(user.getUid()).updateChildren(result)
-                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                        @Override
-                                                                        public void onSuccess(Void aVoid) {
-                                                                            //updated, dismiss progress
-//                                                                            progressDialog.dismiss();
-                                                                            dialog.dismiss();
-                                                                            Toast.makeText(SettingProfilePage.this, "Data " + key + " anda diperbarui...", Toast.LENGTH_SHORT).show();
-                                                                        }
-                                                                    }).addOnFailureListener(new OnFailureListener() {
-                                                                @Override
-                                                                public void onFailure(@NonNull Exception e) {
-                                                                    progressDialog.dismiss();
-                                                                    Toast.makeText(SettingProfilePage.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                                }
-                                                            });
+
 
 
 
