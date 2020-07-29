@@ -227,7 +227,7 @@ public class LoginPage extends AppCompatActivity {
                                                                 public void onSuccess(Void aVoid) {
                                                                     //updated, dismiss progress
                                                                     progressDialog.dismiss();
-                                                                    Toast.makeText(LoginPage.this, "Password anda telah diperbarui...", Toast.LENGTH_SHORT).show();
+                                                                    //Toast.makeText(LoginPage.this, "Password anda telah diperbarui...", Toast.LENGTH_SHORT).show();
                                                                 }
                                                             }).addOnFailureListener(new OnFailureListener() {
                                                         @Override
